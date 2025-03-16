@@ -19,6 +19,7 @@ dependencies:
   google_sign_in: ^6.2.2
   get: ^4.7.2
   intl: ^0.20.2
+  flutter_screenutil: ^5.9.3
 
 dev_dependencies:
   flutter_test:
@@ -27,5 +28,11 @@ dev_dependencies:
   flutter_lints: ^5.0.0
 
 flutter:
-
   uses-material-design: true
+
+  fonts:
+    - family: VarelaRounded
+      fonts:
+        - asset: assets/fonts/VarelaRound-Regular.ttf
+  assets:
+    - assets/images/
