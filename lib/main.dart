@@ -1,6 +1,6 @@
 
 import 'package:emp_system/firebase_options.dart';
-import 'package:emp_system/screens/auth/supervisor_login_page.dart';
+import 'package:emp_system/screens/auth/supervisor_sign_in_page.dart';
 import 'package:emp_system/utils/app_theme.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
@@ -25,7 +25,7 @@ class EmployeeSystem extends StatelessWidget {
       minTextAdapt: true,
       builder: (context, child) => MaterialApp(
         theme: AppTheme.lightTheme,
-        home: SupervisorLoginPage(),
+        home: SupervisorSignInPage(),
       ),
     );
   }
