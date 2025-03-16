@@ -1,3 +1,4 @@
+import 'package:emp_system/utils/app_theme.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -23,6 +24,25 @@ class SupervisorLoginPage extends StatelessWidget {
             AspectRatio(
               aspectRatio: 1.h,
               child: Image.asset('assets/images/timeWork.png'),
+            ),
+            
+            TextField(
+              cursorColor: primaryColor,
+              onTapOutside: (event) {
+                FocusManager.instance.primaryFocus!.unfocus();
+              },
+              decoration: InputDecoration(
+                prefixIcon: Icon(Icons.email, color: Colors.grey.shade400),
+                label: Text('Email', style: TextStyle(color: Colors.grey),),
+                enabledBorder: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(8),
+                  borderSide: BorderSide(color: Colors.grey.shade400, width: 1.5),
+                ),
+                focusedBorder: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(8),
+                  borderSide: BorderSide(color: primaryColor, width: 2),
+                ),
+              ),
             ),
           ],
         ),
