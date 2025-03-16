@@ -11,12 +11,14 @@ class RoleOptionPage extends StatelessWidget {
       body: Column(
         children: [
           AspectRatio(
-            aspectRatio: 1.h,
+            aspectRatio: 0.9.h,
             child: Container(
               color: Color(0xfff5f9ef),
-              child: Image.asset(
-                'assets/images/work.png',
-                fit: BoxFit.contain,
+              child: SafeArea(
+                child: Image.asset(
+                  'assets/images/work.png',
+                  fit: BoxFit.contain,
+                ),
               ),
             ),
           ),

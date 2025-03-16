@@ -1,15 +1,18 @@
-
 import 'package:emp_system/firebase_options.dart';
-import 'package:emp_system/screens/auth/supervisor_sign_in_page.dart';
-import 'package:emp_system/utils/app_theme.dart';
+import 'package:emp_system/screens/splash%20screen/splash_page.dart';
+import 'package:emp_system/theme/app_theme.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get.dart';
 
 Future<void> main() async {
   // THIS ENSURES FIREBASE INITIALIZED BEFORE APP RUNS
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
+
+  SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
 
   runApp(EmployeeSystem());
 }
@@ -23,9 +26,11 @@ class EmployeeSystem extends StatelessWidget {
     return ScreenUtilInit(
       designSize: Size(360, 690), // Base reference size
       minTextAdapt: true,
-      builder: (context, child) => MaterialApp(
-        theme: AppTheme.lightTheme,
-        home: SupervisorSignInPage(),
+      builder: (context, child) => GetMaterialApp(
+        home: MaterialApp(
+          theme: AppTheme.lightTheme,
+          home: SplashPage(),
+        ),
       ),
     );
   }

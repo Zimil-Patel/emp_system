@@ -1,7 +1,11 @@
-import 'package:emp_system/utils/app_theme.dart';
+import 'package:emp_system/screens/auth/sign_in_sign_up_options_page.dart';
+import 'package:emp_system/screens/auth/supervisor_sign_in_page.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get.dart';
+
+import '../../../theme/app_theme.dart';
 
 class RoleOptions extends StatelessWidget {
   const RoleOptions({super.key});
@@ -31,7 +35,11 @@ class RoleOptionButton extends StatelessWidget {
     return CupertinoButton(
       padding: EdgeInsets.zero,
       onPressed: () {
-
+        if(role == 'Employee'){
+          Get.to(() => SignInSignUpOptionPage());
+        } else {
+          Get.to(() => SupervisorSignInPage());
+        }
       },
       child: CircleAvatar(
         radius: 50.h,

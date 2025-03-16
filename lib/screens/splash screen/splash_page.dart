@@ -1,8 +1,11 @@
 import 'dart:async';
 import 'dart:developer';
-import 'package:emp_system/utils/app_theme.dart';
+import 'package:emp_system/screens/auth/role_option_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get.dart';
+
+import '../../theme/app_theme.dart';
 
 class SplashPage extends StatefulWidget {
   const SplashPage({super.key});
@@ -12,7 +15,7 @@ class SplashPage extends StatefulWidget {
 }
 
 class _SplashPageState extends State<SplashPage> {
-  double _progress = 0.0; // Initial progress
+  double _progress = 0.0;
 
   @override
   void initState() {
@@ -21,14 +24,14 @@ class _SplashPageState extends State<SplashPage> {
   }
 
   void _startProgressAnimation() {
-    Timer.periodic(const Duration(milliseconds: 100), (timer) {
+    Timer.periodic(const Duration(milliseconds: 50), (timer) {
       if (_progress >= 1.0) {
         timer.cancel();
         log("Progress Completed!");
-        // You can navigate to the next page here after progress completes
+        Get.offAll(() => RoleOptionPage());
       } else {
         setState(() {
-          _progress += 0.05; // Increment progress
+          _progress += 0.05;
         });
       }
     });
@@ -54,7 +57,7 @@ class _SplashPageState extends State<SplashPage> {
             child: Padding(
               padding: EdgeInsets.only(bottom: 60.h, left: 50.w, right: 50.w),
               child: LinearProgressIndicator(
-                value: _progress, // Animated progress value
+                value: _progress,
                 color: primaryColor,
                 borderRadius: BorderRadius.circular(10),
                 backgroundColor: Colors.grey.shade200,
