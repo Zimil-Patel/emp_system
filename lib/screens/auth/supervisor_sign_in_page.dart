@@ -17,74 +17,74 @@ class SupervisorSignInPage extends StatelessWidget {
       appBar: AppBar(
         backgroundColor: Colors.transparent,
       ),
-      body: SafeArea(
-        child: Padding(
-          padding: EdgeInsets.symmetric(horizontal: 14.w, vertical: 10.h),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
+      body: Padding(
+        padding: EdgeInsets.symmetric(horizontal: 14.w, vertical: 8.h),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            // WELCOME TAGLINES
+            Text(
+              'Welcome Back! \n"Your Workforce, Your Control"',
+              style: TextStyle(fontWeight: FontWeight.w700, fontSize: 16.h),
+            ),
 
-              // WELCOME TAGLINES
-              Text(
-                'Welcome Back! \n"Your Workforce, Your Control"',
-                style: TextStyle(fontWeight: FontWeight.w700, fontSize: 16.h),
+            // LOGO
+            Center(
+                child: Image.asset(
+              'assets/images/supervisorWork.png',
+              height: 240.h,
+              width: double.infinity,
+            )),
+
+            // EMAIL
+            outlinedTextField(
+                hintText: 'Email', icon: Icons.email, controller: txtEmail),
+
+            // PASSWORD
+            outlinedTextField(
+                hintText: 'Password', icon: Icons.lock, controller: txtPass),
+
+            // FORGOT PASSWORD
+            CupertinoButton(
+              padding: EdgeInsets.zero,
+              onPressed: () {
+                showUnavailableResetPasswordDialog(context);
+              },
+              child: Text(
+                'Forgot Password?',
+                style: TextStyle(
+                  color: primaryColor,
+                  fontSize: 13.h,
+                ),
               ),
+            ),
 
-              // LOGO
-              AspectRatio(
-                aspectRatio: 1.h,
-                child: Image.asset('assets/images/supervisorWork.png'),
-              ),
+            SizedBox(height: 20.h),
 
-              // EMAIL
-              outlinedTextField(
-                  hintText: 'Email', icon: Icons.email, controller: txtEmail),
-
-              // PASSWORD
-              outlinedTextField(
-                  hintText: 'Password', icon: Icons.lock, controller: txtPass),
-
-              // FORGOT PASSWORD
-              CupertinoButton(
-                padding: EdgeInsets.zero,
-                onPressed: () {
-                  showUnavailableResetPasswordDialog(context);
-                },
+            // SIGN IN BUTTON
+            SizedBox(
+              height: 42.h,
+              width: double.infinity,
+              child: ElevatedButton(
+                style: ElevatedButton.styleFrom(
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(8),
+                  ),
+                  backgroundColor: primaryColor,
+                ),
+                onPressed: () {},
                 child: Text(
-                  'Forgot Password?',
+                  'Sign In',
                   style: TextStyle(
-                    color: primaryColor,
-                    fontSize: 13.h,
+                    fontWeight: FontWeight.w600,
+                    fontSize: 15.h,
+                    color: Colors.white,
                   ),
                 ),
               ),
-
-              SizedBox(height: 20.h),
-
-              // SIGN IN BUTTON
-              SizedBox(
-                height: 42.h,
-                width: double.infinity,
-                child: ElevatedButton(
-                  style: ElevatedButton.styleFrom(
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(8),
-                    ),
-                    backgroundColor: primaryColor,
-                  ),
-                  onPressed: () {},
-                  child: Text(
-                    'Sign In',
-                    style: TextStyle(
-                      fontWeight: FontWeight.w600,
-                      fontSize: 15.h,
-                      color: Colors.white,
-                    ),
-                  ),
-                ),
-              ),
-            ],
-          ),
+            ),
+          ],
         ),
       ),
     );

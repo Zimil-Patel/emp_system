@@ -27,11 +27,9 @@ class EmployeeSystem extends StatelessWidget {
       designSize: Size(360, 690), // Base reference size
       minTextAdapt: true,
       builder: (context, child) => GetMaterialApp(
-        home: MaterialApp(
-          theme: AppTheme.lightTheme,
-          home: SplashPage(),
+        theme: AppTheme.lightTheme,
+        home: SplashPage(),
         ),
-      ),
     );
   }
 }
