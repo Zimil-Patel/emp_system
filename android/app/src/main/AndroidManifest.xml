@@ -1,8 +1,16 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
+    <uses-permission android:name="android.permission.INTERNET"/>
+
     <application
         android:label="emp_system"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
+        <uses-feature android:name="android.hardware.location.gps"/>
+        <meta-data android:name="com.google.android.geo.API_KEY"
+            android:value="AIzaSyBNA1x_6hJAhaACaeo3k4wcSHzlnJt8o6E"/>
         <activity
             android:name=".MainActivity"
             android:exported="true"

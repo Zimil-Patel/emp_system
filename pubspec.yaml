@@ -21,7 +21,10 @@ dependencies:
   intl: ^0.20.2
   flutter_screenutil: ^5.9.3
   google_maps_flutter: ^2.10.1
-
+  geolocator: ^10.1.0
+  permission_handler: ^11.0.1
+  geocoding: ^3.0.0
+  location: ^7.0.1
 
 dev_dependencies:
   flutter_test:

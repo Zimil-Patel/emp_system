@@ -9,24 +9,27 @@ class TimingInfoRow extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-      crossAxisAlignment: CrossAxisAlignment.center,
-      children: [
-        ClockIconBox(
-          angle: 135,
-          time: '10:00 AM',
-          label: 'Check In',
-        ),
-        ClockIconBox(
-          angle: -45,
-          label: 'Check Out',
-        ),
-        ClockIconBox(
-          isDoneIcon: true,
-          label: 'Working Hrs',
-        ),
-      ],
+    return SizedBox(
+      height: 100.h,
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          ClockIconBox(
+            angle: 135,
+            time: '10:00 AM',
+            label: 'Check In',
+          ),
+          ClockIconBox(
+            angle: -45,
+            label: 'Check Out',
+          ),
+          ClockIconBox(
+            isDoneIcon: true,
+            label: 'Working Hrs',
+          ),
+        ],
+      ),
     );
   }
 }
@@ -84,9 +87,6 @@ class ClockIconBox extends StatelessWidget {
           ),
         ),
 
-
-        SizedBox(height: 1),
-
         // TIME
         SizedBox(
           height: 20.h,
@@ -98,18 +98,20 @@ class ClockIconBox extends StatelessWidget {
           ),
         ),
 
-        SizedBox(height: 1),
-
         // LABEL
         SizedBox(
           width: 70.h,
-          child: Expanded(
-              child: Text(
+          child: Text(
             label,
             softWrap: true,
             textAlign: TextAlign.center,
-            style: TextStyle(fontSize: 14.h, fontWeight: FontWeight.w500, color: Colors.grey),
-          )),
+            style: TextStyle(
+              fontSize: 14.h,
+              overflow: TextOverflow.ellipsis,
+              fontWeight: FontWeight.w500,
+              color: Colors.grey,
+            ),
+          ),
         ),
       ],
     );
