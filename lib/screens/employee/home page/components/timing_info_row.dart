@@ -10,7 +10,6 @@ class TimingInfoRow extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: 100.h,
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         crossAxisAlignment: CrossAxisAlignment.center,
@@ -26,7 +25,7 @@ class TimingInfoRow extends StatelessWidget {
           ),
           ClockIconBox(
             isDoneIcon: true,
-            label: 'Working Hrs',
+            label: 'Work Hrs',
           ),
         ],
       ),
@@ -106,8 +105,8 @@ class ClockIconBox extends StatelessWidget {
             softWrap: true,
             textAlign: TextAlign.center,
             style: TextStyle(
-              fontSize: 14.h,
-              overflow: TextOverflow.ellipsis,
+              fontSize: 12.h,
+              overflow: TextOverflow.clip,
               fontWeight: FontWeight.w500,
               color: Colors.grey,
             ),
