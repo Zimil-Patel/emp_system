@@ -5,7 +5,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 
 import '../../theme/app_theme.dart';
-import '../map page/map_page.dart';
+import '../employee/home page/home_page.dart';
 import 'components/outlined_text_field.dart';
 
 class SignInPage extends StatelessWidget {
@@ -91,7 +91,7 @@ class SignInPage extends StatelessWidget {
                               backgroundColor: primaryColor,
                             ),
                             onPressed: () {
-                              Get.to(() => MapPage());
+                              Get.to(() => HomePage());
                             },
                             child: Text(
                               'Sign In',

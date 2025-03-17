@@ -1,7 +1,9 @@
 import 'package:emp_system/screens/auth/components/outlined_text_field.dart';
+import 'package:emp_system/screens/supervisor/home%20page/supervisor_home_page.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get.dart';
 
 import '../../theme/app_theme.dart';
 
@@ -73,7 +75,9 @@ class SupervisorSignInPage extends StatelessWidget {
                   ),
                   backgroundColor: primaryColor,
                 ),
-                onPressed: () {},
+                onPressed: () {
+                  Get.to(() => SupervisorHomePage());
+                },
                 child: Text(
                   'Sign In',
                   style: TextStyle(

@@ -1,5 +1,5 @@
 import 'package:emp_system/firebase_options.dart';
-import 'package:emp_system/screens/map%20page/map_page.dart';
+import 'package:emp_system/screens/splash%20page/splash_page.dart';
 import 'package:emp_system/theme/app_theme.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
@@ -27,8 +27,9 @@ class EmployeeSystem extends StatelessWidget {
       designSize: Size(360, 690), // Base reference size
       minTextAdapt: true,
       builder: (context, child) => GetMaterialApp(
+        debugShowCheckedModeBanner: false,
         theme: AppTheme.lightTheme,
-        home: MapPage(),
+        home: SplashPage(),
         ),
     );
   }

@@ -5,8 +5,7 @@ import '../../../theme/app_theme.dart';
 
 // OUTLINE TEXT FIELD
 Widget outlinedTextField(
-    {required String hintText,
-    required IconData icon,
+    {required String hintText, IconData? icon,
     required TextEditingController controller}) {
 
   bool isPassword = hintText == 'Password';
@@ -25,7 +24,7 @@ Widget outlinedTextField(
           onPressed: () {},
           icon: Icon(Icons.remove_red_eye, color: Colors.grey.shade400,),
         ) : null,
-        prefixIcon: Icon(icon, color: Colors.grey.shade400),
+        prefixIcon: icon != null ? Icon(icon, color: Colors.grey.shade400) : null,
         label: Text(
           hintText,
           style: TextStyle(color: Colors.grey),
