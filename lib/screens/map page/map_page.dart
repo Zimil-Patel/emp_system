@@ -1,6 +1,5 @@
 import 'package:emp_system/screens/map%20page/components/lcoation_alert_message.dart';
 import 'package:emp_system/screens/map%20page/components/location_status.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:intl/intl.dart';
@@ -37,30 +36,34 @@ class MapPage extends StatelessWidget {
                   children: [
 
                     // TIME
-                    Padding(
-                      padding: EdgeInsets.only(top: 20.h),
-                      child: Center(
-                        child: Text(
-                          DateFormat.jm().format(DateTime.now()),
-                          style: TextStyle(
-                            fontSize: 40.h,
-                            color: Colors.grey,
-                            fontWeight: FontWeight.w900,
+                    Column(
+                      children: [
+                        Padding(
+                          padding: EdgeInsets.only(top: 20.h),
+                          child: Center(
+                            child: Text(
+                              DateFormat.jm().format(DateTime.now()),
+                              style: TextStyle(
+                                fontSize: 40.h,
+                                color: Colors.grey,
+                                fontWeight: FontWeight.w900,
+                              ),
+                            ),
                           ),
                         ),
-                      ),
-                    ),
 
-                    // WEEK OF DAY
-                    Center(
-                      child: Text(
-                        DateFormat('EEEE, MMM dd').format(DateTime.now()),
-                        style: TextStyle(
-                          fontSize: 24.h,
-                          color: Colors.grey,
-                          fontWeight: FontWeight.w600,
+                        // WEEK OF DAY
+                        Center(
+                          child: Text(
+                            DateFormat('EEEE, MMM dd').format(DateTime.now()),
+                            style: TextStyle(
+                              fontSize: 24.h,
+                              color: Colors.grey,
+                              fontWeight: FontWeight.w600,
+                            ),
+                          ),
                         ),
-                      ),
+                      ],
                     ),
 
                     // LOCATION STATUS
