@@ -1,10 +1,13 @@
+import 'package:emp_system/utils/constants.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 
 import '../../theme/app_theme.dart';
+import 'components/loading_animation.dart';
 import 'components/outlined_text_field.dart';
+
 
 class SignUpPage extends StatelessWidget {
   const SignUpPage({super.key});
@@ -47,7 +50,7 @@ class SignUpPage extends StatelessWidget {
               SizedBox(height: 10.h),
 
               // PASSWORD
-              outlinedTextField(
+              outlinedTextFieldForPassword(
                   hintText: 'Password', icon: Icons.lock, controller: txtPass),
 
               SizedBox(
@@ -55,27 +58,34 @@ class SignUpPage extends StatelessWidget {
               ),
 
               // SIGN UP BUTTON
-              Hero(
-                tag: 'signUp',
-                child: SizedBox(
-                  height: 42.h,
-                  width: double.infinity,
-                  child: ElevatedButton(
-                    style: ElevatedButton.styleFrom(
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(8),
+              Obx(
+                () => authController.isLoading.value ? LoadingAnimation() : Hero(
+                  tag: 'signUp',
+                  child: SizedBox(
+                    height: 42.h,
+                    width: double.infinity,
+                    child: ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(8),
+                        ),
+                        backgroundColor: primaryColor,
                       ),
-                      backgroundColor: primaryColor,
-                    ),
-                    onPressed: () {
-                      showVerificationAlert(context);
-                    },
-                    child: Text(
-                      'Sign Up',
-                      style: TextStyle(
-                        fontWeight: FontWeight.w600,
-                        fontSize: 15.h,
-                        color: Colors.white,
+                      onPressed: () async {
+                        final result = await authController.signUpEmployee(txtName.text, txtEmail.text, txtPass.text, context);
+                        if(result){
+                          txtName.clear();
+                          txtEmail.clear();
+                          txtPass.clear();
+                        }
+                      },
+                      child: Text(
+                        'Sign Up',
+                        style: TextStyle(
+                          fontWeight: FontWeight.w600,
+                          fontSize: 15.h,
+                          color: Colors.white,
+                        ),
                       ),
                     ),
                   ),
@@ -113,7 +123,9 @@ class SignUpPage extends StatelessWidget {
                 width: double.infinity,
                 child: InkWell(
                   borderRadius: BorderRadius.circular(8),
-                  onTap: () {},
+                  onTap: () async {
+                    await authController.handleGoogleSignIn(context);
+                  },
                   splashColor: primaryColor.withOpacity(0.2),
                   highlightColor: primaryColor.withOpacity(0.1),
                   child: Container(
@@ -152,57 +164,5 @@ class SignUpPage extends StatelessWidget {
   }
 }
 
-// SHOW RESET PASSWORD OPTION NOT AVAILABLE
-showVerificationAlert(BuildContext context) {
-  showDialog(
-    context: context,
-    builder: (context) => AlertDialog(
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(4.h),
-      ),
-      title: Row(
-        children: [
-          Text('Sign Up Complete'),
-          Spacer(),
-          CupertinoButton(
-            padding: EdgeInsets.zero,
-            onPressed: () {
-              Navigator.pop(context);
-            },
-            child: Container(
-              decoration: BoxDecoration(
-                shape: BoxShape.circle,
-                border: Border.all(
-                  width: 1,
-                  color: Colors.red.shade400,
-                ),
-              ),
-              child: Icon(
-                Icons.close,
-                color: Colors.red.shade400,
-              ),
-            ),
-          ),
-        ],
-      ),
-      content: Column(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          // MAIL ICON
-          Image.asset(
-            'assets/images/email_logo.png',
-            height: 40.h,
-            width: 40.w,
-          ),
 
-          SizedBox(
-            height: 20.h,
-          ),
 
-          // DIALOG MESSAGE
-          Text('Wait for verification! After Verify you will get a email'),
-        ],
-      ),
-    ),
-  );
-}

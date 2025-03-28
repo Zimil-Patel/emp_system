@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../../core/model/attendace_model.dart';
 import '../attendance page/components/attendance_list.dart';
+import '../attendance page/components/filter_and_export_section.dart';
 
 class LateComersPage extends StatelessWidget {
   const LateComersPage({super.key});
@@ -15,78 +17,25 @@ class LateComersPage extends StatelessWidget {
       body: Column(
         children: [
           // DATE FILTER
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                // Date Picker
-                DropdownButton(
-                  items: [
-                    DropdownMenuItem(
-                      child: Text('18 Mar 2025'),
-                    )
-                  ],
-                  onChanged: (value) {},
-                ),
-
-                // TOTAL EMPLOYEE AND CSV PDF
-                const Row(
-                  children: [
-                    Text(
-                      "Total Employees: ",
-                      style: TextStyle(fontSize: 14),
-                    ),
-                    Text(
-                      "25",
-                      style: TextStyle(fontSize: 14, color: Colors.green),
-                    ),
-                    SizedBox(width: 10),
-                    Text(
-                      "CSV",
-                      style: TextStyle(
-                        fontSize: 12,
-                        color: Colors.blue,
-                        decoration: TextDecoration.underline,
-                      ),
-                    ),
-                    SizedBox(width: 5),
-                    Text(
-                      "|",
-                      style: TextStyle(color: Colors.grey),
-                    ),
-                    SizedBox(width: 5),
-                    Text(
-                      "PDF",
-                      style: TextStyle(
-                        fontSize: 12,
-                        color: Colors.blue,
-                        decoration: TextDecoration.underline,
-                      ),
-                    ),
-                  ],
-                ),
-              ],
-            ),
-          ),
+          FilterAndExportSection(),
 
           // TABLE TITLE
           Container(
             padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 16),
             color: Colors.grey[200],
-            child: const Row(
+            child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Expanded(
                     flex: 3,
                     child: Text("Name",
-                        style: TextStyle(fontWeight: FontWeight.bold))),
+                        style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14.h,),),),
                 Expanded(
                     child: Text("In",
-                        style: TextStyle(fontWeight: FontWeight.bold))),
+                        style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14.h,),),),
                 Expanded(
                     child: Text("Out",
-                        style: TextStyle(fontWeight: FontWeight.bold))),
+                        style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14.h, ),),),
               ],
             ),
           ),
@@ -106,3 +55,5 @@ class LateComersPage extends StatelessWidget {
     );
   }
 }
+
+

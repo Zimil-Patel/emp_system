@@ -1,5 +1,6 @@
 import 'package:emp_system/screens/auth/components/outlined_text_field.dart';
 import 'package:emp_system/screens/supervisor/home%20page/supervisor_home_page.dart';
+import 'package:emp_system/utils/constants.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -44,7 +45,7 @@ class SupervisorSignInPage extends StatelessWidget {
                 hintText: 'Email', icon: Icons.email, controller: txtEmail),
 
             // PASSWORD
-            outlinedTextField(
+            outlinedTextFieldForPassword(
                 hintText: 'Password', icon: Icons.lock, controller: txtPass),
 
             // FORGOT PASSWORD
@@ -76,7 +77,9 @@ class SupervisorSignInPage extends StatelessWidget {
                   backgroundColor: primaryColor,
                 ),
                 onPressed: () {
-                  Get.to(() => SupervisorHomePage());
+                  final result = authController.signInSupervisor(
+                      txtEmail.text, txtPass.text);
+                  if (result) Get.to(() => SupervisorHomePage());
                 },
                 child: Text(
                   'Sign In',

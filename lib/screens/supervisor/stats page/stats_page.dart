@@ -87,8 +87,10 @@ class StatsPage extends StatelessWidget {
                             );
                           }).toList(),
                           onChanged: (String? newValue) {},
+                          dropdownColor: Colors.white,
                           decoration: InputDecoration(
-                            border: OutlineInputBorder(),
+                            border: OutlineInputBorder(
+                            ),
                           ),
                         ),
                       ),
@@ -132,14 +134,19 @@ class StatsPage extends StatelessWidget {
                       );
                     }).toList(),
                     onChanged: (String? newValue) {},
+                    dropdownColor: Colors.white,
+                    focusColor: primaryColor,
                     decoration: InputDecoration(
-                      border: OutlineInputBorder(),
+                      border: OutlineInputBorder(
+                      ),
                     ),
                   ),
 
 
                   // ATTENDANCE DATA
                   SizedBox(height: 20),
+
+
                   buildDetailRow('Total Presents', '12 days'),
                   buildDetailRow('Late', '2 days'),
                   buildDetailRow('Early Leaves', '2 days'),

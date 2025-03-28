@@ -25,6 +25,8 @@ dependencies:
   permission_handler: ^11.0.1
   geocoding: ^3.0.0
   table_calendar: ^3.2.0
+  lottie: ^3.2.0
+  mailer: ^6.4.1
 
 dev_dependencies:
   flutter_test:
@@ -41,3 +43,4 @@ flutter:
         - asset: assets/fonts/VarelaRound-Regular.ttf
   assets:
     - assets/images/
+    - assets/json/

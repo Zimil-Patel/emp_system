@@ -1,5 +1,6 @@
 import 'package:emp_system/theme/app_theme.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import 'components/employe_lists.dart';
 
@@ -15,18 +16,18 @@ class EmployeeListPage extends StatelessWidget {
       body: Column(
         children: [
           // TOTAL EMPLOYEE
-          const Padding(
+           Padding(
             padding: EdgeInsets.all(8.0),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Text(
                   "Total Employees:",
-                  style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                  style: TextStyle(fontSize: 14.h, fontWeight: FontWeight.bold),
                 ),
                 Text(
                   " 25",
-                  style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold, color: primaryColor),
+                  style: TextStyle(fontSize: 14.h, fontWeight: FontWeight.bold, color: primaryColor),
                 ),
               ],
             ),
@@ -41,14 +42,14 @@ class EmployeeListPage extends StatelessWidget {
                 child: Text(
                   "Name",
                   textAlign: TextAlign.center,
-                  style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14.h),
                 ),
               ),
               Expanded(
                 child: Text(
                   "Preview",
                   textAlign: TextAlign.center,
-                  style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold,),
+                  style: TextStyle(fontSize: 14.h, fontWeight: FontWeight.bold,),
                 ),
               ),
             ],

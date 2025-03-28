@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 Widget buildPercentageIndicator(String percentage, String label) {
   return Column(
@@ -19,12 +20,12 @@ Widget buildPercentageIndicator(String percentage, String label) {
           ),
           Text(
             "$percentage%",
-            style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+            style: TextStyle(fontSize: 15.h, fontWeight: FontWeight.bold),
           ),
         ],
       ),
       SizedBox(height: 5),
-      Text(label),
+      Text(label, style: TextStyle(fontSize: 14.h),),
     ],
   );
 }

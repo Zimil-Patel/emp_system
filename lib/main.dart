@@ -7,10 +7,13 @@ import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 
+import 'controllers/auth_controller.dart';
+
 Future<void> main() async {
   // THIS ENSURES FIREBASE INITIALIZED BEFORE APP RUNS
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
+  Get.put(AuthController());
 
   SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
 

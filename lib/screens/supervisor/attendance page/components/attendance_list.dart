@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../../../core/model/attendace_model.dart';
 
@@ -39,13 +40,13 @@ class AttendanceTile extends StatelessWidget {
               children: [
                 Text(
                   data.name,
-                  style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w500),
+                  style: TextStyle(fontSize: 14.h, fontWeight: FontWeight.w500),
                 ),
 
                 // Employee ID
-                const Text(
+                Text(
                   "123456\nUI/UX Designer",
-                  style: TextStyle(fontSize: 12, color: Colors.grey),
+                  style: TextStyle(fontSize: 12.h, color: Colors.grey),
                 ),
               ],
             ),
@@ -56,7 +57,7 @@ class AttendanceTile extends StatelessWidget {
             child: Text(
               data.inTime,
               style: TextStyle(
-                fontSize: 14,
+                fontSize: 13.h,
                 color: data.isLate ? Colors.red : Colors.black,
                 fontWeight: FontWeight.bold,
               ),
@@ -66,7 +67,7 @@ class AttendanceTile extends StatelessWidget {
           Expanded(
             child: Text(
               data.outTime,
-              style: const TextStyle(fontSize: 14, fontWeight: FontWeight.bold),
+              style: TextStyle(fontSize: 13.h, fontWeight: FontWeight.bold),
             ),
           ),
         ],

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:table_calendar/table_calendar.dart';
 
 
@@ -80,9 +81,10 @@ class CalendarPage extends StatelessWidget {
     return Row(
       mainAxisSize: MainAxisSize.min,
       children: [
-        Container(width: 12, height: 12, color: color),
+        Container(width: 12, height: 12, color: color, margin: EdgeInsets.symmetric(vertical: 8),),
         SizedBox(width: 4),
-        Text(label, style: TextStyle(fontSize: 12)),
+        Text(label, style: TextStyle(fontSize: 13.h)),
+        SizedBox(width: 4),
       ],
     );
   }

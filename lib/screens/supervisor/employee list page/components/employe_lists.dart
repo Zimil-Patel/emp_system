@@ -1,5 +1,6 @@
 import 'package:emp_system/screens/supervisor/stats%20page/stats_page.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 
 class EmployeeList extends StatelessWidget {
@@ -26,7 +27,7 @@ class EmployeeTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ListTile(
-      title: Text(name, style: const TextStyle(fontSize: 16)),
+      title: Text(name, style: TextStyle(fontSize: 14.h)),
       trailing: const Icon(Icons.remove_red_eye, color: Colors.grey),
       onTap: () {
         Get.to(() => StatsPage());

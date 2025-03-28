@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 Widget buildDetailRow(String label, String value) {
   return Padding(
@@ -8,17 +9,17 @@ Widget buildDetailRow(String label, String value) {
       children: [
         Text(
           label,
-          style: TextStyle(fontSize: 16),
+          style: TextStyle(fontSize: 14.h),
         ),
         Container(
-          padding: EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+          padding: EdgeInsets.symmetric(horizontal: 10.h, vertical: 5.h),
           decoration: BoxDecoration(
             border: Border.all(color: Colors.grey),
             borderRadius: BorderRadius.circular(5),
           ),
           child: Text(
             value,
-            style: TextStyle(fontSize: 16),
+            style: TextStyle(fontSize: 14.h),
           ),
         ),
       ],
