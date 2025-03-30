@@ -25,17 +25,19 @@ class _CurrentDateTimeState extends State<CurrentDateTime> {
   void _updateDateTime() {
     Timer.periodic(
       Duration(seconds: 1),
-      (timer) => setState(
-        () {
-          this.timer = timer;
-        },
-      ),
+      (timer) {
+        if (!mounted) {
+          timer.cancel();
+          return;
+        }
+        setState(() {});
+      }
     );
   }
 
   @override
   void dispose() {
-    timer!.cancel();
+    timer?.cancel();
     super.dispose();
   }
 

@@ -1,6 +1,9 @@
 import 'dart:async';
 import 'dart:developer';
 import 'package:emp_system/screens/auth/role_option_page.dart';
+import 'package:emp_system/screens/employee/home%20page/home_page.dart';
+import 'package:emp_system/screens/supervisor/home%20page/supervisor_home_page.dart';
+import 'package:emp_system/utils/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
@@ -16,6 +19,7 @@ class SplashPage extends StatefulWidget {
 
 class _SplashPageState extends State<SplashPage> {
   double _progress = 0.0;
+  String? _role;
 
   @override
   void initState() {
@@ -28,13 +32,34 @@ class _SplashPageState extends State<SplashPage> {
       if (_progress >= 1.0) {
         timer.cancel();
         log("Progress Completed!");
-        Get.offAll(() => RoleOptionPage());
+        _navigateToNext();
       } else {
         setState(() {
           _progress += 0.05;
         });
       }
     });
+  }
+
+  Future<void> _navigateToNext() async {
+    if(_role == null){
+      await _checkUserRole();
+      await _navigateToNext();
+    }
+
+    if(_role == "supervisor"){
+      Get.offAll(() => SupervisorHomePage());
+    } else if (_role == "employee"){
+      Get.offAll(() => HomePage());
+    } else {
+      Get.offAll(() => RoleOptionPage());
+    }
+  }
+
+  Future<void> _checkUserRole() async {
+    _role = await authController.checkUserRole() ?? "not found";
+    _role = _role!.toLowerCase();
+    log("Role: $_role");
   }
 
   @override

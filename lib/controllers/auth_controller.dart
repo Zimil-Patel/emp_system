@@ -1,14 +1,20 @@
 import 'dart:developer';
 
+import 'package:emp_system/core/model/employee_model.dart';
 import 'package:emp_system/core/services/auth_services.dart';
+import 'package:emp_system/core/services/firebase_services.dart';
+import 'package:emp_system/utils/constants.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import '../screens/auth/components/verification_dialog.dart';
 
 class AuthController extends GetxController {
   final auth = AuthServices.authServices;
+  final fbService = FirebaseServices.fbServices;
+  EmployeeModel? currentEmployee;
 
   RxBool isLoading = false.obs;
   RxBool showPass = false.obs;
@@ -74,8 +80,7 @@ class AuthController extends GetxController {
 
   // Sign-in Employee
   Future<bool> signInEmployee({required String email, required String password}) async {
-
-    if(email.isEmpty || password.isEmpty){
+    if (email.isEmpty || password.isEmpty) {
       Get.snackbar(
         'Sign-In Failed!',
         'Please enter email and password',
@@ -90,14 +95,17 @@ class AuthController extends GetxController {
 
     isLoading.value = true;
 
-    final result = await auth.signInEmployeeWithEmailPassword(email: email, password: password);
+    final result = await auth.signInEmployeeWithEmailPassword(
+        email: email, password: password);
 
-    if(result.$1 != null){
-
+    if (result.$1 != null) {
       final isVerified = await auth.checkIsEmployeeVerified(email);
 
-      if(isVerified){
+      if (isVerified) {
         log("SUCCESS: Sign in.");
+        await setCurrentUser('employee');
+        currentEmployee =
+            await fbService.getCurrentEmployeeProfileDetails(email);
         isLoading.value = false;
         return true;
       } else {
@@ -115,7 +123,6 @@ class AuthController extends GetxController {
         isLoading.value = false;
         return false;
       }
-
     } else {
       Get.snackbar(
         "Sign In Failed!", // Title
@@ -129,7 +136,6 @@ class AuthController extends GetxController {
       isLoading.value = false;
       return false;
     }
-
   }
 
   // Sign in with google
@@ -138,7 +144,6 @@ class AuthController extends GetxController {
     User? user = await auth.signInWithGoogle();
 
     if (user != null) {
-      await auth.addEmployeeToDatabase(user.email!, user.displayName!);
 
       final isNewUser = await auth.isNewUser(user.email!);
 
@@ -155,6 +160,9 @@ class AuthController extends GetxController {
         final isVerified = await auth.checkIsEmployeeVerified(user.email!);
 
         if (isVerified) {
+          await setCurrentUser('employee');
+          currentEmployee =
+              await fbService.getCurrentEmployeeProfileDetails(user.email!);
           isLoading.value = false;
           return true;
         } else {
@@ -179,8 +187,9 @@ class AuthController extends GetxController {
   }
 
   // Sign in supervisor
-  bool signInSupervisor(String email, String password){
-    if(email == "admin@gmail.com" && password == "admin"){
+  Future<bool> signInSupervisor(String email, String password) async {
+    if (email == supervisorEmail && password == supervisorPassword) {
+      await setCurrentUser('supervisor');
       return true;
     } else {
       Get.snackbar(
@@ -194,5 +203,33 @@ class AuthController extends GetxController {
       );
       return false;
     }
+  }
+
+  // Check user role on application start
+  Future<String?> checkUserRole() async {
+    try {
+      final pref = await SharedPreferences.getInstance();
+      return pref.getString('user_role');
+    } catch (e) {
+      log("ERROR: $e");
+      return null;
+    }
+  }
+
+  // Set current user
+  Future<void> setCurrentUser(String role) async {
+    final pref = await SharedPreferences.getInstance();
+    await pref.setString('user_role', role);
+
+    if (role != "employee") {
+      currentEmployee = null;
+    }
+  }
+
+  // Sign out employee or supervisor
+  Future<void> signOut() async {
+    await auth.signOut();
+    currentEmployee = null;
+    await setCurrentUser('not found');
   }
 }

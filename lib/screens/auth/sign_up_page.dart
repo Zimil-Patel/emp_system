@@ -5,9 +5,9 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 
 import '../../theme/app_theme.dart';
+import '../employee/home page/home_page.dart';
 import 'components/loading_animation.dart';
 import 'components/outlined_text_field.dart';
-
 
 class SignUpPage extends StatelessWidget {
   const SignUpPage({super.key});
@@ -59,37 +59,44 @@ class SignUpPage extends StatelessWidget {
 
               // SIGN UP BUTTON
               Obx(
-                () => authController.isLoading.value ? LoadingAnimation() : Hero(
-                  tag: 'signUp',
-                  child: SizedBox(
-                    height: 42.h,
-                    width: double.infinity,
-                    child: ElevatedButton(
-                      style: ElevatedButton.styleFrom(
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(8),
+                () => authController.isLoading.value
+                    ? LoadingAnimation()
+                    : Hero(
+                        tag: 'signUp',
+                        child: SizedBox(
+                          height: 42.h,
+                          width: double.infinity,
+                          child: ElevatedButton(
+                            style: ElevatedButton.styleFrom(
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(8),
+                              ),
+                              backgroundColor: primaryColor,
+                            ),
+                            onPressed: () async {
+                              final result =
+                                  await authController.signUpEmployee(
+                                      txtName.text,
+                                      txtEmail.text,
+                                      txtPass.text,
+                                      context);
+                              if (result) {
+                                txtName.clear();
+                                txtEmail.clear();
+                                txtPass.clear();
+                              }
+                            },
+                            child: Text(
+                              'Sign Up',
+                              style: TextStyle(
+                                fontWeight: FontWeight.w600,
+                                fontSize: 15.h,
+                                color: Colors.white,
+                              ),
+                            ),
+                          ),
                         ),
-                        backgroundColor: primaryColor,
                       ),
-                      onPressed: () async {
-                        final result = await authController.signUpEmployee(txtName.text, txtEmail.text, txtPass.text, context);
-                        if(result){
-                          txtName.clear();
-                          txtEmail.clear();
-                          txtPass.clear();
-                        }
-                      },
-                      child: Text(
-                        'Sign Up',
-                        style: TextStyle(
-                          fontWeight: FontWeight.w600,
-                          fontSize: 15.h,
-                          color: Colors.white,
-                        ),
-                      ),
-                    ),
-                  ),
-                ),
               ),
 
               // ALREADY HAVE ACCOUNT
@@ -124,7 +131,11 @@ class SignUpPage extends StatelessWidget {
                 child: InkWell(
                   borderRadius: BorderRadius.circular(8),
                   onTap: () async {
-                    await authController.handleGoogleSignIn(context);
+                    final status =
+                        await authController.handleGoogleSignIn(context);
+                    if (status) {
+                      Get.offAll(() => HomePage());
+                    }
                   },
                   splashColor: primaryColor.withOpacity(0.2),
                   highlightColor: primaryColor.withOpacity(0.1),
@@ -163,6 +174,3 @@ class SignUpPage extends StatelessWidget {
     );
   }
 }
-
-
-

@@ -13,12 +13,12 @@ class SupervisorController extends GetxController {
 
   @override
   void onInit() {
-    fetchEmployeeRequests();
+    fetchEmployeeList();
     super.onInit();
   }
 
   // Fetch employees in real-time
-  void fetchEmployeeRequests() {
+  void fetchEmployeeList() {
     _firestore.collection('employees').snapshots().listen((querySnapshot) {
       employeeList.value = querySnapshot.docs
           .map((doc) => EmployeeModel.fromFirestore(doc))

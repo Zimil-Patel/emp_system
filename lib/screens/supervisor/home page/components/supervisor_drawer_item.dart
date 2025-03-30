@@ -6,15 +6,17 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 
+import '../../../../utils/constants.dart';
 import '../../../auth/role_option_page.dart';
 
 Widget supervisorDrawerItem({required String name, required IconData icon, required BuildContext context}){
   return InkWell(
-    onTap: (){
+    onTap: () async {
 
       Navigator.pop(context);
 
       if(name == "Logout"){
+        await authController.signOut();
         Get.offAll(() => RoleOptionPage());
       }
 

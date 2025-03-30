@@ -155,7 +155,11 @@ class SignInPage extends StatelessWidget {
                       child: InkWell(
                         borderRadius: BorderRadius.circular(8),
                         onTap: () async {
-                          await authController.handleGoogleSignIn(context);
+                          final status =
+                              await authController.handleGoogleSignIn(context);
+                          if (status) {
+                            Get.offAll(() => HomePage());
+                          }
                         },
                         splashColor: primaryColor.withOpacity(0.2),
                         highlightColor: primaryColor.withOpacity(0.1),

@@ -76,10 +76,10 @@ class SupervisorSignInPage extends StatelessWidget {
                   ),
                   backgroundColor: primaryColor,
                 ),
-                onPressed: () {
-                  final result = authController.signInSupervisor(
+                onPressed: () async {
+                  final result = await authController.signInSupervisor(
                       txtEmail.text, txtPass.text);
-                  if (result) Get.to(() => SupervisorHomePage());
+                  if (result) Get.offAll(() => SupervisorHomePage());
                 },
                 child: Text(
                   'Sign In',
