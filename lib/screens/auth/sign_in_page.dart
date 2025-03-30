@@ -70,7 +70,7 @@ class SignInPage extends StatelessWidget {
                         icon: Icons.lock,
                         controller: txtPass),
 
-                    // ALREADY HAVE ACCOUNT SIGN IN HERE
+                    // FORGOT PASSWORD
                     CupertinoButton(
                       padding: EdgeInsets.zero,
                       onPressed: () {
@@ -99,8 +99,14 @@ class SignInPage extends StatelessWidget {
                                       ),
                                       backgroundColor: primaryColor,
                                     ),
-                                    onPressed: () {
-                                      Get.to(() => HomePage());
+                                    onPressed: () async {
+                                      final result =
+                                          await authController.signInEmployee(
+                                              email: txtEmail.text,
+                                              password: txtPass.text);
+                                      if (result) {
+                                        Get.offAll(() => HomePage());
+                                      }
                                     },
                                     child: Text(
                                       'Sign In',

@@ -48,7 +48,6 @@ class SupervisorController extends GetxController {
             padding: EdgeInsets.all(12),
             isDismissible: true,
             forwardAnimationCurve: Curves.easeOutBack,
-            overlayBlur: 2,
           );
         }
       }

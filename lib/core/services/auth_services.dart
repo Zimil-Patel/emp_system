@@ -44,7 +44,6 @@ class AuthServices {
 
   // Add Employee to Firebase
   Future<String> addEmployeeToDatabase(String email, String name) async {
-
     try {
       await _firestore.collection('employees').doc(email).set({
         'employee_id': "",
@@ -90,8 +89,21 @@ class AuthServices {
       UserCredential? userCredential = await _firebaseAuth
           .createUserWithEmailAndPassword(email: email, password: password);
 
-      return (userCredential.user, "");
+      return (userCredential.user, "success");
     } catch (e) {
+      log("Error: $e");
+      return (null, e.toString());
+    }
+  }
+
+  // Sign in Employee with email and password
+  Future<(User?, String)> signInEmployeeWithEmailPassword({required String email, required String password}) async {
+    try {
+      final UserCredential userCredential = await _firebaseAuth
+          .signInWithEmailAndPassword(email: email, password: password);
+      return (userCredential.user!, "");
+    } catch (e) {
+      log("Error: $e");
       return (null, e.toString());
     }
   }
@@ -121,7 +133,8 @@ class AuthServices {
   // Check if user is verified
   Future<bool> checkIsEmployeeVerified(String email) async {
     try {
-      final snapshot = await _firestore.collection('employees').doc(email).get();
+      final snapshot =
+          await _firestore.collection('employees').doc(email).get();
       return snapshot.exists ? snapshot['isVerified'] ?? false : false;
     } catch (e) {
       log("Error Checking : $e");
@@ -134,5 +147,4 @@ class AuthServices {
     await _firebaseAuth.signOut();
     await _googleSignIn.signOut();
   }
-
 }
