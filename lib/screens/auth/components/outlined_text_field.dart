@@ -9,15 +9,20 @@ import '../../../theme/app_theme.dart';
 Widget outlinedTextField(
     {required String hintText,
     IconData? icon,
-    required TextEditingController controller}) {
+    required TextEditingController controller,
+    bool enabled = true,
+    TextInputType type = TextInputType.text}) {
   bool isPassword = hintText == 'Password';
 
   return Padding(
     padding: EdgeInsets.only(top: 8.h),
     child: TextField(
       controller: controller,
+      keyboardType: type,
       cursorColor: primaryColor,
       obscureText: isPassword ? true : false,
+      enabled: enabled,
+      textInputAction: TextInputAction.next,
       onTapOutside: (event) {
         FocusManager.instance.primaryFocus!.unfocus();
       },
@@ -31,6 +36,10 @@ Widget outlinedTextField(
         enabledBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(8),
           borderSide: BorderSide(color: Colors.grey.shade400, width: 1.5),
+        ),
+        disabledBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(8),
+          borderSide: BorderSide(color: Colors.grey.shade100, width: 1.5),
         ),
         focusedBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(8),
@@ -52,6 +61,7 @@ Widget outlinedTextFieldForPassword(
         controller: controller,
         cursorColor: primaryColor,
         obscureText: authController.showPass.value,
+        textInputAction: TextInputAction.done,
         onTapOutside: (event) {
           FocusManager.instance.primaryFocus!.unfocus();
         },

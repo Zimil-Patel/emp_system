@@ -1,7 +1,11 @@
+import 'package:cached_network_image/cached_network_image.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:emp_system/theme/app_theme.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get.dart';
 
+import '../../../../utils/constants.dart';
 import 'drawer_item.dart';
 
 
@@ -28,12 +32,23 @@ class EmployeeDrawer extends StatelessWidget {
 
                 // PROFILE PICTURE
                 CircleAvatar(
-                  radius: 32.h,
+                  radius: 40,
                   backgroundColor: Color(0xff5b8956),
-                  child: Icon(
-                    Icons.person_outline_rounded,
-                    color: Colors.white,
-                    size: 40.h,
+                  child: Obx(
+                    () => profileController.image.isEmpty ?  Icon(
+                      Icons.person_outline_rounded,
+                      color: Colors.white,
+                      size: 45,
+                    ) : ClipRRect(
+                      borderRadius: BorderRadius.circular(100),
+                      child: CachedNetworkImage(
+                        imageUrl: profileController.image.value,
+                        fit: BoxFit.cover,
+                        useOldImageOnUrlChange: true,
+                        height: 120,
+                        width: 120,
+                      ),
+                    ),
                   ),
                 ),
 
@@ -42,10 +57,24 @@ class EmployeeDrawer extends StatelessWidget {
                 ),
 
                 // PROFILE NAME
-                Text(
-                  'Hello! Brian',
-                  style: TextStyle(fontSize: 20.h, color: Colors.white),
+                StreamBuilder(
+                  stream: FirebaseFirestore.instance
+                      .collection('employees')
+                      .doc(profileController.authController.currentEmployee?.email)
+                      .snapshots(),
+                  builder: (context, snapshot) {
+                    if (snapshot.hasData && snapshot.data!.exists) {
+                      var data = snapshot.data!.data();
+                      return Text(
+                        'Hello! ${data?['name'] ?? 'N/A'}',
+                        style: TextStyle(fontSize: 20.h, color: Colors.white),
+                      );
+                    } else {
+                      return Text('Loading...', style: TextStyle(fontSize: 24.h));
+                    }
+                  },
                 ),
+
               ],
             ),
           ),

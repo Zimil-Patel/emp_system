@@ -22,76 +22,82 @@ class SupervisorSignInPage extends StatelessWidget {
       ),
       body: Padding(
         padding: EdgeInsets.symmetric(horizontal: 14.w, vertical: 8.h),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            // WELCOME TAGLINES
-            Text(
-              'Welcome Back! \n"Your Workforce, Your Control"',
-              style: TextStyle(fontWeight: FontWeight.w700, fontSize: 16.h),
-            ),
-
-            // LOGO
-            Center(
-                child: Image.asset(
-              'assets/images/supervisorWork.png',
-              height: 240.h,
-              width: double.infinity,
-            )),
-
-            // EMAIL
-            outlinedTextField(
-                hintText: 'Email', icon: Icons.email, controller: txtEmail),
-
-            // PASSWORD
-            outlinedTextFieldForPassword(
-                hintText: 'Password', icon: Icons.lock, controller: txtPass),
-
-            // FORGOT PASSWORD
-            CupertinoButton(
-              padding: EdgeInsets.zero,
-              onPressed: () {
-                showUnavailableResetPasswordDialog(context);
-              },
-              child: Text(
-                'Forgot Password?',
-                style: TextStyle(
-                  color: primaryColor,
-                  fontSize: 13.h,
+        child: Center(
+          child: SingleChildScrollView(
+            physics: const BouncingScrollPhysics(),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                // WELCOME TAGLINES
+                Text(
+                  'Welcome Back! \n"Your Workforce, Your Control"',
+                  style: TextStyle(fontWeight: FontWeight.w700, fontSize: 16.h),
                 ),
-              ),
-            ),
 
-            SizedBox(height: 20.h),
+                // LOGO
+                Center(
+                    child: Image.asset(
+                  'assets/images/supervisorWork.png',
+                  height: 240.h,
+                  width: double.infinity,
+                )),
 
-            // SIGN IN BUTTON
-            SizedBox(
-              height: 42.h,
-              width: double.infinity,
-              child: ElevatedButton(
-                style: ElevatedButton.styleFrom(
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(8),
-                  ),
-                  backgroundColor: primaryColor,
-                ),
-                onPressed: () async {
-                  final result = await authController.signInSupervisor(
-                      txtEmail.text, txtPass.text);
-                  if (result) Get.offAll(() => SupervisorHomePage());
-                },
-                child: Text(
-                  'Sign In',
-                  style: TextStyle(
-                    fontWeight: FontWeight.w600,
-                    fontSize: 15.h,
-                    color: Colors.white,
+                // EMAIL
+                outlinedTextField(
+                    hintText: 'Email', icon: Icons.email, controller: txtEmail),
+
+                // PASSWORD
+                outlinedTextFieldForPassword(
+                    hintText: 'Password', icon: Icons.lock, controller: txtPass),
+
+                // FORGOT PASSWORD
+                CupertinoButton(
+                  padding: EdgeInsets.zero,
+                  onPressed: () {
+                    showUnavailableResetPasswordDialog(context);
+                  },
+                  child: Text(
+                    'Forgot Password?',
+                    style: TextStyle(
+                      color: primaryColor,
+                      fontSize: 13.h,
+                    ),
                   ),
                 ),
-              ),
+
+                SizedBox(height: 20.h),
+
+                // SIGN IN BUTTON
+                SizedBox(
+                  height: 42.h,
+                  width: double.infinity,
+                  child: ElevatedButton(
+                    style: ElevatedButton.styleFrom(
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(8),
+                      ),
+                      backgroundColor: primaryColor,
+                    ),
+                    onPressed: () async {
+                      final result = await authController.signInSupervisor(
+                          txtEmail.text, txtPass.text);
+                      if (result) Get.offAll(() => SupervisorHomePage());
+                    },
+                    child: Text(
+                      'Sign In',
+                      style: TextStyle(
+                        fontWeight: FontWeight.w600,
+                        fontSize: 15.h,
+                        color: Colors.white,
+                      ),
+                    ),
+                  ),
+                ),
+              ],
             ),
-          ],
+          ),
         ),
       ),
     );

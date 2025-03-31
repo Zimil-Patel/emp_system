@@ -25,18 +25,16 @@ class SignInPage extends StatelessWidget {
       ),
       body: Padding(
         padding: EdgeInsets.symmetric(horizontal: 14.w, vertical: 20.h),
-        child: Center(
-          child: ConstrainedBox(
-            constraints: BoxConstraints(
-              minHeight: MediaQuery.of(context).size.height,
-            ),
-            child: IntrinsicHeight(
+        child: Column(
+          children: [
+            Expanded(
               child: SingleChildScrollView(
+                physics: const BouncingScrollPhysics(),
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    // WELCOME TAGLINES
+                    // WELCOME TEXT
                     Center(
                       child: Text(
                         'Welcome!',
@@ -45,7 +43,7 @@ class SignInPage extends StatelessWidget {
                       ),
                     ),
 
-                    // WORK TIME LOGO
+                    // LOGO IMAGE
                     Center(
                       child: Image.asset(
                         'assets/images/timeWork.png',
@@ -84,42 +82,42 @@ class SignInPage extends StatelessWidget {
 
                     // SIGN IN BUTTON
                     Obx(
-                      () => authController.isLoading.value
+                          () => authController.isLoading.value
                           ? LoadingAnimation()
                           : Material(
-                              child: Hero(
-                                tag: 'signIn',
-                                child: SizedBox(
-                                  height: 42.h,
-                                  width: double.infinity,
-                                  child: ElevatedButton(
-                                    style: ElevatedButton.styleFrom(
-                                      shape: RoundedRectangleBorder(
-                                        borderRadius: BorderRadius.circular(8),
-                                      ),
-                                      backgroundColor: primaryColor,
-                                    ),
-                                    onPressed: () async {
-                                      final result =
-                                          await authController.signInEmployee(
-                                              email: txtEmail.text,
-                                              password: txtPass.text);
-                                      if (result) {
-                                        Get.offAll(() => HomePage());
-                                      }
-                                    },
-                                    child: Text(
-                                      'Sign In',
-                                      style: TextStyle(
-                                        fontWeight: FontWeight.w600,
-                                        fontSize: 15.h,
-                                        color: Colors.white,
-                                      ),
-                                    ),
-                                  ),
+                        child: Hero(
+                          tag: 'signIn',
+                          child: SizedBox(
+                            height: 42.h,
+                            width: double.infinity,
+                            child: ElevatedButton(
+                              style: ElevatedButton.styleFrom(
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(8),
+                                ),
+                                backgroundColor: primaryColor,
+                              ),
+                              onPressed: () async {
+                                final result =
+                                await authController.signInEmployee(
+                                    email: txtEmail.text,
+                                    password: txtPass.text);
+                                if (result) {
+                                  Get.offAll(() => HomePage());
+                                }
+                              },
+                              child: Text(
+                                'Sign In',
+                                style: TextStyle(
+                                  fontWeight: FontWeight.w600,
+                                  fontSize: 15.h,
+                                  color: Colors.white,
                                 ),
                               ),
                             ),
+                          ),
+                        ),
+                      ),
                     ),
 
                     // DON'T HAVE ACCOUNT
@@ -131,7 +129,7 @@ class SignInPage extends StatelessWidget {
                               color: Colors.grey.shade600, fontSize: 13.h),
                         ),
 
-                        // ALREADY HAVE ACCOUNT SIGN IN HERE
+                        // SIGN UP
                         CupertinoButton(
                           padding: EdgeInsets.zero,
                           onPressed: () {
@@ -140,7 +138,7 @@ class SignInPage extends StatelessWidget {
                           child: Text(
                             'Sign Up',
                             style:
-                                TextStyle(color: primaryColor, fontSize: 13.h),
+                            TextStyle(color: primaryColor, fontSize: 13.h),
                           ),
                         ),
                       ],
@@ -156,7 +154,7 @@ class SignInPage extends StatelessWidget {
                         borderRadius: BorderRadius.circular(8),
                         onTap: () async {
                           final status =
-                              await authController.handleGoogleSignIn(context);
+                          await authController.handleGoogleSignIn(context);
                           if (status) {
                             Get.offAll(() => HomePage());
                           }
@@ -195,7 +193,7 @@ class SignInPage extends StatelessWidget {
                 ),
               ),
             ),
-          ),
+          ],
         ),
       ),
     );

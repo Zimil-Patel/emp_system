@@ -22,152 +22,156 @@ class SignUpPage extends StatelessWidget {
       appBar: AppBar(
         backgroundColor: Colors.transparent,
       ),
-      body: SafeArea(
-        child: Padding(
-          padding: EdgeInsets.symmetric(horizontal: 14.w, vertical: 20.h),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              // WELCOME TAGLINES
-              Text(
-                'Welcome! "Your First Step to Smarter Attendance Starts Here."',
-                style: TextStyle(fontWeight: FontWeight.w700, fontSize: 16.h),
-              ),
+      body: Padding(
+        padding: EdgeInsets.symmetric(horizontal: 14.w, vertical: 20.h),
+        child: Center(
+          child: SingleChildScrollView(
+            physics: const BouncingScrollPhysics(),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                // WELCOME TAGLINES
+                Text(
+                  'Welcome! "Your First Step to Smarter Attendance Starts Here."',
+                  style: TextStyle(fontWeight: FontWeight.w700, fontSize: 16.h),
+                ),
 
-              SizedBox(height: 30.h),
+                SizedBox(height: 30.h),
 
-              // NAME
-              outlinedTextField(
-                  hintText: 'Name', icon: Icons.person, controller: txtName),
+                // NAME
+                outlinedTextField(
+                    hintText: 'Name', icon: Icons.person, controller: txtName),
 
-              SizedBox(height: 10.h),
+                SizedBox(height: 10.h),
 
-              // EMAIL
-              outlinedTextField(
-                  hintText: 'Email', icon: Icons.email, controller: txtEmail),
+                // EMAIL
+                outlinedTextField(
+                    hintText: 'Email', icon: Icons.email, controller: txtEmail),
 
-              SizedBox(height: 10.h),
+                SizedBox(height: 10.h),
 
-              // PASSWORD
-              outlinedTextFieldForPassword(
-                  hintText: 'Password', icon: Icons.lock, controller: txtPass),
+                // PASSWORD
+                outlinedTextFieldForPassword(
+                    hintText: 'Password', icon: Icons.lock, controller: txtPass),
 
-              SizedBox(
-                height: 20.h,
-              ),
+                SizedBox(
+                  height: 20.h,
+                ),
 
-              // SIGN UP BUTTON
-              Obx(
-                () => authController.isLoading.value
-                    ? LoadingAnimation()
-                    : Hero(
-                        tag: 'signUp',
-                        child: SizedBox(
-                          height: 42.h,
-                          width: double.infinity,
-                          child: ElevatedButton(
-                            style: ElevatedButton.styleFrom(
-                              shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(8),
+                // SIGN UP BUTTON
+                Obx(
+                  () => authController.isLoading.value
+                      ? LoadingAnimation()
+                      : Hero(
+                          tag: 'signUp',
+                          child: SizedBox(
+                            height: 42.h,
+                            width: double.infinity,
+                            child: ElevatedButton(
+                              style: ElevatedButton.styleFrom(
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(8),
+                                ),
+                                backgroundColor: primaryColor,
                               ),
-                              backgroundColor: primaryColor,
-                            ),
-                            onPressed: () async {
-                              final result =
-                                  await authController.signUpEmployee(
-                                      txtName.text,
-                                      txtEmail.text,
-                                      txtPass.text,
-                                      context);
-                              if (result) {
-                                txtName.clear();
-                                txtEmail.clear();
-                                txtPass.clear();
-                              }
-                            },
-                            child: Text(
-                              'Sign Up',
-                              style: TextStyle(
-                                fontWeight: FontWeight.w600,
-                                fontSize: 15.h,
-                                color: Colors.white,
+                              onPressed: () async {
+                                final result =
+                                    await authController.signUpEmployee(
+                                        txtName.text,
+                                        txtEmail.text,
+                                        txtPass.text,
+                                        context);
+                                if (result) {
+                                  txtName.clear();
+                                  txtEmail.clear();
+                                  txtPass.clear();
+                                }
+                              },
+                              child: Text(
+                                'Sign Up',
+                                style: TextStyle(
+                                  fontWeight: FontWeight.w600,
+                                  fontSize: 15.h,
+                                  color: Colors.white,
+                                ),
                               ),
                             ),
                           ),
                         ),
+                ),
+
+                // ALREADY HAVE ACCOUNT
+                Row(
+                  children: [
+                    Text(
+                      'Already have account? ',
+                      style:
+                          TextStyle(color: Colors.grey.shade600, fontSize: 13.h),
+                    ),
+
+                    // ALREADY HAVE ACCOUNT SIGN IN HERE
+                    CupertinoButton(
+                      padding: EdgeInsets.zero,
+                      onPressed: () {
+                        Get.back();
+                      },
+                      child: Text(
+                        'Sign In',
+                        style: TextStyle(color: primaryColor, fontSize: 13.h),
                       ),
-              ),
+                    ),
+                  ],
+                ),
 
-              // ALREADY HAVE ACCOUNT
-              Row(
-                children: [
-                  Text(
-                    'Already have account? ',
-                    style:
-                        TextStyle(color: Colors.grey.shade600, fontSize: 13.h),
-                  ),
+                SizedBox(height: 10.h),
 
-                  // ALREADY HAVE ACCOUNT SIGN IN HERE
-                  CupertinoButton(
-                    padding: EdgeInsets.zero,
-                    onPressed: () {
-                      Get.back();
+                // GOOGLE SIGN IN OPTION
+                SizedBox(
+                  height: 42.h,
+                  width: double.infinity,
+                  child: InkWell(
+                    borderRadius: BorderRadius.circular(8),
+                    onTap: () async {
+                      final status =
+                          await authController.handleGoogleSignIn(context);
+                      if (status) {
+                        Get.offAll(() => HomePage());
+                      }
                     },
-                    child: Text(
-                      'Sign In',
-                      style: TextStyle(color: primaryColor, fontSize: 13.h),
-                    ),
-                  ),
-                ],
-              ),
+                    splashColor: primaryColor.withOpacity(0.2),
+                    highlightColor: primaryColor.withOpacity(0.1),
+                    child: Container(
+                      decoration: BoxDecoration(
+                        border: Border.all(width: 1, color: primaryColor),
+                        borderRadius: BorderRadius.circular(8),
+                      ),
+                      alignment: Alignment.center,
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          // Google icon
+                          Image.asset('assets/images/google_logo.png',
+                              height: 28),
 
-              SizedBox(height: 10.h),
+                          SizedBox(width: 8.w),
 
-              // GOOGLE SIGN IN OPTION
-              SizedBox(
-                height: 42.h,
-                width: double.infinity,
-                child: InkWell(
-                  borderRadius: BorderRadius.circular(8),
-                  onTap: () async {
-                    final status =
-                        await authController.handleGoogleSignIn(context);
-                    if (status) {
-                      Get.offAll(() => HomePage());
-                    }
-                  },
-                  splashColor: primaryColor.withOpacity(0.2),
-                  highlightColor: primaryColor.withOpacity(0.1),
-                  child: Container(
-                    decoration: BoxDecoration(
-                      border: Border.all(width: 1, color: primaryColor),
-                      borderRadius: BorderRadius.circular(8),
-                    ),
-                    alignment: Alignment.center,
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        // Google icon
-                        Image.asset('assets/images/google_logo.png',
-                            height: 28),
-
-                        SizedBox(width: 8.w),
-
-                        Text(
-                          'Continue with Google',
-                          style: TextStyle(
-                            fontWeight: FontWeight.w600,
-                            fontSize: 15.h,
-                            color: Colors.grey,
+                          Text(
+                            'Continue with Google',
+                            style: TextStyle(
+                              fontWeight: FontWeight.w600,
+                              fontSize: 15.h,
+                              color: Colors.grey,
+                            ),
                           ),
-                        ),
-                      ],
+                        ],
+                      ),
                     ),
                   ),
                 ),
-              ),
-            ],
+              ],
+            ),
           ),
         ),
       ),

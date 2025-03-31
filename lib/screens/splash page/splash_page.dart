@@ -8,6 +8,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 
+import '../../controllers/profile_controller.dart';
 import '../../theme/app_theme.dart';
 
 class SplashPage extends StatefulWidget {
@@ -41,15 +42,19 @@ class _SplashPageState extends State<SplashPage> {
     });
   }
 
+
+  // Ensure role is assigned then navigate to next page
   Future<void> _navigateToNext() async {
     if(_role == null){
       await _checkUserRole();
-      await _navigateToNext();
     }
 
     if(_role == "supervisor"){
       Get.offAll(() => SupervisorHomePage());
     } else if (_role == "employee"){
+      await authController.getCurrentUser();
+      profileController = Get.put(ProfileController());
+      log("Employee Name : ${profileController.txtName.text}");
       Get.offAll(() => HomePage());
     } else {
       Get.offAll(() => RoleOptionPage());

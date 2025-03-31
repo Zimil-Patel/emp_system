@@ -226,6 +226,15 @@ class AuthController extends GetxController {
     }
   }
 
+  // Get current user
+  Future<void> getCurrentUser() async {
+    final email = auth.getCurrentEmployeeEmail();
+
+    if(email == null) return;
+
+    currentEmployee = await fbService.getCurrentEmployeeProfileDetails(email);
+  }
+
   // Sign out employee or supervisor
   Future<void> signOut() async {
     await auth.signOut();

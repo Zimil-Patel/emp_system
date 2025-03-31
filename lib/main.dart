@@ -1,6 +1,9 @@
+import 'dart:developer';
+
 import 'package:emp_system/firebase_options.dart';
 import 'package:emp_system/screens/splash%20page/splash_page.dart';
 import 'package:emp_system/theme/app_theme.dart';
+import 'package:emp_system/utils/constants.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -8,12 +11,13 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 
 import 'controllers/auth_controller.dart';
+import 'controllers/supervisor_controller.dart';
 
 Future<void> main() async {
   // THIS ENSURES FIREBASE INITIALIZED BEFORE APP RUNS
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
-  Get.put(AuthController());
+  _initControllers();
 
   SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
 
@@ -36,4 +40,10 @@ class EmployeeSystem extends StatelessWidget {
         ),
     );
   }
+}
+
+
+void _initControllers() {
+  authController = Get.put(AuthController());
+  supervisorController = Get.put(SupervisorController());
 }

@@ -147,4 +147,9 @@ class AuthServices {
     await _firebaseAuth.signOut();
     await _googleSignIn.signOut();
   }
+
+  // Get current user
+  String? getCurrentEmployeeEmail(){
+    return _firebaseAuth.currentUser!.email;
+  }
 }
