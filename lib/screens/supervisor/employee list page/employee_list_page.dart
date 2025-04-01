@@ -1,6 +1,8 @@
 import 'package:emp_system/theme/app_theme.dart';
+import 'package:emp_system/utils/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get.dart';
 
 import 'components/employe_lists.dart';
 
@@ -16,7 +18,7 @@ class EmployeeListPage extends StatelessWidget {
       body: Column(
         children: [
           // TOTAL EMPLOYEE
-           Padding(
+          Padding(
             padding: EdgeInsets.all(8.0),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.center,
@@ -25,9 +27,14 @@ class EmployeeListPage extends StatelessWidget {
                   "Total Employees:",
                   style: TextStyle(fontSize: 14.h, fontWeight: FontWeight.bold),
                 ),
-                Text(
-                  " 25",
-                  style: TextStyle(fontSize: 14.h, fontWeight: FontWeight.bold, color: primaryColor),
+                Obx(
+                  () => Text(
+                    " ${supervisorController.employeeList.length}",
+                    style: TextStyle(
+                        fontSize: 14.h,
+                        fontWeight: FontWeight.bold,
+                        color: primaryColor),
+                  ),
                 ),
               ],
             ),
@@ -49,33 +56,19 @@ class EmployeeListPage extends StatelessWidget {
                 child: Text(
                   "Preview",
                   textAlign: TextAlign.center,
-                  style: TextStyle(fontSize: 14.h, fontWeight: FontWeight.bold,),
+                  style: TextStyle(
+                    fontSize: 14.h,
+                    fontWeight: FontWeight.bold,
+                  ),
                 ),
               ),
             ],
           ),
           Divider(),
 
-
           // EMPLOYEE LIST
           Expanded(
-            child: EmployeeList(
-              employees: const [
-                "Faius Mojumder Nahin",
-                "Md. Sharek",
-                "Istiayk Milon",
-                "Md. Rakibul Islam",
-                "Md. Sorif",
-                "Md. Mobusshar Islam",
-                "Md. Ratul",
-                "Md. Atik",
-                "Tazib",
-                "Joy Kibria",
-                "Rajib Chowdhury",
-                "Nazmul Hasan",
-                "Saiful Islam",
-              ],
-            ),
+            child: EmployeeList(),
           ),
         ],
       ),

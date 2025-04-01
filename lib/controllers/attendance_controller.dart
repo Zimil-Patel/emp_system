@@ -1,6 +1,5 @@
 import 'dart:developer';
 
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:emp_system/theme/app_theme.dart';
 import 'package:emp_system/utils/constants.dart';
 import 'package:flutter/cupertino.dart';
@@ -102,7 +101,22 @@ class AttendanceController extends GetxController {
     }
 
     if (hasCheckedOut.value) {
-      Get.snackbar("Done", "You have already checked out today.");
+      Get.snackbar(
+        "Done",
+        "You have already checked out today.",
+        backgroundColor: Colors.orange.shade800,
+        colorText: Colors.white,
+        icon: Icon(
+          Icons.warning_amber_outlined,
+          color: Colors.white,
+          size: 28,
+        ),
+        snackPosition: SnackPosition.BOTTOM,
+        margin: EdgeInsets.all(12),
+        borderRadius: 8,
+        duration: Duration(seconds: 3),
+        shouldIconPulse: false,  // Disable icon pulse animation for a more subtle effect
+      );
       return;
     }
 
@@ -313,7 +327,6 @@ showLateAlert(BuildContext context, String formattedCheckInTime) {
     ),
   );
 }
-
 
 showEarlyLeaveAlert(BuildContext context, String formattedCheckOutTime) {
   showDialog(

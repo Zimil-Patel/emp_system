@@ -15,7 +15,10 @@ Widget buildPercentageIndicator(String percentage, String label) {
               value: double.parse(percentage) / 100,
               strokeWidth: 8,
               valueColor: AlwaysStoppedAnimation<Color>(
-                  percentage == '10' ? Colors.red : Colors.green),
+                getPercentageColor(
+                  double.parse(percentage),
+                ),
+              ),
             ),
           ),
           Text(
@@ -25,7 +28,20 @@ Widget buildPercentageIndicator(String percentage, String label) {
         ],
       ),
       SizedBox(height: 5),
-      Text(label, style: TextStyle(fontSize: 14.h),),
+      Text(
+        label,
+        style: TextStyle(fontSize: 14.h),
+      ),
     ],
   );
+}
+
+Color getPercentageColor(double percentage) {
+  if (percentage < 30) {
+    return Colors.green.shade400;
+  } else if (percentage >= 30 && percentage < 60) {
+    return Colors.orange.shade400;
+  } else {
+    return Colors.red.shade400;
+  }
 }

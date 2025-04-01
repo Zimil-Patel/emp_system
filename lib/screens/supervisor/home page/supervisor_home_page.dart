@@ -82,7 +82,7 @@ class SupervisorHomePage extends StatelessWidget {
             borderRadius: 10,
             padding: EdgeInsets.all(12),
             isDismissible: true,
-            forwardAnimationCurve: Curves.easeOutBack,
+            shouldIconPulse: true,
           );
         } else {
           Get.to(() => EmployeeListPage());
