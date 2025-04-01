@@ -90,7 +90,6 @@ class _CalendarPageState extends State<CalendarPage> {
             }
           }
         } else {
-          log("absent");
           data[dateKey] = 'Absent';
         }
       }
