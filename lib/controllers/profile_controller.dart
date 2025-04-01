@@ -60,6 +60,7 @@ class ProfileController extends GetxController {
       var refreshedEmployee = await fbService.getCurrentEmployeeProfileDetails(email);
       authController.currentEmployee = refreshedEmployee;
       isEditing.value = false;
+      update();
       Get.snackbar(
         'Profile Updated',
         'Your profile has been updated successfully!',
@@ -69,7 +70,6 @@ class ProfileController extends GetxController {
         duration: Duration(seconds: 3),
         snackPosition: SnackPosition.TOP,
       );
-      update(['employee']);
     } else {
       Get.snackbar(
         'Update Failed',

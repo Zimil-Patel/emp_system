@@ -8,6 +8,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 
+import '../../controllers/attendance_controller.dart';
 import '../../controllers/profile_controller.dart';
 import '../../theme/app_theme.dart';
 
@@ -54,6 +55,7 @@ class _SplashPageState extends State<SplashPage> {
     } else if (_role == "employee"){
       await authController.getCurrentUser();
       profileController = Get.put(ProfileController());
+      attendanceController = Get.put(AttendanceController());
       log("Employee Name : ${profileController.txtName.text}");
       Get.offAll(() => HomePage());
     } else {

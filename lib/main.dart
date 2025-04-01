@@ -1,5 +1,6 @@
 import 'dart:developer';
 
+import 'package:emp_system/controllers/attendance_controller.dart';
 import 'package:emp_system/firebase_options.dart';
 import 'package:emp_system/screens/splash%20page/splash_page.dart';
 import 'package:emp_system/theme/app_theme.dart';
@@ -18,7 +19,6 @@ Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
   _initControllers();
-
   SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
 
   runApp(EmployeeSystem());

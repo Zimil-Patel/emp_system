@@ -106,6 +106,7 @@ class AuthController extends GetxController {
         await setCurrentUser('employee');
         currentEmployee =
             await fbService.getCurrentEmployeeProfileDetails(email);
+        await attendanceController.checkTodayAttendance();
         isLoading.value = false;
         return true;
       } else {
@@ -163,6 +164,7 @@ class AuthController extends GetxController {
           await setCurrentUser('employee');
           currentEmployee =
               await fbService.getCurrentEmployeeProfileDetails(user.email!);
+          await attendanceController.checkTodayAttendance();
           isLoading.value = false;
           return true;
         } else {

@@ -21,6 +21,12 @@ class _MapBoxState extends State<MapBox> {
   final double officeRange = 200;
   String? currentAddress;
 
+  // SACHIN
+  final LatLng officeLocation = LatLng(21.084967, 72.881111);
+
+  // BMU
+  // final LatLng officeLocation = LatLng(21.139171, 72.793428);
+
   @override
   void initState() {
     getCurrentLocation();
@@ -55,7 +61,7 @@ class _MapBoxState extends State<MapBox> {
       currentAddress =
           "${place.name} ${place.street} ${place.locality} ${place.country} ${place.postalCode}";
     } catch (e) {
-      log("Error: $e");
+      // log("Error: $e");
       currentAddress = "Address not found";
     }
 
@@ -84,7 +90,7 @@ class _MapBoxState extends State<MapBox> {
                     circles: {
                       Circle(
                         circleId: CircleId('officeRange'),
-                        center: LatLng(21.084967, 72.881111),
+                        center: officeLocation,
                         fillColor: Colors.blue.withOpacity(0.3),
                         radius: officeRange,
                         strokeColor: Colors.blue,

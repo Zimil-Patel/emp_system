@@ -1,8 +1,10 @@
 import 'dart:math';
 
 import 'package:emp_system/theme/app_theme.dart';
+import 'package:emp_system/utils/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get.dart';
 
 class TimingInfoRow extends StatelessWidget {
   const TimingInfoRow({super.key});
@@ -14,18 +16,26 @@ class TimingInfoRow extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          ClockIconBox(
-            angle: 135,
-            time: '10:00 AM',
-            label: 'Check In',
+          Obx(
+          () => ClockIconBox(
+              angle: 135,
+              time: attendanceController.checkInTime.value,
+              label: 'Check In',
+            ),
           ),
-          ClockIconBox(
-            angle: -45,
-            label: 'Check Out',
+          Obx(
+            () => ClockIconBox(
+              angle: -45,
+              time: attendanceController.checkOutTime.value,
+              label: 'Check Out',
+            ),
           ),
-          ClockIconBox(
-            isDoneIcon: true,
-            label: 'Work Hrs',
+          Obx(
+          () => ClockIconBox(
+              isDoneIcon: true,
+              time: attendanceController.workingHours.value,
+              label: 'Work Hrs',
+            ),
           ),
         ],
       ),

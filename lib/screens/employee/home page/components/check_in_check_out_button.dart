@@ -1,4 +1,5 @@
 import 'package:emp_system/theme/app_theme.dart';
+import 'package:emp_system/utils/constants.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -25,7 +26,14 @@ class CheckInCheckOutButton extends StatelessWidget {
     return CupertinoButton(
       padding: EdgeInsets.zero,
       onPressed: () {
-        Get.to(() => MapPage());
+        // Get.to(() => MapPage());
+        if (!attendanceController.hasCheckedIn.value) {
+          attendanceController
+              .checkInEmployee(authController.currentEmployee!.email, context);
+        } else {
+          attendanceController
+              .checkOutEmployee(authController.currentEmployee!.email, context);
+        }
       },
       child: Container(
         decoration: BoxDecoration(
@@ -87,14 +95,18 @@ class CheckInCheckOutButton extends StatelessWidget {
                       spreadRadius: 1),
                 ],
               ),
-              child: true ? ButtonContent(
-                imageName: 'click_red',
-                label: 'Check Out',
-                color: Colors.red.shade400,
-              ) : ButtonContent(
-                imageName: 'click_green',
-                label: 'Check In',
-                color: primaryColor,
+              child: Obx(
+                () => attendanceController.hasCheckedIn.value
+                    ? ButtonContent(
+                        imageName: 'click_red',
+                        label: 'Check Out',
+                        color: Colors.red.shade400,
+                      )
+                    : ButtonContent(
+                        imageName: 'click_green',
+                        label: 'Check In',
+                        color: primaryColor,
+                      ),
               ),
             ),
           ),

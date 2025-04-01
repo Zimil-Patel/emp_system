@@ -1,5 +1,8 @@
+import 'dart:developer';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:geolocator/geolocator.dart';
+import 'package:intl/intl.dart';
 
 class AttendanceService {
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
@@ -26,83 +29,87 @@ class AttendanceService {
     return DateTime(now.year, now.month, now.day, 18, 0, 0); // 6:00 PM
   }
 
+  // CHECK TODAY'S ATTENDANCE STATUS
+  Future<Map<String, dynamic>> getTodayAttendance(String email) async {
+    String today = DateTime.now().toIso8601String().substring(0, 10);
+
+    try {
+      log("Called get Today Attendance");
+      DocumentSnapshot snapshot = await _firestore
+          .collection('employees')
+          .doc(email)
+          .collection('checkIns')
+          .doc(today)
+          .get();
+
+      if (snapshot.exists && snapshot.data() != null) {
+        Map<String, dynamic> data = snapshot.data() as Map<String, dynamic>;
+
+        DateTime? checkInTime = data.containsKey('checkInTime')
+            ? (data['checkInTime'] as Timestamp).toDate()
+            : null;
+        DateTime? checkOutTime = data.containsKey('checkOutTime')
+            ? (data['checkOutTime'] as Timestamp).toDate()
+            : null;
+
+        return {
+          "checkedIn": data.containsKey('checkInTime'),
+          "checkedOut": data.containsKey('checkOutTime'),
+          "checkInTime": checkInTime,
+          "checkOutTime": checkOutTime,
+        };
+      } else {
+        return {"checkedIn": false, "checkedOut": false};
+      }
+    } catch (e) {
+      log("ERROR: in today attendance");
+      return {"checkedIn": false, "checkedOut": false};
+    }
+  }
 
   // CHECK-IN FUNCTION
   Future<void> checkIn(String email, String? reason) async {
-
     String today = DateTime.now().toIso8601String().substring(0, 10);
     DateTime checkInTime = DateTime.now();
     bool isLate = checkInTime.isAfter(officeStartTime);
 
-    await _firestore.collection('employees')
+    // Store check-in time as a Timestamp
+    await _firestore
+        .collection('employees')
         .doc(email)
         .collection('checkIns')
         .doc(today)
         .set({
-      'checkInTime': checkInTime.toIso8601String(),
+      'checkInTime': Timestamp.fromDate(checkInTime), // Store as Timestamp
       'lateReason': isLate ? reason : null,
       'status': 'Present',
     }, SetOptions(merge: true));
   }
 
   // CHECK-OUT FUNCTION
-  Future<void> checkOut(String email) async {
+  Future<void> checkOut(String email, String? reason) async {
     String today = DateTime.now().toIso8601String().substring(0, 10);
     DateTime checkOutTime = DateTime.now();
 
-    DocumentSnapshot snapshot = await _firestore.collection('employees')
+    DocumentSnapshot snapshot = await _firestore
+        .collection('employees')
         .doc(email)
         .collection('checkIns')
         .doc(today)
         .get();
 
-    if (!snapshot.exists) throw "Check-in not found!";
+    if (!snapshot.exists) return;
 
-    await _firestore.collection('employees')
+    // Store check-out time as a Timestamp
+    await _firestore
+        .collection('employees')
         .doc(email)
         .collection('checkIns')
         .doc(today)
         .set({
-      'checkOutTime': checkOutTime.toIso8601String(),
+      'checkOutTime': Timestamp.fromDate(checkOutTime),
+      'earlyLeaveReason': reason,
     }, SetOptions(merge: true));
   }
 
-  // MARK ABSENT IF NO CHECK-IN
-  Future<void> markAbsentIfNoCheckIn(String email) async {
-    String yesterday = DateTime.now().subtract(Duration(days: 1)).toIso8601String().substring(0, 10);
-    DocumentSnapshot snapshot = await _firestore.collection('employees')
-        .doc(email)
-        .collection('checkIns')
-        .doc(yesterday)
-        .get();
-
-    if (!snapshot.exists) {
-      await _firestore.collection('employees')
-          .doc(email)
-          .collection('checkIns')
-          .doc(yesterday)
-          .set({'status': 'Absent'}, SetOptions(merge: true));
-    }
-  }
-
-  // MARK MISSING CHECKOUT
-  Future<void> markMissingCheckOut(String email) async {
-    String today = DateTime.now().toIso8601String().substring(0, 10);
-    DocumentSnapshot snapshot = await _firestore.collection('employees')
-        .doc(email)
-        .collection('checkIns')
-        .doc(today)
-        .get();
-
-    if (snapshot.exists && snapshot.data() != null) {
-      Map<String, dynamic> data = snapshot.data() as Map<String, dynamic>;
-      if (data.containsKey('checkInTime') && !data.containsKey('checkOutTime')) {
-        await _firestore.collection('employees')
-            .doc(email)
-            .collection('checkIns')
-            .doc(today)
-            .set({'status': 'Missing Checkout'}, SetOptions(merge: true));
-      }
-    }
-  }
 }

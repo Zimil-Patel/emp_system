@@ -1,5 +1,7 @@
+import 'package:emp_system/utils/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get.dart';
 
 import '../home page/components/current_date_time.dart';
 import 'components/lcoation_alert_message.dart';
@@ -38,11 +40,10 @@ class MapPage extends StatelessWidget {
                     // GOOGLE MAP
                     MapBox(),
 
-                    // CHECK IN, CHECK OUT, WORKING HOUR
                     if (false) TimingInfoRow(),
 
-                    // CURRENT LOCATION ADDRESS
-                    if (true) LocationAlertMessage(),
+                    // CHECK IN, CHECK OUT, WORKING HOUR & ALERT MESSAGE
+                    Obx(() => attendanceController.isInsideOfficeRange.value ? TimingInfoRow() : LocationAlertMessage()),
                   ],
                 ),
               ),
