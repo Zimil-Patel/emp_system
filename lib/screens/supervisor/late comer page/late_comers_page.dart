@@ -1,5 +1,7 @@
+import 'package:emp_system/utils/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get.dart';
 
 import '../../../core/model/attendace_model.dart';
 import '../attendance page/components/attendance_list.dart';
@@ -42,12 +44,11 @@ class LateComersPage extends StatelessWidget {
 
           // ATTENDANCE LIST
           Expanded(
-            child: AttendanceList(
-              employees: const [
-                AttendanceData("Md. Rakibul Islam", "10:55", "--:--", true),
-                AttendanceData("Md. Ratul", "10:15", "17:00", true),
-                AttendanceData("Md. Atik", "10:07", "18:09", true),
-              ],
+            child: Obx(
+                () => AttendanceList(
+                attendanceList: supervisorController.attendanceList.where((attendance) => attendance.isLate == true).toList(),
+
+              ),
             ),
           ),
         ],

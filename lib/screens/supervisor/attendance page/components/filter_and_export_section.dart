@@ -1,6 +1,9 @@
+import 'package:emp_system/utils/constants.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get.dart';
+import 'package:intl/intl.dart';
 
 import '../../../../theme/app_theme.dart';
 
@@ -19,7 +22,18 @@ class FilterAndExportSection extends StatelessWidget {
           // Date Picker
           CupertinoButton(
             padding: EdgeInsets.zero,
-            onPressed: (){},
+            onPressed: () async {
+              DateTime? pickedDate = await showDatePicker(
+                context: context,
+                initialDate: supervisorController.selectedDate.value,
+                firstDate: DateTime(2020),
+                lastDate: DateTime.now(),
+              );
+
+              if (pickedDate != null) {
+                supervisorController.updateDate(pickedDate);
+              }
+            },
             child: Container(
               alignment: Alignment.center,
               padding: EdgeInsets.symmetric(horizontal: 6, vertical: 6),
@@ -30,7 +44,7 @@ class FilterAndExportSection extends StatelessWidget {
               child: Row(
                 mainAxisSize: MainAxisSize.min,
                 children: [
-                  Text('18 Mar 2025', style: TextStyle(color: Colors.black, fontFamily: 'VarelaRounded', fontSize: 14.h),),
+                  Obx(() => Text(DateFormat('dd MMM yyyy').format(supervisorController.selectedDate.value), style: TextStyle(color: Colors.black, fontFamily: 'VarelaRounded', fontSize: 14.h),)),
                   SizedBox(width: 4),
                   Icon(Icons.arrow_drop_down)
                 ],
@@ -52,9 +66,11 @@ class FilterAndExportSection extends StatelessWidget {
                     "Total Employees: ",
                     style: TextStyle(fontSize: 14.h),
                   ),
-                  Text(
-                    "25",
-                    style: TextStyle(fontSize: 14.h, color: Colors.green),
+                  Obx(
+                      () => Text(
+                      supervisorController.employeeList.length.toString(),
+                      style: TextStyle(fontSize: 14.h, color: Colors.green),
+                    ),
                   ),
                 ],
               ),

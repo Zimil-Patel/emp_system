@@ -16,8 +16,7 @@ class CalendarPage extends StatefulWidget {
 }
 
 class _CalendarPageState extends State<CalendarPage> {
-  Map<String, String> attendanceData =
-      {}; // Stores attendance data as { '2025-03-30': 'Present' }
+  Map<String, String> attendanceData = {};
 
   @override
   void initState() {

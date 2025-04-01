@@ -1,8 +1,9 @@
 import 'package:emp_system/screens/supervisor/attendance%20page/components/filter_and_export_section.dart';
+import 'package:emp_system/utils/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get.dart';
 
-import '../../../core/model/attendace_model.dart';
 import '../attendance page/components/attendance_list.dart';
 
 class EarlyLeaversPage extends StatelessWidget {
@@ -42,12 +43,10 @@ class EarlyLeaversPage extends StatelessWidget {
 
           // ATTENDANCE LIST
           Expanded(
-            child: AttendanceList(
-              employees: const [
-                AttendanceData("Md. Sharek", "09:43", "17:30", false),
-                AttendanceData("Md. Sorif", "10:00", "17:42", false),
-                AttendanceData("Md. Ratul", "10:15", "17:00", true),
-              ],
+            child: Obx(
+                () => AttendanceList(
+                attendanceList: supervisorController.attendanceList.where((attendance) => attendance.isEarly == true).toList(),
+              ),
             ),
           ),
         ],

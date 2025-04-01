@@ -61,7 +61,7 @@ class StatsController extends GetxController {
         if (checkInData.containsKey(dateKey)) {
           Map<String, dynamic>? record = checkInData[dateKey];
 
-          if(record == null) continue;
+          if (record == null) continue;
 
           if (record['checkInTime'] != null) {
             totalPresents.value++;

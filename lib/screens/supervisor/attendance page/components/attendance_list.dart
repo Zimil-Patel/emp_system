@@ -3,19 +3,21 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../../../core/model/attendace_model.dart';
 
-
 class AttendanceList extends StatelessWidget {
-  final List<AttendanceData> employees;
-  const AttendanceList({super.key, required this.employees});
+  final List<AttendanceData> attendanceList;
+
+  const AttendanceList({super.key, required this.attendanceList});
 
   @override
   Widget build(BuildContext context) {
-    return ListView.separated(
-      itemCount: employees.length,
-      separatorBuilder: (context, index) => const Divider(height: 1),
-      itemBuilder: (context, index) {
-        return AttendanceTile(data: employees[index]);
-      },
+    return
+      ListView.separated(
+        itemCount: attendanceList.length,
+        separatorBuilder: (context, index) => const Divider(height: 1),
+        itemBuilder: (context, index) {
+          return AttendanceTile(
+              data: attendanceList[index]);
+        },
     );
   }
 }
@@ -23,6 +25,7 @@ class AttendanceList extends StatelessWidget {
 // ATTENDANCE TILE
 class AttendanceTile extends StatelessWidget {
   final AttendanceData data;
+
   const AttendanceTile({super.key, required this.data});
 
   @override
@@ -45,7 +48,7 @@ class AttendanceTile extends StatelessWidget {
 
                 // Employee ID
                 Text(
-                  "123456\nUI/UX Designer",
+                  data.id,
                   style: TextStyle(fontSize: 12.h, color: Colors.grey),
                 ),
               ],
@@ -55,7 +58,7 @@ class AttendanceTile extends StatelessWidget {
           // Attendance Timing
           Expanded(
             child: Text(
-              data.inTime,
+              data.checkInTime,
               style: TextStyle(
                 fontSize: 13.h,
                 color: data.isLate ? Colors.red : Colors.black,
@@ -66,8 +69,12 @@ class AttendanceTile extends StatelessWidget {
 
           Expanded(
             child: Text(
-              data.outTime,
-              style: TextStyle(fontSize: 13.h, fontWeight: FontWeight.bold),
+              data.checkOutTime,
+              style: TextStyle(
+                fontSize: 13.h,
+                fontWeight: FontWeight.bold,
+                color: data.isEarly ? Colors.red : Colors.black,
+              ),
             ),
           ),
         ],

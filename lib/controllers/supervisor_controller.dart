@@ -4,18 +4,54 @@ import 'package:emp_system/core/services/auth_services.dart';
 import 'package:emp_system/core/services/mail_services.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:intl/intl.dart';
+
+import '../core/model/attendace_model.dart';
 
 class SupervisorController extends GetxController {
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
   final AuthServices auth = AuthServices.authServices;
+  var attendanceList = <AttendanceData>[].obs;
+  var selectedDate = DateTime.now().obs;
 
   RxList<EmployeeModel> employeeList = <EmployeeModel>[].obs;
 
   @override
   void onInit() {
     fetchEmployeeList();
+    fetchAttendance();
     super.onInit();
   }
+
+  updateDate(DateTime dateTime){
+    selectedDate.value = dateTime;
+    fetchAttendance();
+  }
+
+  // FETCH attendance records for selected date
+  void fetchAttendance() {
+    String formattedDate = DateFormat('yyyy-MM-dd').format(selectedDate.value);
+
+    FirebaseFirestore.instance.collection('employees').snapshots().listen((snapshot) async {
+      List<AttendanceData> records = [];
+
+      for (var doc in snapshot.docs) {
+        String name = doc['name'];
+        String id = doc['employee_id'];
+        var checkIns = await doc.reference
+            .collection('checkIns')
+            .doc(formattedDate)
+            .get();
+
+        if (checkIns.exists) {
+          records.add(AttendanceData.fromFirestore(checkIns.data()!, name, id));
+        }
+      }
+
+      attendanceList.assignAll(records);
+    });
+  }
+
 
   // Fetch employees in real-time
   void fetchEmployeeList() {
