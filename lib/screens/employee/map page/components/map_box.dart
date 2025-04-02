@@ -57,9 +57,9 @@ class _MapBoxState extends State<MapBox> {
       log("In office");
       Get.snackbar('Location', "Status: In office");
       if(isCheckIn){
-        // await attendanceController.checkInEmployee(authController.currentEmployee!.email, context);
+        await attendanceController.checkInEmployee(authController.currentEmployee!.email);
       } else {
-        // await attendanceController.checkOutEmployee(authController.currentEmployee!.email, context);
+        await attendanceController.checkOutEmployee(authController.currentEmployee!.email);
       }
     } else {
       log("Not in office");

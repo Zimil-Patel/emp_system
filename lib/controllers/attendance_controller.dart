@@ -57,7 +57,7 @@ class AttendanceController extends GetxController {
   }
 
   // CHECK-IN PROCESS
-  Future<void> checkInEmployee(String email, BuildContext context) async {
+  Future<void> checkInEmployee(String email) async {
     // IF ALREADY DONE CANCEL IT
     if (hasCheckedIn.value) {
       log("Called");
@@ -72,7 +72,7 @@ class AttendanceController extends GetxController {
       String formattedCheckInTime = DateFormat('h:mm a').format(now);
 
       if (isLate) {
-        showLateAlert(context, formattedCheckInTime);
+        showLateAlert(formattedCheckInTime);
       } else {
         await _attendanceService.checkIn(email, null);
         hasCheckedIn.value = true;
@@ -85,14 +85,14 @@ class AttendanceController extends GetxController {
   }
 
   // CHECK-OUT PROCESS
-  Future<void> checkOutEmployee(String email, BuildContext context) async {
+  Future<void> checkOutEmployee(String email) async {
     // IN CASE WHEN USER CLICK ON CHECKOUT BEFORE CHECKING IN
     if (!hasCheckedIn.value) {
       Get.snackbar("Check-out Error", "You need to check in first.");
       return;
     }
 
-    // IF NOT THEN CONTINUE
+    // IF ALREADY CHECKED OUT FOR TOADY
     if (hasCheckedOut.value) {
       Get.snackbar(
         "Done",
@@ -108,30 +108,21 @@ class AttendanceController extends GetxController {
         margin: EdgeInsets.all(12),
         borderRadius: 8,
         duration: Duration(seconds: 3),
-        shouldIconPulse: false,  // Disable icon pulse animation for a more subtle effect
+        shouldIconPulse:
+            false, // Disable icon pulse animation for a more subtle effect
       );
       return;
     }
 
-    // Get.to(() => MapPage());
-
-    Position position = await Geolocator.getCurrentPosition();
-    isInsideOfficeRange.value =
-        await _attendanceService.isWithinOfficeRange(position);
-
-    if (!isInsideOfficeRange.value) {
-      Get.snackbar("Location Error", "You are outside the office range.");
-      return;
-    }
-
+    // IF NOT THEN CONTINUE
     try {
       DateTime now = DateTime.now();
       String formattedCheckOutTime = DateFormat('h:mm a').format(now);
 
       bool isBefore = now.isBefore(_attendanceService.officeEndTime);
 
-      if(isBefore){
-        showEarlyLeaveAlert(context, formattedCheckOutTime);
+      if (isBefore) {
+        showEarlyLeaveAlert( formattedCheckOutTime);
       } else {
         await _attendanceService.checkOut(email, null);
         hasCheckedOut.value = true;
@@ -139,7 +130,6 @@ class AttendanceController extends GetxController {
         await calculateWorkingHours();
         showCheckOutSnackBar();
       }
-
     } catch (e) {
       log("Exception: In formation");
     }
@@ -177,7 +167,7 @@ class AttendanceController extends GetxController {
   }
 }
 
-showCheckOutSnackBar(){
+showCheckOutSnackBar() {
   Get.snackbar(
     "Success",
     "Check-out successful!",
@@ -192,11 +182,12 @@ showCheckOutSnackBar(){
     margin: EdgeInsets.all(12),
     borderRadius: 8,
     duration: Duration(seconds: 3),
-    shouldIconPulse: false,  // Disable icon pulse animation for a more subtle effect
+    shouldIconPulse:
+        false, // Disable icon pulse animation for a more subtle effect
   );
 }
 
-showCheckInSnackBar(){
+showCheckInSnackBar() {
   Get.snackbar(
     "Success",
     "Check-in successful!",
@@ -211,117 +202,120 @@ showCheckInSnackBar(){
     margin: EdgeInsets.all(12),
     borderRadius: 8,
     duration: Duration(seconds: 3),
-    shouldIconPulse: false,  // Disable icon pulse animation for a more subtle effect
+    shouldIconPulse:
+        false, // Disable icon pulse animation for a more subtle effect
   );
-
 }
 
-showLateAlert(BuildContext context, String formattedCheckInTime) {
-  Get.dialog(AlertDialog(
-    shape: RoundedRectangleBorder(
-      borderRadius: BorderRadius.circular(4.h),
-    ),
-    title: Row(
-      children: [
-        Text('You are late'),
-        Spacer(),
-        CupertinoButton(
-          padding: EdgeInsets.zero,
-          onPressed: () {
-            Navigator.pop(context);
-          },
-          child: Container(
-            decoration: BoxDecoration(
-              shape: BoxShape.circle,
-              border: Border.all(
-                width: 1,
+showLateAlert( String formattedCheckInTime) {
+  Get.dialog(
+    AlertDialog(
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(4.h),
+      ),
+      title: Row(
+        children: [
+          Text('You are late'),
+          Spacer(),
+          CupertinoButton(
+            padding: EdgeInsets.zero,
+            onPressed: () {
+              Get.back();
+            },
+            child: Container(
+              decoration: BoxDecoration(
+                shape: BoxShape.circle,
+                border: Border.all(
+                  width: 1,
+                  color: Colors.red.shade400,
+                ),
+              ),
+              child: Icon(
+                Icons.close,
                 color: Colors.red.shade400,
               ),
             ),
-            child: Icon(
-              Icons.close,
-              color: Colors.red.shade400,
-            ),
           ),
-        ),
-      ],
+        ],
+      ),
+      content: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          // MAIL ICON
+          Image.asset(
+            'assets/images/alert_logo.png',
+            height: 40.h,
+            width: 40.w,
+          ),
+          SizedBox(height: 5.h),
+
+          // DIALOG MESSAGE
+          Text("Select a reason for being late:"),
+          Obx(() => Column(
+                children: ["Traffic", "Forgot", "Other"].map((reason) {
+                  return RadioListTile(
+                    title: Text(reason),
+                    value: reason,
+                    groupValue: attendanceController.selectedReason.value,
+                    onChanged: (value) =>
+                        attendanceController.selectedReason.value = value!,
+                    activeColor: Colors.green,
+                  );
+                }).toList(),
+              )),
+          Obx(() => attendanceController.selectedReason.value == "Other"
+              ? TextField(
+                  controller: attendanceController.txtReason,
+                  cursorColor: primaryColor,
+                  decoration: InputDecoration(
+                    hintText: 'Enter reason',
+                    fillColor: Colors.grey.withOpacity(
+                      0.4,
+                    ),
+                    enabledBorder: OutlineInputBorder(),
+                    focusedBorder: OutlineInputBorder(
+                      borderSide: BorderSide(color: primaryColor),
+                    ),
+                  ),
+                )
+              : Container()),
+
+          SizedBox(height: 10.h),
+
+          // SUBMIT BUTTON
+          ElevatedButton(
+            onPressed: () async {
+              // Replace with actual functionality if needed
+              await attendanceController._attendanceService.checkIn(
+                  authController.currentEmployee!.email,
+                  attendanceController.selectedReason.value == "Other"
+                      ? attendanceController.txtReason.text.isEmpty
+                          ? "Not mentioned"
+                          : attendanceController.txtReason.text
+                      : attendanceController.selectedReason.value);
+              attendanceController.hasCheckedIn.value = true;
+              attendanceController.checkInTime.value = formattedCheckInTime;
+              Get.back();
+              showCheckInSnackBar();
+            },
+            style: ElevatedButton.styleFrom(
+              backgroundColor: primaryColor,
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(8),
+              ),
+              padding: EdgeInsets.symmetric(vertical: 12, horizontal: 24),
+            ),
+            child: Text("Submit", style: TextStyle(color: Colors.white)),
+          ),
+        ],
+      ),
     ),
-    content: Column(
-      mainAxisSize: MainAxisSize.min,
-      children: [
-        // MAIL ICON
-        Image.asset(
-          'assets/images/alert_logo.png',
-          height: 40.h,
-          width: 40.w,
-        ),
-        SizedBox(height: 5.h),
-
-        // DIALOG MESSAGE
-        Text("Select a reason for being late:"),
-        Obx(() => Column(
-          children: ["Traffic", "Forgot", "Other"].map((reason) {
-            return RadioListTile(
-              title: Text(reason),
-              value: reason,
-              groupValue: attendanceController.selectedReason.value,
-              onChanged: (value) =>
-              attendanceController.selectedReason.value = value!,
-              activeColor: Colors.green,
-            );
-          }).toList(),
-        )),
-        Obx(() => attendanceController.selectedReason.value == "Other"
-            ? TextField(
-          controller: attendanceController.txtReason,
-          cursorColor: primaryColor,
-          decoration: InputDecoration(
-            hintText: 'Enter reason',
-            fillColor: Colors.grey.withOpacity(
-              0.4,
-            ),
-            enabledBorder: OutlineInputBorder(),
-            focusedBorder: OutlineInputBorder(
-              borderSide: BorderSide(color: primaryColor),
-            ),
-          ),
-        )
-            : Container()),
-
-        SizedBox(height: 10.h),
-
-        // SUBMIT BUTTON
-        ElevatedButton(
-          onPressed: () async {
-            // Replace with actual functionality if needed
-            await attendanceController._attendanceService.checkIn(
-                authController.currentEmployee!.email,
-                attendanceController.selectedReason.value == "Other"
-                    ? attendanceController.txtReason.text.isEmpty ? "Not mentioned" : attendanceController.txtReason.text
-                    : attendanceController.selectedReason.value);
-            attendanceController.hasCheckedIn.value = true;
-            attendanceController.checkInTime.value = formattedCheckInTime;
-            Get.back();
-            showCheckInSnackBar();
-          },
-          style: ElevatedButton.styleFrom(
-            backgroundColor: primaryColor,
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(8),
-            ),
-            padding: EdgeInsets.symmetric(vertical: 12, horizontal: 24),
-          ),
-          child: Text("Submit", style: TextStyle(color: Colors.white)),
-        ),
-      ],
-    ),
-  ),);
+  );
 }
 
-showEarlyLeaveAlert(BuildContext context, String formattedCheckOutTime) {
-  showDialog(
-    context: context,
-    builder: (context) => AlertDialog(
+showEarlyLeaveAlert(String formattedCheckOutTime) {
+  Get.dialog(
+    AlertDialog(
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(4.h),
       ),
@@ -332,7 +326,7 @@ showEarlyLeaveAlert(BuildContext context, String formattedCheckOutTime) {
           CupertinoButton(
             padding: EdgeInsets.zero,
             onPressed: () {
-              Navigator.pop(context);
+              Get.back();
             },
             child: Container(
               decoration: BoxDecoration(
@@ -355,7 +349,8 @@ showEarlyLeaveAlert(BuildContext context, String formattedCheckOutTime) {
         children: [
           // ICON
           Image.asset(
-            'assets/images/alert_logo.png', // Use a relevant icon for early leave
+            'assets/images/alert_logo.png',
+            // Use a relevant icon for early leave
             height: 40.h,
             width: 40.w,
           ),
@@ -364,32 +359,32 @@ showEarlyLeaveAlert(BuildContext context, String formattedCheckOutTime) {
           // DIALOG MESSAGE
           Text("Select a reason for early leave:"),
           Obx(() => Column(
-            children: ["Personal", "Health", "Other"].map((reason) {
-              return RadioListTile(
-                title: Text(reason),
-                value: reason,
-                groupValue: attendanceController.selectedReason.value,
-                onChanged: (value) =>
-                attendanceController.selectedReason.value = value!,
-                activeColor: Colors.green,
-              );
-            }).toList(),
-          )),
+                children: ["Personal", "Health", "Other"].map((reason) {
+                  return RadioListTile(
+                    title: Text(reason),
+                    value: reason,
+                    groupValue: attendanceController.selectedReason.value,
+                    onChanged: (value) =>
+                        attendanceController.selectedReason.value = value!,
+                    activeColor: Colors.green,
+                  );
+                }).toList(),
+              )),
           Obx(() => attendanceController.selectedReason.value == "Other"
               ? TextField(
-            controller: attendanceController.txtReason,
-            cursorColor: primaryColor,
-            decoration: InputDecoration(
-              hintText: 'Enter reason',
-              fillColor: Colors.grey.withOpacity(
-                0.4,
-              ),
-              enabledBorder: OutlineInputBorder(),
-              focusedBorder: OutlineInputBorder(
-                borderSide: BorderSide(color: primaryColor),
-              ),
-            ),
-          )
+                  controller: attendanceController.txtReason,
+                  cursorColor: primaryColor,
+                  decoration: InputDecoration(
+                    hintText: 'Enter reason',
+                    fillColor: Colors.grey.withOpacity(
+                      0.4,
+                    ),
+                    enabledBorder: OutlineInputBorder(),
+                    focusedBorder: OutlineInputBorder(
+                      borderSide: BorderSide(color: primaryColor),
+                    ),
+                  ),
+                )
               : Container()),
 
           SizedBox(height: 10.h),
@@ -402,8 +397,8 @@ showEarlyLeaveAlert(BuildContext context, String formattedCheckOutTime) {
                   authController.currentEmployee!.email,
                   attendanceController.selectedReason.value == "Other"
                       ? attendanceController.txtReason.text.isEmpty
-                      ? "Not mentioned"
-                      : attendanceController.txtReason.text
+                          ? "Not mentioned"
+                          : attendanceController.txtReason.text
                       : attendanceController.selectedReason.value);
               attendanceController.hasCheckedOut.value = true;
               attendanceController.checkOutTime.value = formattedCheckOutTime;
