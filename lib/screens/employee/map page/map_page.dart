@@ -19,35 +19,32 @@ class MapPage extends StatelessWidget {
       appBar: AppBar(),
 
       // BODY
-      body: SingleChildScrollView(
+      body: Padding(
+        padding: EdgeInsets.symmetric(horizontal: 20.h),
         child: Center(
-          child: ConstrainedBox(
-            constraints: BoxConstraints(
-              minHeight: MediaQuery.of(context).size.height -
-                  (MediaQuery.of(context).size.height * 0.2),
-            ),
-            child: IntrinsicHeight(
-              child: Padding(
-                padding: EdgeInsets.symmetric(horizontal: 20.w),
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: [
-                    // TIME
-                    CurrentDateTime(),
+          child: SingleChildScrollView(
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                // TIME
+                CurrentDateTime(),
 
-                    // LOCATION STATUS
-                    LocationStatus(),
+                SizedBox(height: 30.h),
 
-                    // GOOGLE MAP
-                    MapBox(isCheckIn: isCheckIn,),
+                // LOCATION STATUS
+                LocationStatus(),
 
-                    if (false) TimingInfoRow(),
+                SizedBox(height: 10.h),
 
-                    // CHECK IN, CHECK OUT, WORKING HOUR & ALERT MESSAGE
-                    Obx(() => attendanceController.isInsideOfficeRange.value ? TimingInfoRow() : LocationAlertMessage()),
-                  ],
-                ),
-              ),
+                // GOOGLE MAP
+                MapBox(isCheckIn: isCheckIn,),
+
+                // CHECK IN, CHECK OUT, WORKING HOUR & ALERT MESSAGE
+                Obx(() => attendanceController.isInsideOfficeRange.value ? TimingInfoRow() : LocationAlertMessage()),
+
+                SizedBox(height: 50.h),
+              ],
             ),
           ),
         ),

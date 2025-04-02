@@ -44,37 +44,35 @@ class _CurrentDateTimeState extends State<CurrentDateTime> {
   @override
   Widget build(BuildContext context) {
     return Column(
+      mainAxisSize: MainAxisSize.min,
       children: [
-        Padding(
-          padding: EdgeInsets.only(top: 20.h),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.end,
-            children: [
-              Text(
-                DateFormat('hh:mm').format(DateTime.now()),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.end,
+          children: [
+            Text(
+              DateFormat('hh:mm').format(DateTime.now()),
+              style: TextStyle(
+                fontSize: 40.h,
+                color: Colors.black87,
+                fontWeight: FontWeight.w500,
+              ),
+            ),
+            SizedBox(
+              width: 8,
+            ),
+            Padding(
+              padding: const EdgeInsets.only(bottom: 8),
+              child: Text(
+                "${DateFormat.s().format(DateTime.now()).padLeft(2, "0")} ${DateFormat('a').format(DateTime.now())}",
                 style: TextStyle(
-                  fontSize: 40.h,
-                  color: Colors.black87,
+                  fontSize: 20.h,
+                  color: Colors.grey,
                   fontWeight: FontWeight.w500,
                 ),
               ),
-              SizedBox(
-                width: 8,
-              ),
-              Padding(
-                padding: const EdgeInsets.only(bottom: 8),
-                child: Text(
-                  "${DateFormat.s().format(DateTime.now()).padLeft(2, "0")} ${DateFormat('a').format(DateTime.now())}",
-                  style: TextStyle(
-                    fontSize: 20.h,
-                    color: Colors.grey,
-                    fontWeight: FontWeight.w500,
-                  ),
-                ),
-              ),
-            ],
-          ),
+            ),
+          ],
         ),
 
         // WEEK OF DAY

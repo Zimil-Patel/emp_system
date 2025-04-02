@@ -9,7 +9,7 @@ class LocationStatus extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Obx(
-      () => attendanceController.isInsideOfficeRange.value
+      () => attendanceController.currentAddress.value == "Fetching Location" ? StatusMessageWithIcon(icon: 'loading_logo', status: "Checking location status.") : attendanceController.isInsideOfficeRange.value
           ? StatusMessageWithIcon(
               icon: 'done_logo',
               status: 'Now you are at office',
@@ -46,7 +46,7 @@ class StatusMessageWithIcon extends StatelessWidget {
           'Status: ',
           style: TextStyle(
             fontWeight: FontWeight.w600,
-            fontSize: 15.h,
+            fontSize: 14.h,
           ),
         ),
         Expanded(
@@ -54,7 +54,7 @@ class StatusMessageWithIcon extends StatelessWidget {
             status,
             style: TextStyle(
               color: icon == "alert_logo" ? Colors.red.shade400 : Colors.black,
-              fontSize: 15.h,
+              fontSize: 14.h,
             ),
           ),
         ),

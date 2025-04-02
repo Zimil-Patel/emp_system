@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get.dart';
 
 class LocationAlertMessage extends StatelessWidget {
   const LocationAlertMessage({super.key});
@@ -39,7 +40,9 @@ class LocationAlertMessage extends StatelessWidget {
           ),
           CupertinoButton(
             padding: EdgeInsets.zero,
-            onPressed: () {},
+            onPressed: () {
+              Get.back();
+            },
             child: Text(
               'try again!',
               style: TextStyle(

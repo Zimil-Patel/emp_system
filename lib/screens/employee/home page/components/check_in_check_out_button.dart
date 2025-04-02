@@ -1,3 +1,4 @@
+import 'package:emp_system/controllers/attendance_controller.dart';
 import 'package:emp_system/theme/app_theme.dart';
 import 'package:emp_system/utils/constants.dart';
 import 'package:flutter/cupertino.dart';
@@ -27,6 +28,9 @@ class CheckInCheckOutButton extends StatelessWidget {
       padding: EdgeInsets.zero,
       onPressed: () {
         // Get.to(() => MapPage());
+        // showCheckInSnackBar();
+        // showCheckOutSnackBar();
+        attendanceController.currentAddress.value = "Fetching Location";
         if (!attendanceController.hasCheckedIn.value) {
           Get.to(() => MapPage(isCheckIn: true));
         } else {

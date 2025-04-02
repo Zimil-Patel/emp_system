@@ -15,7 +15,6 @@ late StatsController statsController;
 const String supervisorEmail = "admin@gmail.com";
 const String supervisorPassword = "admin";
 
-
 // SACHIN
 final LatLng officeLocation = LatLng(21.084967, 72.881111);
 

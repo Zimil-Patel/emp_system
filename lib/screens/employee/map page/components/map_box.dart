@@ -1,6 +1,7 @@
 import 'dart:developer';
 
 import 'package:emp_system/core/services/attendance_services.dart';
+import 'package:emp_system/theme/app_theme.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:geolocator/geolocator.dart';
@@ -24,7 +25,6 @@ class _MapBoxState extends State<MapBox> {
   GoogleMapController? mapController;
   LatLng? currentLocation;
   final double officeRange = 200;
-  String? currentAddress;
 
   @override
   void initState() {
@@ -43,6 +43,7 @@ class _MapBoxState extends State<MapBox> {
     // GET CURRENT LOCATION
     Position position = await Geolocator.getCurrentPosition(
         desiredAccuracy: LocationAccuracy.high);
+
     setState(() {
       currentLocation = LatLng(position.latitude, position.longitude);
     });
@@ -50,20 +51,20 @@ class _MapBoxState extends State<MapBox> {
     if (mapController != null) {
       mapController!.animateCamera(CameraUpdate.newLatLng(currentLocation!));
     }
-
+    getAddress();
     final bool result = await AttendanceService().isWithinOfficeRange(position);
-
+    attendanceController.isInsideOfficeRange.value = result;
     if (result) {
       log("In office");
-      // Get.snackbar('Location', "Status: In office");
-      if(isCheckIn){
-        await attendanceController.checkInEmployee(authController.currentEmployee!.email);
+      if (isCheckIn) {
+        await attendanceController
+            .checkInEmployee(authController.currentEmployee!.email);
       } else {
-        await attendanceController.checkOutEmployee(authController.currentEmployee!.email);
+        await attendanceController
+            .checkOutEmployee(authController.currentEmployee!.email);
       }
     } else {
       log("Not in office");
-      // Get.snackbar('Location', "Status: Not in office");
     }
   }
 
@@ -73,16 +74,15 @@ class _MapBoxState extends State<MapBox> {
           currentLocation!.latitude, currentLocation!.longitude);
       Placemark place = placeMarks.first;
 
-      currentAddress =
+      attendanceController.currentAddress.value =
           "${place.name} ${place.street} ${place.locality} ${place.country} ${place.postalCode}";
     } catch (e) {
       // log("Error: $e");
-      currentAddress = "Address not found";
+      attendanceController.currentAddress.value = "Address not found";
     }
 
-    return currentAddress;
+    return attendanceController.currentAddress.value;
   }
-
 
   @override
   Widget build(BuildContext context) {
@@ -95,9 +95,9 @@ class _MapBoxState extends State<MapBox> {
           width: 280.h,
           child: Container(
             alignment: Alignment.center,
-            color: Colors.grey,
+            color: Colors.grey.shade400,
             child: currentLocation == null
-                ? CircularProgressIndicator()
+                ? CircularProgressIndicator(color: primaryColor,)
                 : GoogleMap(
                     initialCameraPosition: CameraPosition(
                       target: currentLocation!,
@@ -130,16 +130,8 @@ class _MapBoxState extends State<MapBox> {
         SizedBox(height: 20.h),
 
         // ADDRESS OF CURRENT LOCATION
-        FutureBuilder<String?>(
-          future: getAddress(),
-          builder: (context, snapshot) {
-            if (snapshot.connectionState == ConnectionState.waiting) {
-              return GeoAddress(address: "Fetching Location");
-            }
-
-            return GeoAddress(address: snapshot.data);
-          },
-        ),
+        Obx(() =>
+            GeoAddress(address: attendanceController.currentAddress.value)),
       ],
     );
   }

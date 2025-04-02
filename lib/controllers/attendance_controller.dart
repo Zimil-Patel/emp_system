@@ -14,6 +14,8 @@ class AttendanceController extends GetxController {
   final AttendanceService _attendanceService = AttendanceService();
   final AuthController _authController = Get.find<AuthController>();
 
+  RxString currentAddress = "Fetching Location".obs;
+
   RxBool hasCheckedIn = false.obs;
   RxBool hasCheckedOut = false.obs;
   RxString selectedReason = "".obs;
@@ -201,7 +203,7 @@ showCheckOutSnackBar() {
   Get.snackbar(
     "Success",
     "Check-out successful!",
-    backgroundColor: Colors.green.shade800,
+    backgroundColor: Colors.blue.shade800,
     colorText: Colors.white,
     icon: Icon(
       Icons.check_circle_outline,
