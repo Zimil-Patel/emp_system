@@ -29,26 +29,41 @@ class LateComersPage extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Expanded(
-                    flex: 3,
-                    child: Text("Name",
-                        style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14.h,),),),
+                  flex: 3,
+                  child: Text(
+                    "Name",
+                    style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      fontSize: 14.h,
+                    ),
+                  ),
+                ),
                 Expanded(
-                    child: Text("In",
-                        style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14.h,),),),
+                  child: Text(
+                    "In",
+                    style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      fontSize: 14.h,
+                    ),
+                  ),
+                ),
                 Expanded(
-                    child: Text("Out",
-                        style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14.h, ),),),
+                  child: Text(
+                    "Out",
+                    style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      fontSize: 14.h,
+                    ),
+                  ),
+                ),
               ],
             ),
           ),
 
           // ATTENDANCE LIST
           Expanded(
-            child: Obx(
-                () => AttendanceList(
-                attendanceList: supervisorController.attendanceList.where((attendance) => attendance.isLate == true).toList(),
-
-              ),
+            child: AttendanceList(
+              filter: 'Late',
             ),
           ),
         ],
@@ -56,5 +71,3 @@ class LateComersPage extends StatelessWidget {
     );
   }
 }
-
-

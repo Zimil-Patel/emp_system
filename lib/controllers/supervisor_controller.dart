@@ -11,8 +11,9 @@ import '../core/model/attendace_model.dart';
 class SupervisorController extends GetxController {
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
   final AuthServices auth = AuthServices.authServices;
-  var attendanceList = <AttendanceData>[].obs;
   var selectedDate = DateTime.now().obs;
+  var attendanceList = <AttendanceData>[].obs;
+  var filteredList = <AttendanceData>[].obs;
 
   RxList<EmployeeModel> employeeList = <EmployeeModel>[].obs;
 

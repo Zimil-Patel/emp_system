@@ -1,23 +1,34 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get.dart';
 
 import '../../../../core/model/attendace_model.dart';
+import '../../../../utils/constants.dart';
 
 class AttendanceList extends StatelessWidget {
-  final List<AttendanceData> attendanceList;
+  final String filter;
 
-  const AttendanceList({super.key, required this.attendanceList});
+  const AttendanceList({super.key, this.filter = 'All'});
 
   @override
   Widget build(BuildContext context) {
-    return
-      ListView.separated(
-        itemCount: attendanceList.length,
-        separatorBuilder: (context, index) => const Divider(height: 1),
-        itemBuilder: (context, index) {
-          return AttendanceTile(
-              data: attendanceList[index]);
-        },
+    return Obx(
+      () {
+        if(filter == 'Early'){
+          supervisorController.filteredList.value = supervisorController.attendanceList.where((attendance) => attendance.isEarly == true).toList();
+        } else if(filter == 'Late'){
+          supervisorController.filteredList.value = supervisorController.attendanceList.where((attendance) => attendance.isLate == true).toList();
+        } else {
+          supervisorController.filteredList.value = supervisorController.attendanceList;
+        }
+        return ListView.separated(
+          itemCount: supervisorController.filteredList.length,
+          separatorBuilder: (context, index) => const Divider(height: 1),
+          itemBuilder: (context, index) {
+            return AttendanceTile(data: supervisorController.filteredList[index]);
+          },
+        );
+      },
     );
   }
 }

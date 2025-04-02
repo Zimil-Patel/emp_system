@@ -1,6 +1,7 @@
 import 'dart:developer';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:emp_system/utils/constants.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:intl/intl.dart';
 
@@ -8,8 +9,8 @@ class AttendanceService {
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
 
   // OFFICE LOCATION
-  final double officeLatitude = 21.084967;
-  final double officeLongitude = 72.881111;
+  final double officeLatitude = officeLocation.latitude;
+  final double officeLongitude = officeLocation.longitude;
   final double officeRange = 200; // 100 meters
 
   Future<bool> isWithinOfficeRange(Position position) async {

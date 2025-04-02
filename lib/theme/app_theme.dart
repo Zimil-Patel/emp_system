@@ -30,7 +30,6 @@ class AppTheme{
         return null; // Default background
       }),
 
-      todayBackgroundColor: MaterialStateProperty.all(primaryColor),
       confirmButtonStyle: TextButton.styleFrom(
         foregroundColor: Colors.green, // OK button text color
       ),

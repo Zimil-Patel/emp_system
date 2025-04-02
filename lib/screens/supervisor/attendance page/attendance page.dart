@@ -62,10 +62,10 @@ class AttendancePage extends StatelessWidget {
 
           // ATTENDANCE LIST
           Expanded(
-            child: Obx(
-              () => AttendanceList(
-                attendanceList: supervisorController.attendanceList,
-              ),
+            child:
+            AttendanceList(
+                filter: 'All',
+
             ),
           ),
         ],

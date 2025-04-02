@@ -25,14 +25,17 @@ Widget supervisorDrawerItem({required String name, required IconData icon, requi
       }
 
       if(name == "Employee List"){
+        supervisorController.selectedDate.value = DateTime.now();
         Get.to(() => EmployeeListPage());
       }
 
       if(name == "Late Comers"){
+        supervisorController.selectedDate.value = DateTime.now();
         Get.to(() => LateComersPage());
       }
 
       if(name == "Early Leavers"){
+        supervisorController.selectedDate.value = DateTime.now();
         Get.to(() => EarlyLeaversPage());
       }
     },

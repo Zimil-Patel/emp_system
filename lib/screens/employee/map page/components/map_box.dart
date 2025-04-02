@@ -6,6 +6,7 @@ import 'package:geolocator/geolocator.dart';
 import 'package:geocoding/geocoding.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 
+import '../../../../utils/constants.dart';
 import 'geo_address.dart';
 
 class MapBox extends StatefulWidget {
@@ -20,12 +21,6 @@ class _MapBoxState extends State<MapBox> {
   LatLng? currentLocation;
   final double officeRange = 200;
   String? currentAddress;
-
-  // SACHIN
-  final LatLng officeLocation = LatLng(21.084967, 72.881111);
-
-  // BMU
-  // final LatLng officeLocation = LatLng(21.139171, 72.793428);
 
   @override
   void initState() {

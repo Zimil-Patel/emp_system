@@ -43,11 +43,10 @@ class EarlyLeaversPage extends StatelessWidget {
 
           // ATTENDANCE LIST
           Expanded(
-            child: Obx(
-                () => AttendanceList(
-                attendanceList: supervisorController.attendanceList.where((attendance) => attendance.isEarly == true).toList(),
+            child:
+               AttendanceList(
+                filter: 'Early',
               ),
-            ),
           ),
         ],
       ),
