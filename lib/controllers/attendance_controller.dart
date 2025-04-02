@@ -6,10 +6,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
-import 'package:geolocator/geolocator.dart';
 import 'package:intl/intl.dart';
 import '../core/services/attendance_services.dart';
-import '../screens/employee/map page/map_page.dart';
 import 'auth_controller.dart';
 
 class AttendanceController extends GetxController {
@@ -61,7 +59,23 @@ class AttendanceController extends GetxController {
     // IF ALREADY DONE CANCEL IT
     if (hasCheckedIn.value) {
       log("Called");
-      Get.snackbar("Check-in Error", "You have already checked in today.");
+      Get.snackbar(
+        "Alert!",
+        "You have already checked in today.",
+        backgroundColor: Colors.orange.shade800,
+        colorText: Colors.white,
+        icon: Icon(
+          Icons.warning_amber_outlined,
+          color: Colors.white,
+          size: 28,
+        ),
+        snackPosition: SnackPosition.TOP,
+        margin: EdgeInsets.all(12),
+        borderRadius: 8,
+        duration: Duration(seconds: 3),
+        shouldIconPulse:
+        false, // Disable icon pulse animation for a more subtle effect
+      );
       return;
     }
 
@@ -88,14 +102,30 @@ class AttendanceController extends GetxController {
   Future<void> checkOutEmployee(String email) async {
     // IN CASE WHEN USER CLICK ON CHECKOUT BEFORE CHECKING IN
     if (!hasCheckedIn.value) {
-      Get.snackbar("Check-out Error", "You need to check in first.");
+      Get.snackbar(
+        "Alert!",
+        "You have to check in first",
+        backgroundColor: Colors.orange.shade800,
+        colorText: Colors.white,
+        icon: Icon(
+          Icons.warning_amber_outlined,
+          color: Colors.white,
+          size: 28,
+        ),
+        snackPosition: SnackPosition.TOP,
+        margin: EdgeInsets.all(12),
+        borderRadius: 8,
+        duration: Duration(seconds: 3),
+        shouldIconPulse:
+        false, // Disable icon pulse animation for a more subtle effect
+      );
       return;
     }
 
     // IF ALREADY CHECKED OUT FOR TOADY
     if (hasCheckedOut.value) {
       Get.snackbar(
-        "Done",
+        "Alert!",
         "You have already checked out today.",
         backgroundColor: Colors.orange.shade800,
         colorText: Colors.white,
@@ -104,7 +134,7 @@ class AttendanceController extends GetxController {
           color: Colors.white,
           size: 28,
         ),
-        snackPosition: SnackPosition.BOTTOM,
+        snackPosition: SnackPosition.TOP,
         margin: EdgeInsets.all(12),
         borderRadius: 8,
         duration: Duration(seconds: 3),
@@ -178,7 +208,7 @@ showCheckOutSnackBar() {
       color: Colors.white,
       size: 28,
     ),
-    snackPosition: SnackPosition.BOTTOM,
+    snackPosition: SnackPosition.TOP,
     margin: EdgeInsets.all(12),
     borderRadius: 8,
     duration: Duration(seconds: 3),
@@ -198,7 +228,7 @@ showCheckInSnackBar() {
       color: Colors.white,
       size: 28,
     ),
-    snackPosition: SnackPosition.BOTTOM,
+    snackPosition: SnackPosition.TOP,
     margin: EdgeInsets.all(12),
     borderRadius: 8,
     duration: Duration(seconds: 3),
