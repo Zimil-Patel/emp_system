@@ -23,6 +23,8 @@ class HomePage extends StatelessWidget {
             // GREET NAME AND PROFILE
             GreetProfileMessage(),
 
+            SizedBox(height: 30.h,),
+
             // CURRENT DATE TIME AND WEEK OF DAY AND MONTH
             CurrentDateTime(),
 
