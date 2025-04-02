@@ -17,10 +17,10 @@ const String supervisorPassword = "admin";
 
 
 // SACHIN
-// final LatLng officeLocation = LatLng(21.084967, 72.881111);
+final LatLng officeLocation = LatLng(21.084967, 72.881111);
 
 // BMU
 // final LatLng officeLocation = LatLng(21.139171, 72.793428);
 
 // RNW
-final LatLng officeLocation = LatLng(21.142412, 72.881517);
+// final LatLng officeLocation = LatLng(21.142412, 72.881517);

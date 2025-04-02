@@ -28,11 +28,9 @@ class CheckInCheckOutButton extends StatelessWidget {
       onPressed: () {
         // Get.to(() => MapPage());
         if (!attendanceController.hasCheckedIn.value) {
-          attendanceController
-              .checkInEmployee(authController.currentEmployee!.email, context);
+          Get.to(() => MapPage(isCheckIn: true));
         } else {
-          attendanceController
-              .checkOutEmployee(authController.currentEmployee!.email, context);
+          Get.to(() => MapPage(isCheckIn: false));
         }
       },
       child: Container(

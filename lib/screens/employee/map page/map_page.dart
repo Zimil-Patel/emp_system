@@ -10,7 +10,8 @@ import 'components/map_box.dart';
 import '../home page/components/timing_info_row.dart';
 
 class MapPage extends StatelessWidget {
-  const MapPage({super.key});
+  final bool isCheckIn;
+  const MapPage({super.key, required this.isCheckIn});
 
   @override
   Widget build(BuildContext context) {
@@ -38,7 +39,7 @@ class MapPage extends StatelessWidget {
                     LocationStatus(),
 
                     // GOOGLE MAP
-                    MapBox(),
+                    MapBox(isCheckIn: isCheckIn,),
 
                     if (false) TimingInfoRow(),
 
