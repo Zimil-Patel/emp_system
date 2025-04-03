@@ -25,16 +25,24 @@ class AuthController extends GetxController {
   }
 
   // Sign-Up Employee
-  Future<bool> signUpEmployee(String name, String email, String password, BuildContext context) async {
+  Future<bool> signUpEmployee(
+      String name, String email, String password, BuildContext context) async {
     if (name.isEmpty || email.isEmpty || password.isEmpty) {
       Get.snackbar(
-        'Sign-Up Failed!',
-        'All Field are required',
-        icon: Icon(Icons.error, color: Colors.white),
-        backgroundColor: Colors.red.shade400,
+        "Sign-Up Failed!",
+        "All Field are required",
+        backgroundColor: Colors.red.shade300,
         colorText: Colors.white,
-        duration: Duration(seconds: 3),
+        icon: Icon(
+          Icons.error,
+          color: Colors.white,
+          size: 28,
+        ),
         snackPosition: SnackPosition.TOP,
+        margin: EdgeInsets.all(12),
+        borderRadius: 8,
+        duration: Duration(seconds: 3),
+        shouldIconPulse: false,
       );
       return false;
     }
@@ -51,26 +59,40 @@ class AuthController extends GetxController {
         return true;
       } else {
         Get.snackbar(
-          'Sign-Up Failed!',
+          "Sign-Up Failed!",
           status,
-          icon: Icon(Icons.error, color: Colors.white),
-          backgroundColor: Colors.red.shade400,
+          backgroundColor: Colors.red.shade300,
           colorText: Colors.white,
-          duration: Duration(seconds: 3),
+          icon: Icon(
+            Icons.error,
+            color: Colors.white,
+            size: 28,
+          ),
           snackPosition: SnackPosition.TOP,
+          margin: EdgeInsets.all(12),
+          borderRadius: 8,
+          duration: Duration(seconds: 3),
+          shouldIconPulse: false,
         );
         isLoading.value = false;
         return false;
       }
     } else {
       Get.snackbar(
-        "Sign Up Failed!", // Title
-        result.$2, // Description
+        "Sign-Up Failed!",
+        result.$2,
         backgroundColor: Colors.red.shade300,
         colorText: Colors.white,
-        margin: EdgeInsets.all(10),
+        icon: Icon(
+          Icons.error,
+          color: Colors.white,
+          size: 28,
+        ),
+        snackPosition: SnackPosition.TOP,
+        margin: EdgeInsets.all(12),
         borderRadius: 8,
         duration: Duration(seconds: 3),
+        shouldIconPulse: false,
       );
       isLoading.value = false;
 
@@ -79,16 +101,24 @@ class AuthController extends GetxController {
   }
 
   // Sign-in Employee
-  Future<bool> signInEmployee({required String email, required String password}) async {
+  Future<bool> signInEmployee(
+      {required String email, required String password}) async {
     if (email.isEmpty || password.isEmpty) {
       Get.snackbar(
-        'Sign-In Failed!',
-        'Please enter email and password',
-        icon: Icon(Icons.error, color: Colors.white),
-        backgroundColor: Colors.red.shade400,
+        "Sign-In Failed!",
+        "Please enter email and password",
+        backgroundColor: Colors.red.shade300,
         colorText: Colors.white,
-        duration: Duration(seconds: 3),
+        icon: Icon(
+          Icons.error,
+          color: Colors.white,
+          size: 28,
+        ),
         snackPosition: SnackPosition.TOP,
+        margin: EdgeInsets.all(12),
+        borderRadius: 8,
+        duration: Duration(seconds: 3),
+        shouldIconPulse: false,
       );
       return false;
     }
@@ -114,13 +144,20 @@ class AuthController extends GetxController {
         return true;
       } else {
         Get.snackbar(
-          'Verification Pending!',
-          'Once you get verified, you can log in.',
-          icon: Icon(Icons.info, color: Colors.white),
+          "Verification Pending!",
+          "Once you get verified, you can log in.",
           backgroundColor: Colors.orange.shade700,
           colorText: Colors.white,
-          duration: Duration(seconds: 3),
+          icon: Icon(
+            Icons.info,
+            color: Colors.white,
+            size: 28,
+          ),
           snackPosition: SnackPosition.TOP,
+          margin: EdgeInsets.all(12),
+          borderRadius: 8,
+          duration: Duration(seconds: 3),
+          shouldIconPulse: false,
         );
         log("FAILED: Not verified yet.");
         await auth.signOut();
@@ -129,13 +166,20 @@ class AuthController extends GetxController {
       }
     } else {
       Get.snackbar(
-        "Sign In Failed!", // Title
-        result.$2, // Description
+        "Sign-In Failed!",
+        result.$2,
         backgroundColor: Colors.red.shade300,
         colorText: Colors.white,
-        margin: EdgeInsets.all(10),
+        icon: Icon(
+          Icons.error,
+          color: Colors.white,
+          size: 28,
+        ),
+        snackPosition: SnackPosition.TOP,
+        margin: EdgeInsets.all(12),
         borderRadius: 8,
         duration: Duration(seconds: 3),
+        shouldIconPulse: false,
       );
       isLoading.value = false;
       return false;
@@ -148,7 +192,6 @@ class AuthController extends GetxController {
     User? user = await auth.signInWithGoogle();
 
     if (user != null) {
-
       final isNewUser = await auth.isNewUser(user.email!);
 
       // Add employee data to database if new user and show verification alter
@@ -202,13 +245,20 @@ class AuthController extends GetxController {
       return true;
     } else {
       Get.snackbar(
-        'Sign-In Failed!',
+        "Sign-Up Failed!",
         'Invalid email or password',
-        icon: Icon(Icons.error, color: Colors.white),
-        backgroundColor: Colors.red.shade400,
+        backgroundColor: Colors.red.shade300,
         colorText: Colors.white,
-        duration: Duration(seconds: 3),
+        icon: Icon(
+          Icons.error,
+          color: Colors.white,
+          size: 28,
+        ),
         snackPosition: SnackPosition.TOP,
+        margin: EdgeInsets.all(12),
+        borderRadius: 8,
+        duration: Duration(seconds: 3),
+        shouldIconPulse: false,
       );
       return false;
     }
@@ -239,7 +289,7 @@ class AuthController extends GetxController {
   Future<void> getCurrentUser() async {
     final email = auth.getCurrentEmployeeEmail();
 
-    if(email == null) return;
+    if (email == null) return;
 
     currentEmployee = await fbService.getCurrentEmployeeProfileDetails(email);
   }

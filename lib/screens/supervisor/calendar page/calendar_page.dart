@@ -44,6 +44,7 @@ class _CalendarPageState extends State<CalendarPage> {
           .get();
 
       Map<String, Map<String, dynamic>> checkInData = {};
+
       for (var doc in checkInSnapshot.docs) {
         checkInData[doc.id] = doc.data() as Map<String, dynamic>;
       }
@@ -161,9 +162,10 @@ class _CalendarPageState extends State<CalendarPage> {
                 ),
                 calendarStyle: CalendarStyle(
                   todayDecoration: BoxDecoration(
-                    color: Colors.grey,
+                    color: getColorForDate(DateTime.now()),
                     shape: BoxShape.circle,
                   ),
+                  todayTextStyle: TextStyle(color: Colors.black),
                   outsideDaysVisible: false,
                 ),
                 calendarBuilders: CalendarBuilders(

@@ -73,17 +73,19 @@ class SupervisorController extends GetxController {
         if (isSent) {
           Get.snackbar(
             'Mail Sent Successfully!',
-            '📧 Verification email has been sent to:\n$email',
-            icon: Icon(Icons.email_outlined, color: Colors.white),
-            snackPosition: SnackPosition.TOP,
-            backgroundColor: Colors.green.shade600,
+            'Verification email has been sent to:\n$email',
+            backgroundColor: Colors.blue.shade800,
             colorText: Colors.white,
-            duration: Duration(seconds: 3),
+            icon: Icon(
+              Icons.email,
+              color: Colors.white,
+              size: 28,
+            ),
+            snackPosition: SnackPosition.TOP,
             margin: EdgeInsets.all(12),
-            borderRadius: 10,
-            padding: EdgeInsets.all(12),
-            isDismissible: true,
-            forwardAnimationCurve: Curves.easeOutBack,
+            borderRadius: 8,
+            duration: Duration(seconds: 3),
+            shouldIconPulse: false,
           );
         }
       }

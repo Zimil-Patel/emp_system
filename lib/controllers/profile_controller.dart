@@ -23,8 +23,7 @@ class ProfileController extends GetxController {
   var txtTeamName = TextEditingController();
   var txtPhone = TextEditingController();
 
-
-  void setUpFields(){
+  void setUpFields() {
     if (authController.currentEmployee != null) {
       log("Setting up fields");
       var emp = authController.currentEmployee!;
@@ -56,28 +55,43 @@ class ProfileController extends GetxController {
     );
 
     if (status) {
-      var refreshedEmployee = await fbService.getCurrentEmployeeProfileDetails(email);
+      var refreshedEmployee =
+          await fbService.getCurrentEmployeeProfileDetails(email);
       authController.currentEmployee = refreshedEmployee;
       isEditing.value = false;
       update();
       Get.snackbar(
         'Profile Updated',
         'Your profile has been updated successfully!',
-        icon: Icon(Icons.check_circle, color: Colors.white),
-        backgroundColor: Colors.green.shade400,
+        backgroundColor: Colors.blue.shade800,
         colorText: Colors.white,
-        duration: Duration(seconds: 3),
+        icon: Icon(
+          Icons.check_circle_outline,
+          color: Colors.white,
+          size: 28,
+        ),
         snackPosition: SnackPosition.TOP,
+        margin: EdgeInsets.all(12),
+        borderRadius: 8,
+        duration: Duration(seconds: 3),
+        shouldIconPulse: false,
       );
     } else {
       Get.snackbar(
         'Update Failed',
         'Could not update profile. Please try again.',
-        icon: Icon(Icons.error, color: Colors.white),
-        backgroundColor: Colors.red.shade400,
+        backgroundColor: Colors.red.shade300,
         colorText: Colors.white,
-        duration: Duration(seconds: 3),
+        icon: Icon(
+          Icons.error,
+          color: Colors.white,
+          size: 28,
+        ),
         snackPosition: SnackPosition.TOP,
+        margin: EdgeInsets.all(12),
+        borderRadius: 8,
+        duration: Duration(seconds: 3),
+        shouldIconPulse: false,
       );
     }
   }
@@ -86,20 +100,20 @@ class ProfileController extends GetxController {
   Future<void> pickImage() async {
     ImagePicker picker = ImagePicker();
     final XFile? data = await picker.pickImage(source: ImageSource.gallery);
-    try{
+    try {
       final Uint8List byteImage = await data!.readAsBytes();
       log("image pick success...");
       String url = await ApiServices.apiServices.postImage(byteImage) ?? "";
-      if(url.isEmpty) return;
+      if (url.isEmpty) return;
 
-      final status = await fbService.updateEmployeeProfilePhoto(url, authController.currentEmployee!.email);
+      final status = await fbService.updateEmployeeProfilePhoto(
+          url, authController.currentEmployee!.email);
 
-      if(!status) return;
+      if (!status) return;
 
       image.value = url;
       log("IMAGE URL: $image");
-
-    } catch(e) {
+    } catch (e) {
       log("image pick failed!!!");
     }
   }

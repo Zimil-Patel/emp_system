@@ -69,12 +69,12 @@ class SupervisorHomePage extends StatelessWidget {
   Widget _buildActionCard(IconData icon, String label) {
     return GestureDetector(
       onTap: () {
-        if(label != 'Employees'){
+        if (label != 'Employees') {
           Get.snackbar(
             'Feature Coming Soon!',
             'This feature is not yet implemented. Stay tuned for future updates!',
             icon: Icon(Icons.construction, color: Colors.white),
-            snackPosition: SnackPosition.BOTTOM,
+            snackPosition: SnackPosition.TOP,
             backgroundColor: Colors.orange.shade700,
             colorText: Colors.white,
             duration: Duration(seconds: 3),
@@ -144,12 +144,15 @@ class SupervisorHomePage extends StatelessWidget {
           onPressed: () async {
             if (isApproved) {
               await supervisorController.approveEmployeeRequest(
-                  email: employee.email, value: false, employeeId: employee.employeeId);
+                  email: employee.email,
+                  value: false,
+                  employeeId: employee.employeeId);
             } else {
               await supervisorController.approveEmployeeRequest(
-                  email: employee.email, value: true, employeeId: employee.employeeId);
+                  email: employee.email,
+                  value: true,
+                  employeeId: employee.employeeId);
             }
-
           },
           padding: EdgeInsets.zero,
           child: Container(
@@ -159,7 +162,7 @@ class SupervisorHomePage extends StatelessWidget {
             child: Text(
               isApproved ? 'Cancel' : 'Approve',
               style: TextStyle(
-                fontFamily: 'VarelaRounded',
+                  fontFamily: 'VarelaRounded',
                   fontSize: 14.h,
                   color: isApproved ? Colors.red.shade400 : primaryColor),
             ),

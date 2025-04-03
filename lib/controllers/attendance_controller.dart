@@ -28,7 +28,6 @@ class AttendanceController extends GetxController {
 
   var txtReason = TextEditingController();
 
-
   // CHECK TODAY'S ATTENDANCE STATUS
   Future<void> checkTodayAttendance() async {
     try {
@@ -59,7 +58,7 @@ class AttendanceController extends GetxController {
       Get.snackbar(
         "Alert!",
         "You have already checked in today.",
-        backgroundColor: Colors.orange.shade800,
+        backgroundColor: Colors.orange.shade700,
         colorText: Colors.white,
         icon: Icon(
           Icons.warning_amber_outlined,
@@ -71,7 +70,7 @@ class AttendanceController extends GetxController {
         borderRadius: 8,
         duration: Duration(seconds: 3),
         shouldIconPulse:
-        false, // Disable icon pulse animation for a more subtle effect
+            false, // Disable icon pulse animation for a more subtle effect
       );
       return;
     }
@@ -91,7 +90,22 @@ class AttendanceController extends GetxController {
         showCheckInSnackBar();
       }
     } catch (e) {
-      Get.snackbar("Error", e.toString());
+      Get.snackbar(
+        "Error!",
+        e.toString(),
+        backgroundColor: Colors.red.shade300,
+        colorText: Colors.white,
+        icon: Icon(
+          Icons.error,
+          color: Colors.white,
+          size: 28,
+        ),
+        snackPosition: SnackPosition.TOP,
+        margin: EdgeInsets.all(12),
+        borderRadius: 8,
+        duration: Duration(seconds: 3),
+        shouldIconPulse: false,
+      );
     }
   }
 
@@ -102,7 +116,7 @@ class AttendanceController extends GetxController {
       Get.snackbar(
         "Alert!",
         "You have to check in first",
-        backgroundColor: Colors.orange.shade800,
+        backgroundColor: Colors.orange.shade700,
         colorText: Colors.white,
         icon: Icon(
           Icons.warning_amber_outlined,
@@ -114,7 +128,7 @@ class AttendanceController extends GetxController {
         borderRadius: 8,
         duration: Duration(seconds: 3),
         shouldIconPulse:
-        false, // Disable icon pulse animation for a more subtle effect
+            false, // Disable icon pulse animation for a more subtle effect
       );
       return;
     }
@@ -124,7 +138,7 @@ class AttendanceController extends GetxController {
       Get.snackbar(
         "Alert!",
         "You have already checked out today.",
-        backgroundColor: Colors.orange.shade800,
+        backgroundColor: Colors.orange.shade700,
         colorText: Colors.white,
         icon: Icon(
           Icons.warning_amber_outlined,
@@ -234,7 +248,7 @@ showCheckInSnackBar() {
   );
 }
 
-showLateAlert( String formattedCheckInTime) {
+showLateAlert(String formattedCheckInTime) {
   Get.dialog(
     AlertDialog(
       shape: RoundedRectangleBorder(

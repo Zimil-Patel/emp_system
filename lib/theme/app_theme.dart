@@ -13,28 +13,50 @@ class AppTheme{
     ),
 
     datePickerTheme: DatePickerThemeData(
+      todayBackgroundColor: MaterialStateProperty.resolveWith(
+        (states) {
+          if (states.contains(MaterialState.selected)) {
+            return primaryColor; // ✅ Selected date background → primaryColor
+          }
+          return Colors.white; // ✅ Non-selected dates (including today) → White
+        },
+      ),
       backgroundColor: Colors.white,
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10),),
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+
       headerBackgroundColor: primaryColor,
+
+
       dayStyle: MaterialStateTextStyle.resolveWith((states) {
         if (states.contains(MaterialState.selected)) {
-          return TextStyle(color: Colors.white); // Selected day text color
+          return TextStyle(color: Colors.white);
         }
-        return TextStyle(color: Colors.black); // Default day text color
+        return TextStyle(color: Colors.black);
       }),
+
 
       dayBackgroundColor: MaterialStateProperty.resolveWith((states) {
         if (states.contains(MaterialState.selected)) {
-          return primaryColor; // Selected day background color (circle)
+          return primaryColor; // ✅ Selected date background → primaryColor
         }
-        return null; // Default background
+        return Colors.white; // ✅ Non-selected dates (including today) → White
       }),
 
+      todayBorder: BorderSide(color: primaryColor, width: 2),
+      todayForegroundColor: MaterialStateProperty.resolveWith(
+            (states) {
+          if (states.contains(MaterialState.selected)) {
+            return Colors.white; // ✅ Selected date background → primaryColor
+          }
+          return primaryColor; // ✅ Non-selected dates (including today) → White
+        },
+      ),
+
       confirmButtonStyle: TextButton.styleFrom(
-        foregroundColor: Colors.green, // OK button text color
+        foregroundColor: Colors.green,
       ),
       cancelButtonStyle: TextButton.styleFrom(
-        foregroundColor: Colors.red, // Cancel button text color
+        foregroundColor: Colors.red,
       ),
     ),
 
