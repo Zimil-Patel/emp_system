@@ -28,11 +28,6 @@ class AttendanceController extends GetxController {
 
   var txtReason = TextEditingController();
 
-  @override
-  Future<void> onInit() async {
-    super.onInit();
-    await checkTodayAttendance();
-  }
 
   // CHECK TODAY'S ATTENDANCE STATUS
   Future<void> checkTodayAttendance() async {

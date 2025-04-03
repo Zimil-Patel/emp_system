@@ -1,4 +1,6 @@
 
+import 'package:emp_system/controllers/attendance_controller.dart';
+import 'package:emp_system/controllers/profile_controller.dart';
 import 'package:emp_system/firebase_options.dart';
 import 'package:emp_system/screens/splash%20page/splash_page.dart';
 import 'package:emp_system/theme/app_theme.dart';
@@ -43,5 +45,7 @@ class EmployeeSystem extends StatelessWidget {
 
 void _initControllers() {
   authController = Get.put(AuthController());
+  profileController = Get.put(ProfileController());
   supervisorController = Get.put(SupervisorController());
+  attendanceController = Get.put(AttendanceController());
 }

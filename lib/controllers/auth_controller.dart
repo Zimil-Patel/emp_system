@@ -1,7 +1,5 @@
 import 'dart:developer';
 
-import 'package:emp_system/controllers/attendance_controller.dart';
-import 'package:emp_system/controllers/profile_controller.dart';
 import 'package:emp_system/core/model/employee_model.dart';
 import 'package:emp_system/core/services/auth_services.dart';
 import 'package:emp_system/core/services/firebase_services.dart';
@@ -108,8 +106,8 @@ class AuthController extends GetxController {
         await setCurrentUser('employee');
         currentEmployee =
             await fbService.getCurrentEmployeeProfileDetails(email);
-        profileController = Get.put(ProfileController());
-        attendanceController = Get.put(AttendanceController());
+        profileController.setUpFields();
+        await attendanceController.checkTodayAttendance();
         log("Employee Name : ${profileController.txtName.text}");
         isLoading.value = false;
         await Future.delayed(Duration(seconds: 2), () => true);
@@ -169,8 +167,8 @@ class AuthController extends GetxController {
           await setCurrentUser('employee');
           currentEmployee =
               await fbService.getCurrentEmployeeProfileDetails(user.email!);
-          profileController = Get.put(ProfileController());
-          attendanceController = Get.put(AttendanceController());
+          profileController.setUpFields();
+          await attendanceController.checkTodayAttendance();
           log("Employee Name : ${profileController.txtName.text}");
           Future.delayed(Duration(seconds: 2), () => true);
           isLoading.value = false;

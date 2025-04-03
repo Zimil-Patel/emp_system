@@ -23,9 +23,8 @@ class ProfileController extends GetxController {
   var txtTeamName = TextEditingController();
   var txtPhone = TextEditingController();
 
-  @override
-  void onInit() {
-    super.onInit();
+
+  void setUpFields(){
     if (authController.currentEmployee != null) {
       log("Setting up fields");
       var emp = authController.currentEmployee!;

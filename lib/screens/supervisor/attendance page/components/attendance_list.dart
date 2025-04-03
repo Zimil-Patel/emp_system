@@ -69,7 +69,7 @@ class AttendanceTile extends StatelessWidget {
           // Attendance Timing
           Expanded(
             child: Text(
-              data.checkInTime,
+              data.checkInTime ?? "--:--",
               style: TextStyle(
                 fontSize: 13.h,
                 color: data.isLate ? Colors.red : Colors.black,
@@ -80,7 +80,7 @@ class AttendanceTile extends StatelessWidget {
 
           Expanded(
             child: Text(
-              data.checkOutTime,
+              data.checkOutTime ?? "--:--",
               style: TextStyle(
                 fontSize: 13.h,
                 fontWeight: FontWeight.bold,
