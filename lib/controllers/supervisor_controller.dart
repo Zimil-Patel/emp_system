@@ -12,47 +12,46 @@ class SupervisorController extends GetxController {
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
   final AuthServices auth = AuthServices.authServices;
   var selectedDate = DateTime.now().obs;
-  var attendanceList = <AttendanceData>[].obs;
-  var filteredList = <AttendanceData>[].obs;
+  var filter = "All".obs;
 
   RxList<EmployeeModel> employeeList = <EmployeeModel>[].obs;
 
-  @override
-  void onInit() {
-    fetchEmployeeList();
-    fetchAttendance();
-    super.onInit();
+  void updateDate(DateTime dateTime) {
+    selectedDate.value = dateTime;
+    update(['date']);
   }
 
-  updateDate(DateTime dateTime){
-    selectedDate.value = dateTime;
-    fetchAttendance();
+  void setFilter(String value){
+    selectedDate.value = DateTime.now();
+    filter.value = value;
   }
 
   // FETCH attendance records for selected date
-  void fetchAttendance() {
-    String formattedDate = DateFormat('yyyy-MM-dd').format(selectedDate.value);
+  Stream<List<AttendanceData>> fetchAttendanceStream(DateTime selectedDate) async* {
+    String formattedDate = DateFormat('yyyy-MM-dd').format(selectedDate);
 
-    FirebaseFirestore.instance.collection('employees').snapshots().listen((snapshot) async {
+    yield* _firestore.collection('employees').snapshots().asyncMap((snapshot) async {
       List<AttendanceData> records = [];
 
       for (var doc in snapshot.docs) {
         String name = doc['name'];
         String id = doc['employee_id'];
-        var checkIns = await doc.reference
-            .collection('checkIns')
-            .doc(formattedDate)
-            .get();
 
-        if (checkIns.exists) {
-          records.add(AttendanceData.fromFirestore(checkIns.data()!, name, id));
+        DocumentSnapshot checkInDoc = await doc.reference.collection('checkIns').doc(formattedDate).get();
+
+        if (checkInDoc.exists) {
+          records.add(AttendanceData.fromFirestore(checkInDoc.data() as Map<String, dynamic>, name, id));
         }
       }
 
-      attendanceList.assignAll(records);
+      if(filter.value == "Early"){
+        return records.where((e) => e.isEarly).toList();
+      } else if(filter.value == "Late"){
+        return records.where((e) => e.isLate).toList();
+      }
+      return records;
     });
   }
-
 
   // Fetch employees in real-time
   void fetchEmployeeList() {

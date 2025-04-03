@@ -1,11 +1,9 @@
 import 'package:emp_system/screens/supervisor/attendance%20page/components/filter_and_export_section.dart';
-import 'package:emp_system/utils/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:get/get.dart';
 
-import '../../../core/model/attendace_model.dart';
 import 'components/attendance_list.dart';
+import 'components/attendance_refresh_button.dart';
 
 class AttendancePage extends StatelessWidget {
   const AttendancePage({super.key});
@@ -15,6 +13,10 @@ class AttendancePage extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: const Text("Attendance"),
+        actions: [
+          AttendanceRefreshButton(),
+          SizedBox(width: 12.w),
+        ],
       ),
       body: Column(
         children: [
@@ -61,15 +63,11 @@ class AttendancePage extends StatelessWidget {
           ),
 
           // ATTENDANCE LIST
-          Expanded(
-            child:
-            AttendanceList(
-                filter: 'All',
-
-            ),
-          ),
+          Expanded(child: AttendanceList()),
         ],
       ),
     );
   }
 }
+
+

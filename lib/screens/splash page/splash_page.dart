@@ -49,6 +49,7 @@ class _SplashPageState extends State<SplashPage> {
     }
 
     if(_role == "supervisor"){
+      supervisorController.fetchEmployeeList();
       Get.offAll(() => SupervisorHomePage());
     } else if (_role == "employee"){
       await authController.getCurrentUser();

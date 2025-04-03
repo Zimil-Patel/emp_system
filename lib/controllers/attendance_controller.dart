@@ -149,7 +149,7 @@ class AttendanceController extends GetxController {
       bool isBefore = now.isBefore(_attendanceService.officeEndTime);
 
       if (isBefore) {
-        showEarlyLeaveAlert( formattedCheckOutTime);
+        showEarlyLeaveAlert(formattedCheckOutTime);
       } else {
         await _attendanceService.checkOut(email, null);
         hasCheckedOut.value = true;

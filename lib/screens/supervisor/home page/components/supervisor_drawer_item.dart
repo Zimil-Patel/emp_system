@@ -21,21 +21,21 @@ Widget supervisorDrawerItem({required String name, required IconData icon, requi
       }
 
       if(name == "Attendance"){
+        supervisorController.setFilter('All');
         Get.to(() => AttendancePage());
       }
 
       if(name == "Employee List"){
-        supervisorController.selectedDate.value = DateTime.now();
         Get.to(() => EmployeeListPage());
       }
 
       if(name == "Late Comers"){
-        supervisorController.selectedDate.value = DateTime.now();
+        supervisorController.setFilter('Late');
         Get.to(() => LateComersPage());
       }
 
       if(name == "Early Leavers"){
-        supervisorController.selectedDate.value = DateTime.now();
+        supervisorController.setFilter('Early');
         Get.to(() => EarlyLeaversPage());
       }
     },

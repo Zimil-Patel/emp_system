@@ -1,10 +1,9 @@
 import 'package:emp_system/screens/supervisor/attendance%20page/components/filter_and_export_section.dart';
-import 'package:emp_system/utils/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:get/get.dart';
 
 import '../attendance page/components/attendance_list.dart';
+import '../attendance page/components/attendance_refresh_button.dart';
 
 class EarlyLeaversPage extends StatelessWidget {
   const EarlyLeaversPage({super.key});
@@ -14,6 +13,10 @@ class EarlyLeaversPage extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: const Text("Early Leavers"),
+        actions: [
+          AttendanceRefreshButton(),
+          SizedBox(width: 12.w),
+        ],
       ),
       body: Column(
         children: [
@@ -44,9 +47,7 @@ class EarlyLeaversPage extends StatelessWidget {
           // ATTENDANCE LIST
           Expanded(
             child:
-               AttendanceList(
-                filter: 'Early',
-              ),
+               AttendanceList(),
           ),
         ],
       ),

@@ -198,6 +198,7 @@ class AuthController extends GetxController {
   Future<bool> signInSupervisor(String email, String password) async {
     if (email == supervisorEmail && password == supervisorPassword) {
       await setCurrentUser('supervisor');
+      supervisorController.fetchEmployeeList();
       return true;
     } else {
       Get.snackbar(

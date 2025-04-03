@@ -1,10 +1,7 @@
-import 'package:emp_system/utils/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:get/get.dart';
-
-import '../../../core/model/attendace_model.dart';
 import '../attendance page/components/attendance_list.dart';
+import '../attendance page/components/attendance_refresh_button.dart';
 import '../attendance page/components/filter_and_export_section.dart';
 
 class LateComersPage extends StatelessWidget {
@@ -15,6 +12,10 @@ class LateComersPage extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: const Text("Late Comers"),
+        actions: [
+          AttendanceRefreshButton(),
+          SizedBox(width: 12.w),
+        ],
       ),
       body: Column(
         children: [
@@ -62,9 +63,7 @@ class LateComersPage extends StatelessWidget {
 
           // ATTENDANCE LIST
           Expanded(
-            child: AttendanceList(
-              filter: 'Late',
-            ),
+            child: AttendanceList(),
           ),
         ],
       ),
