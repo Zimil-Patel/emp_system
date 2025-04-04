@@ -70,7 +70,7 @@ class AttendanceController extends GetxController {
         borderRadius: 8,
         duration: Duration(seconds: 3),
         shouldIconPulse:
-            false, // Disable icon pulse animation for a more subtle effect
+            false,
       );
       return;
     }
@@ -128,7 +128,7 @@ class AttendanceController extends GetxController {
         borderRadius: 8,
         duration: Duration(seconds: 3),
         shouldIconPulse:
-            false, // Disable icon pulse animation for a more subtle effect
+            false,
       );
       return;
     }
@@ -150,7 +150,7 @@ class AttendanceController extends GetxController {
         borderRadius: 8,
         duration: Duration(seconds: 3),
         shouldIconPulse:
-            false, // Disable icon pulse animation for a more subtle effect
+            false,
       );
       return;
     }
@@ -224,7 +224,7 @@ showCheckOutSnackBar() {
     borderRadius: 8,
     duration: Duration(seconds: 3),
     shouldIconPulse:
-        false, // Disable icon pulse animation for a more subtle effect
+        false,
   );
 }
 
@@ -244,7 +244,7 @@ showCheckInSnackBar() {
     borderRadius: 8,
     duration: Duration(seconds: 3),
     shouldIconPulse:
-        false, // Disable icon pulse animation for a more subtle effect
+        false,
   );
 }
 

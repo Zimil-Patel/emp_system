@@ -1,4 +1,5 @@
 import 'package:emp_system/core/model/employee_model.dart';
+import 'package:emp_system/screens/employee/report%20page/report_page.dart';
 import 'package:emp_system/screens/supervisor/employee%20list%20page/employee_list_page.dart';
 import 'package:emp_system/screens/supervisor/home%20page/components/supervisor_drawer.dart';
 import 'package:emp_system/utils/constants.dart';
@@ -69,7 +70,7 @@ class SupervisorHomePage extends StatelessWidget {
   Widget _buildActionCard(IconData icon, String label) {
     return GestureDetector(
       onTap: () {
-        if (label != 'Employees') {
+        if (label == 'Tasks') {
           Get.snackbar(
             'Feature Coming Soon!',
             'This feature is not yet implemented. Stay tuned for future updates!',
@@ -84,8 +85,10 @@ class SupervisorHomePage extends StatelessWidget {
             isDismissible: true,
             shouldIconPulse: true,
           );
-        } else {
+        } else if(label == "Employees") {
           Get.to(() => EmployeeListPage());
+        } else if(label == "Reports"){
+          Get.to(() => ReportPage());
         }
       },
       child: Container(

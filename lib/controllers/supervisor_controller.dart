@@ -36,11 +36,12 @@ class SupervisorController extends GetxController {
       for (var doc in snapshot.docs) {
         String name = doc['name'];
         String id = doc['employee_id'];
+        String department = doc['department'];
 
         DocumentSnapshot checkInDoc = await doc.reference.collection('checkIns').doc(formattedDate).get();
 
         if (checkInDoc.exists) {
-          records.add(AttendanceData.fromFirestore(checkInDoc.data() as Map<String, dynamic>, name, id));
+          records.add(AttendanceData.fromFirestore(checkInDoc.data() as Map<String, dynamic>, name, id, department));
         }
       }
 

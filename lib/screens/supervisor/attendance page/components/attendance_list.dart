@@ -84,6 +84,12 @@ class AttendanceTile extends StatelessWidget {
                   data.id,
                   style: TextStyle(fontSize: 12.h, color: Colors.grey),
                 ),
+
+                // Employee Department
+                if(data.department != null) Text(
+                  data.department ?? "Not mentioned",
+                  style: TextStyle(fontSize: 12.h, color: Colors.grey),
+                ),
               ],
             ),
           ),

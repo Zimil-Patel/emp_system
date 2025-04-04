@@ -1,3 +1,4 @@
+import 'package:emp_system/screens/employee/report%20page/report_page.dart';
 import 'package:emp_system/screens/supervisor/attendance%20page/attendance%20page.dart';
 import 'package:emp_system/screens/supervisor/early%20leavers%20page/early_leavers_page.dart';
 import 'package:emp_system/screens/supervisor/employee%20list%20page/employee_list_page.dart';
@@ -37,6 +38,10 @@ Widget supervisorDrawerItem({required String name, required IconData icon, requi
       if(name == "Early Leavers"){
         supervisorController.setFilter('Early');
         Get.to(() => EarlyLeaversPage());
+      }
+
+      if(name == "Reports"){
+        Get.to(() => ReportPage());
       }
     },
     // padding: EdgeInsets.zero,

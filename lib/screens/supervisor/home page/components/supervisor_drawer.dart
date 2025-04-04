@@ -55,8 +55,7 @@ class SupervisorDrawer extends StatelessWidget {
           supervisorDrawerItem(name: 'Late Comers', icon: Icons.access_time, context: context),
           supervisorDrawerItem(name: 'Early Leavers', icon: Icons.event_busy, context: context),
           supervisorDrawerItem(name: 'Leaves', icon: Icons.assignment, context: context),
-          supervisorDrawerItem(name: 'Issue Report', icon: Icons.paste_sharp, context: context),
-          supervisorDrawerItem(name: 'Incident Report', icon: Icons.event_note_sharp, context: context),
+          supervisorDrawerItem(name: 'Reports', icon: Icons.paste_sharp, context: context),
           supervisorDrawerItem(name: 'Employee List', icon: Icons.storage, context: context),
           supervisorDrawerItem(name: 'Logout', icon: Icons.logout, context: context),
 
