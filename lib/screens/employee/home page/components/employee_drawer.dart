@@ -84,8 +84,7 @@ class EmployeeDrawer extends StatelessWidget {
 
           // DRAWER ITEMS
           drawerItem(name: 'Profile', icon: Icons.person_outline_rounded, context: context),
-          drawerItem(name: 'Issues', icon: Icons.paste_sharp, context: context),
-          drawerItem(name: 'Incident', icon: Icons.event_note_sharp, context: context),
+          drawerItem(name: 'Reports', icon: Icons.paste_sharp, context: context),
           drawerItem(name: 'Leaves', icon: Icons.card_travel, context: context),
           drawerItem(name: 'Change Password', icon: Icons.lock_outline_rounded, context: context),
           drawerItem(name: 'Logout', icon: Icons.logout, context: context),

@@ -10,6 +10,7 @@ class AppTheme{
     // APP BAR THEME
     appBarTheme: AppBarTheme(
       color: primaryColor,
+      centerTitle: true,
     ),
 
     datePickerTheme: DatePickerThemeData(

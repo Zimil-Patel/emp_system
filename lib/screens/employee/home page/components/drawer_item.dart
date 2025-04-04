@@ -1,5 +1,6 @@
 import 'package:emp_system/screens/auth/role_option_page.dart';
 import 'package:emp_system/screens/employee/profile%20page/profile_page.dart';
+import 'package:emp_system/screens/employee/report%20page/report_page.dart';
 import 'package:emp_system/utils/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -18,6 +19,10 @@ Widget drawerItem({required String name, required IconData icon, required BuildC
 
       if(name == "Profile"){
         Get.to(() => ProfilePage());
+      }
+
+      if(name == "Reports"){
+        Get.to(() => ReportPage());
       }
     },
     // padding: EdgeInsets.zero,
