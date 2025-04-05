@@ -1,3 +1,4 @@
+import 'package:emp_system/core/services/export_services.dart';
 import 'package:emp_system/utils/constants.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -79,12 +80,19 @@ class FilterAndExportSection extends StatelessWidget {
               // CSV / PDF
               Row(
                 children: [
-                  Text(
-                    "CSV",
-                    style: TextStyle(
-                      fontSize: 14.h,
-                      color: Colors.blue,
-                      decoration: TextDecoration.underline,
+                  CupertinoButton(
+                    onPressed: () async {
+                      await ExportServices.exportToCSV(ExportServices.attendanceSampleData, 'attendanceData');
+                    },
+                    padding: EdgeInsets.zero,
+                    child: Text(
+                      "CSV",
+                      style: TextStyle(
+                        fontSize: 14.h,
+                        fontFamily: "VarelaRounded",
+                        color: Colors.blue,
+                        decoration: TextDecoration.underline,
+                      ),
                     ),
                   ),
                   SizedBox(width: 5),
@@ -93,12 +101,19 @@ class FilterAndExportSection extends StatelessWidget {
                     style: TextStyle(color: Colors.grey),
                   ),
                   SizedBox(width: 5),
-                  Text(
-                    "PDF",
-                    style: TextStyle(
-                      fontSize: 14.h,
-                      color: Colors.blue,
-                      decoration: TextDecoration.underline,
+                  CupertinoButton(
+                    onPressed: () async {
+                      await ExportServices.exportToPDF(ExportServices.attendanceSampleData, 'attendanceData');
+                    },
+                    padding: EdgeInsets.zero,
+                    child: Text(
+                      "PDF",
+                      style: TextStyle(
+                        fontSize: 14.h,
+                        fontFamily: "VarelaRounded",
+                        color: Colors.blue,
+                        decoration: TextDecoration.underline,
+                      ),
                     ),
                   ),
                 ],
