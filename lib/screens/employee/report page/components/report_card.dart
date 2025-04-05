@@ -1,5 +1,4 @@
 import 'package:emp_system/screens/employee/report%20page/components/reslove_dialog.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:intl/intl.dart';
@@ -78,6 +77,8 @@ class ReportCard extends StatelessWidget {
             // Reported by email
             Text("By: ${report.reportedBy}", style: TextStyle(fontSize: 12.h)),
 
+
+            SizedBox(height: 4.h),
 
             // Date and time
             Text(

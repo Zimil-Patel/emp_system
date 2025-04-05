@@ -18,7 +18,14 @@ void showResolveDialog(String reportId) {
           mainAxisSize: MainAxisSize.min,
           children: [
             //  TITLE
-            Text("Resolve Report", style: TextStyle(fontSize: 16.h, fontWeight: FontWeight.bold)),
+            Text(
+              "Resolve Report",
+              style: TextStyle(
+                fontSize: 18.h,
+                fontWeight: FontWeight.bold,
+                color: primaryColor,
+              ),
+            ),
             SizedBox(height: 8.h),
 
             // INSTRUCTION

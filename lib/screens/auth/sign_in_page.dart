@@ -24,7 +24,7 @@ class SignInPage extends StatelessWidget {
         surfaceTintColor: Colors.transparent,
       ),
       body: Padding(
-        padding: EdgeInsets.symmetric(horizontal: 14.w, vertical: 20.h),
+        padding: EdgeInsets.symmetric(horizontal: 14.w, vertical: 10.h),
         child: Center(
           child: SingleChildScrollView(
             physics: const BouncingScrollPhysics(),

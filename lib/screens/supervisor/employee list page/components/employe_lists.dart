@@ -36,7 +36,6 @@ class EmployeeTile extends StatelessWidget {
       title: Text(employee.name, style: TextStyle(fontSize: 14.h)),
       trailing: const Icon(Icons.remove_red_eye, color: Colors.grey),
       onTap: () async {
-        statsController = Get.put(StatsController());
         await statsController.fetchStats(employee.email);
         Get.to(() => StatsPage(employee: employee,));
       }, // Add action on tap

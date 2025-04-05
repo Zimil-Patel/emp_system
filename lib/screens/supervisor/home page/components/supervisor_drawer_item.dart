@@ -1,3 +1,4 @@
+import 'package:emp_system/screens/auth/components/logout_dialog.dart';
 import 'package:emp_system/screens/employee/report%20page/report_page.dart';
 import 'package:emp_system/screens/supervisor/attendance%20page/attendance%20page.dart';
 import 'package:emp_system/screens/supervisor/early%20leavers%20page/early_leavers_page.dart';
@@ -9,6 +10,7 @@ import 'package:get/get.dart';
 
 import '../../../../utils/constants.dart';
 import '../../../auth/role_option_page.dart';
+import '../../../employee/leave page/leave_page.dart';
 
 Widget supervisorDrawerItem({required String name, required IconData icon, required BuildContext context}){
   return InkWell(
@@ -17,8 +19,7 @@ Widget supervisorDrawerItem({required String name, required IconData icon, requi
       Navigator.pop(context);
 
       if(name == "Logout"){
-        await authController.signOut();
-        Get.offAll(() => RoleOptionPage());
+        showLogoutDialog();
       }
 
       if(name == "Attendance"){
@@ -42,6 +43,10 @@ Widget supervisorDrawerItem({required String name, required IconData icon, requi
 
       if(name == "Reports"){
         Get.to(() => ReportPage());
+      }
+
+      if(name == "Leaves"){
+        Get.to(() => LeavePage());
       }
     },
     // padding: EdgeInsets.zero,

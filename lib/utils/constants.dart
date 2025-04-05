@@ -1,5 +1,6 @@
 import 'package:emp_system/controllers/attendance_controller.dart';
 import 'package:emp_system/controllers/auth_controller.dart';
+import 'package:emp_system/controllers/leave_controller.dart';
 import 'package:emp_system/controllers/report_controller.dart';
 import 'package:emp_system/controllers/stat_controller.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
@@ -13,6 +14,7 @@ late ProfileController profileController;
 late AttendanceController attendanceController;
 late StatsController statsController;
 late ReportController reportController;
+late LeaveController leaveController;
 
 const String supervisorEmail = "admin@gmail.com";
 const String supervisorPassword = "admin";

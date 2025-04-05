@@ -4,8 +4,8 @@ import 'package:intl/intl.dart';
 class AttendanceData {
   final String name;
   final String id;
-  final String? checkInTime;
-  final String? checkOutTime;
+  final DateTime? checkInTime;
+  final DateTime? checkOutTime;
   final bool isLate;
   final bool isEarly;
   final String? department;
@@ -16,8 +16,8 @@ class AttendanceData {
     return AttendanceData(
       name,
       id,
-      data['checkInTime'] != null ? DateFormat('h:mm').format((data['checkInTime'] as Timestamp).toDate()) : "--:--",
-      data['checkOutTime'] != null ? DateFormat('h:mm').format((data['checkOutTime'] as Timestamp).toDate()) : "--:--",
+      data['checkInTime'] != null ? (data['checkInTime'] as Timestamp).toDate() : null,
+      data['checkOutTime'] != null ? (data['checkOutTime'] as Timestamp).toDate() : null,
       data['lateReason'] != null,
       data['earlyLeaveReason'] != null,
       department,

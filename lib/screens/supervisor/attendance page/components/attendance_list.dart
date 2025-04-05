@@ -3,6 +3,7 @@ import 'package:emp_system/theme/app_theme.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import 'package:intl/intl.dart';
 
 import '../../../../core/model/attendace_model.dart';
 
@@ -17,10 +18,11 @@ class AttendanceList extends StatelessWidget {
         stream: controller.fetchAttendanceStream(controller.selectedDate.value),
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
-            return Center(child: CircularProgressIndicator(color: primaryColor));
+            return Center(
+                child: CircularProgressIndicator(color: primaryColor));
           } else if (snapshot.hasData && snapshot.data != null) {
             List<AttendanceData> attendanceList = snapshot.data!;
-            if(attendanceList.isEmpty){
+            if (attendanceList.isEmpty) {
               return Center(
                 child: Text(
                   'No records exists',
@@ -34,7 +36,7 @@ class AttendanceList extends StatelessWidget {
               itemBuilder: (context, index) =>
                   AttendanceTile(data: attendanceList[index]),
             );
-          } else if(snapshot.hasError){
+          } else if (snapshot.hasError) {
             return Center(
               child: Text(
                 snapshot.error.toString(),
@@ -79,6 +81,12 @@ class AttendanceTile extends StatelessWidget {
                   style: TextStyle(fontSize: 14.h, fontWeight: FontWeight.w500),
                 ),
 
+                // Employee Working hours
+                Text(
+                  "Working Hrs: ${_calculateWorkingHours(data.checkInTime, data.checkOutTime)}",
+                  style: TextStyle(fontSize: 12.h, color: Colors.grey),
+                ),
+
                 // Employee ID
                 Text(
                   data.id,
@@ -86,10 +94,11 @@ class AttendanceTile extends StatelessWidget {
                 ),
 
                 // Employee Department
-                if(data.department != null) Text(
-                  data.department ?? "Not mentioned",
-                  style: TextStyle(fontSize: 12.h, color: Colors.grey),
-                ),
+                if (data.department != null)
+                  Text(
+                    data.department ?? "Not mentioned",
+                    style: TextStyle(fontSize: 12.h, color: Colors.grey),
+                  ),
               ],
             ),
           ),
@@ -97,7 +106,9 @@ class AttendanceTile extends StatelessWidget {
           // Attendance Timing
           Expanded(
             child: Text(
-              data.checkInTime ?? "--:--",
+              data.checkInTime != null
+                  ? DateFormat("h:mm").format(data.checkInTime!)
+                  : "--:--",
               style: TextStyle(
                 fontSize: 13.h,
                 color: data.isLate ? Colors.red : Colors.black,
@@ -108,7 +119,9 @@ class AttendanceTile extends StatelessWidget {
 
           Expanded(
             child: Text(
-              data.checkOutTime ?? "--:--",
+              data.checkOutTime != null
+                  ? DateFormat("h:mm").format(data.checkOutTime!)
+                  : "--:--",
               style: TextStyle(
                 fontSize: 13.h,
                 fontWeight: FontWeight.bold,
@@ -119,5 +132,17 @@ class AttendanceTile extends StatelessWidget {
         ],
       ),
     );
+  }
+
+  // CALCULATE WORKING HOURS
+  String _calculateWorkingHours(DateTime? checkInTime, DateTime? checkOutTime) {
+    if (checkInTime == null || checkOutTime == null) return "--:--";
+
+    Duration difference = checkOutTime.difference(checkInTime);
+
+    int hours = difference.inHours;
+    int minutes = difference.inMinutes % 60;
+
+    return "${hours}h:${minutes}m";
   }
 }

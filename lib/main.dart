@@ -3,6 +3,7 @@ import 'dart:math';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:emp_system/controllers/attendance_controller.dart';
+import 'package:emp_system/controllers/leave_controller.dart';
 import 'package:emp_system/controllers/profile_controller.dart';
 import 'package:emp_system/controllers/report_controller.dart';
 import 'package:emp_system/firebase_options.dart';
@@ -16,6 +17,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 
 import 'controllers/auth_controller.dart';
+import 'controllers/stat_controller.dart';
 import 'controllers/supervisor_controller.dart';
 
 Future<void> main() async {
@@ -52,5 +54,7 @@ void _initControllers() {
   profileController = Get.put(ProfileController());
   supervisorController = Get.put(SupervisorController());
   attendanceController = Get.put(AttendanceController());
+  statsController = Get.put(StatsController());
   reportController = Get.put(ReportController());
+  leaveController = Get.put(LeaveController());
 }
