@@ -4,33 +4,17 @@ import 'package:emp_system/theme/app_theme.dart';
 import 'package:emp_system/utils/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 
 import '../../../../core/model/leave_model.dart';
 
-class LeavePage extends StatelessWidget {
-  LeavePage({super.key});
-
-  bool get isSupervisor => authController.currentEmployee == null;
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text("Leave Requests", style: TextStyle(fontSize: 16.h)),
-      ),
-      body: LeaveRequestList(
-          isSupervisor: isSupervisor, authCtrl: authController),
-    );
-  }
-}
-
 class LeaveRequestList extends StatelessWidget {
+  final String? email;
   const LeaveRequestList({
     super.key,
     required this.isSupervisor,
     required this.authCtrl,
+    this.email,
   });
 
   final bool isSupervisor;
@@ -52,7 +36,7 @@ class LeaveRequestList extends StatelessWidget {
 
         // Filtering leaves based on role and if role is employee showing current employee leave
         final leaves = isSupervisor
-            ? allLeaves
+            ? email != null ? allLeaves.where((ele) => ele.email == email).toList() : allLeaves
             : allLeaves
                 .where((e) => e.email == authCtrl.currentEmployee!.email)
                 .toList();

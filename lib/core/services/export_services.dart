@@ -1,62 +1,68 @@
 import 'dart:developer';
 import 'dart:io';
 import 'package:csv/csv.dart';
+import 'package:emp_system/utils/constants.dart';
 import 'package:pdf/widgets.dart' as pw;
 import 'package:path_provider/path_provider.dart';
 import 'package:share_plus/share_plus.dart';
 import 'package:intl/intl.dart';
 
-class ExportServices{
-
+class ExportServices {
   static final String todayDate = DateFormat('yMMMd').format(DateTime.now());
 
-  static final List<Map<String, dynamic>> attendanceSampleData = [
-    {
-      "Employee": "Zimil Patel",
-      "Email": "patelzimil2310@gmail.com",
-      "Check-in Time": "10:15 AM",
-      "Check-out Time": "06:00 PM",
-    },
-    {
-      "Employee": "Satyam Yadav",
-      "Email": "satyam21@gmail.com",
-      "Check-in Time": "09:00 AM",
-      "Check-out Time": "05:30 PM",
-    },
-    {
-      "Employee": "Yogesh Sharma",
-      "Email": "yogesh24@gmail.com",
-      "Check-in Time": "10:30 AM",
-      "Check-out Time": "04:45 PM",
-    },
-    {
-      "Employee": "Priya Mehta",
-      "Email": "priya.m@gmail.com",
-      "Check-in Time": "09:10 AM",
-      "Check-out Time": "06:15 PM",
-    },
-  ];
+  static Future<List<Map<String, dynamic>>> getAttendanceData(String? filter) async {
+    final stream = supervisorController
+        .fetchAttendanceStream(supervisorController.selectedDate.value);
+    final attendanceData = await stream.first;
+    if (filter == "Early leavers") {
+      return attendanceData
+          .where((ele) => ele.isEarly)
+          .map((ele) => ele.toMap() as Map<String, dynamic>)
+          .toList();
+    } else if (filter == "Late comers") {
+      return attendanceData
+          .where((ele) => ele.isLate)
+          .map((ele) => ele.toMap() as Map<String, dynamic>)
+          .toList();
+    } else {
+      return attendanceData.map((ele) => ele.toMap() as Map<String, dynamic>).toList();
+    }
+  }
 
-
-  static Future<void> exportToPDF(List<Map<String, dynamic>> data, String filename,
+  static Future<void> exportToPDF(String filename,
       {String? title}) async {
     final pdf = pw.Document();
-    final date = DateFormat('yMMMd').format(DateTime.now());
+    final date = DateFormat.yMMMd().format(supervisorController.selectedDate.value);
+    List<Map<String, dynamic>> data = await getAttendanceData(title);
+    List<dynamic> headers;
+
+    if(data.isEmpty){
+      headers = ["ID", "Employee", "Check-in Time", "Check-out Time"];
+    } else {
+      headers = data.first.keys.toList();
+    }
 
     pdf.addPage(
       pw.Page(
         build: (context) => pw.Column(
           crossAxisAlignment: pw.CrossAxisAlignment.stretch,
           children: [
-            pw.Center(child: pw.Text("Spectrum", style: pw.TextStyle(fontSize: 20, fontWeight: pw.FontWeight.bold)),),
+            pw.Center(
+              child: pw.Text("Spectrum",
+                  style: pw.TextStyle(
+                      fontSize: 20, fontWeight: pw.FontWeight.bold)),
+            ),
             pw.SizedBox(height: 5),
-            pw.Center(child: pw.Text("Attendance Report ${title!=null ? "($title)" : ""}", style: pw.TextStyle(fontSize: 18))),
+            pw.Center(
+                child: pw.Text(
+                    "Attendance Report ${title != null ? "($title)" : ""}",
+                    style: pw.TextStyle(fontSize: 18))),
             pw.SizedBox(height: 5),
             pw.Text("Date: $date", style: pw.TextStyle(fontSize: 14)),
             pw.SizedBox(height: 10),
 
             pw.Table.fromTextArray(
-              headers: data.first.keys.toList(),
+              headers: headers,
               data: data.map((e) => e.values.toList()).toList(),
               border: pw.TableBorder.all(),
               headerStyle: pw.TextStyle(fontWeight: pw.FontWeight.bold),
@@ -75,20 +81,23 @@ class ExportServices{
     Share.shareXFiles([XFile(path)], text: 'Exported PDF');
   }
 
-  static Future<void> exportToCSV(List<Map<String, dynamic>> data, String fileName, {String? title}) async {
+  static Future<void> exportToCSV(
+      String fileName,
+      {String? title}) async {
+    final date = DateFormat.yMMMd().format(supervisorController.selectedDate.value);
+    final data = await getAttendanceData(title);
 
-    final now = DateFormat.yMMMd().format(DateTime.now());
     final List<List<String>> csvData = [
       ['My Company Pvt. Ltd.', '', '', ''],
-      ['Attendance Report','', '', ''],
-      ['Date: $now'],
-      ['Employee', 'Email', 'Check-in Time', 'Check-out Time'],
+      ['Attendance Report ${title != null ? "($title)" : ""}', '', '', ''],
+      ['Date: $date'],
+      ['ID', 'Employee', 'Check-in Time', 'Check-out Time'],
       ...data.map((e) => [
-        e['Employee'] ?? '',
-        e['Email'] ?? '',
-        e['Check-in Time'] ?? '',
-        e['Check-out Time'] ?? '',
-      ])
+            e['ID'] ?? '',
+            e['Employee'] ?? '',
+            e['Check-in Time'] ?? '',
+            e['Check-out Time'] ?? '',
+          ])
     ];
 
     final csvContent = const ListToCsvConverter().convert(csvData);
@@ -99,6 +108,4 @@ class ExportServices{
 
     Share.shareXFiles([XFile(path)], text: 'Exported CSV');
   }
-
-
 }

@@ -6,7 +6,8 @@ import '../../../utils/constants.dart';
 import 'components/leave_request_list.dart';
 
 class LeavePage extends StatelessWidget {
-  LeavePage({super.key});
+  final String? email;
+  const LeavePage({super.key, this.email});
 
 
   bool get isSupervisor => authController.currentEmployee == null;
@@ -19,7 +20,7 @@ class LeavePage extends StatelessWidget {
       ),
 
       // BODY
-      body: LeaveRequestList(isSupervisor: isSupervisor, authCtrl: authController),
+      body: LeaveRequestList(isSupervisor: isSupervisor, authCtrl: authController, email: email,),
 
       // FLOATING ACTION BUTTON TO ADD NEW LEAVE ONLY FOR EMPLOYEE
       floatingActionButton: authController.currentEmployee != null ? FloatingActionButton(

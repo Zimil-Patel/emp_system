@@ -1,5 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:emp_system/core/model/employee_model.dart';
+import 'package:emp_system/screens/employee/leave%20page/leave_page.dart';
 import 'package:emp_system/screens/supervisor/calendar%20page/calendar_page.dart';
 import 'package:emp_system/theme/app_theme.dart';
 import 'package:emp_system/utils/constants.dart';
@@ -146,7 +147,9 @@ class StatsPage extends StatelessWidget {
 
                   // LEAVE REQUESTS
                   CupertinoButton(
-                    onPressed: (){},
+                    onPressed: (){
+                      Get.to(() => LeavePage(email: employee.email));
+                    },
                     padding: EdgeInsets.zero,
                     child: Container(
                         alignment: Alignment.centerLeft,

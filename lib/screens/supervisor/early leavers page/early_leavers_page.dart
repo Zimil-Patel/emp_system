@@ -21,7 +21,7 @@ class EarlyLeaversPage extends StatelessWidget {
       body: Column(
         children: [
           // DATE FILTER
-          FilterAndExportSection(),
+          FilterAndExportSection(title: "Early leavers"),
 
           // TABLE TITLE
           Container(

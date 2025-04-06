@@ -83,7 +83,7 @@ class AttendanceTile extends StatelessWidget {
 
                 // Employee Working hours
                 Text(
-                  "Working Hrs: ${_calculateWorkingHours(data.checkInTime, data.checkOutTime)}",
+                  "Working Hrs: ${calculateWorkingHours(data.checkInTime, data.checkOutTime)}",
                   style: TextStyle(fontSize: 12.h, color: Colors.grey),
                 ),
 
@@ -133,16 +133,16 @@ class AttendanceTile extends StatelessWidget {
       ),
     );
   }
+}
 
-  // CALCULATE WORKING HOURS
-  String _calculateWorkingHours(DateTime? checkInTime, DateTime? checkOutTime) {
-    if (checkInTime == null || checkOutTime == null) return "--:--";
+// CALCULATE WORKING HOURS
+String calculateWorkingHours(DateTime? checkInTime, DateTime? checkOutTime) {
+  if (checkInTime == null || checkOutTime == null) return "--:--";
 
-    Duration difference = checkOutTime.difference(checkInTime);
+  Duration difference = checkOutTime.difference(checkInTime);
 
-    int hours = difference.inHours;
-    int minutes = difference.inMinutes % 60;
+  int hours = difference.inHours;
+  int minutes = difference.inMinutes % 60;
 
-    return "${hours}h:${minutes}m";
-  }
+  return "${hours}h:${minutes}m";
 }

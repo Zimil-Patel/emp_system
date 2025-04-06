@@ -9,8 +9,11 @@ import 'package:intl/intl.dart';
 import '../../../../theme/app_theme.dart';
 
 class FilterAndExportSection extends StatelessWidget {
+
+  final String? title;
+
   const FilterAndExportSection({
-    super.key,
+    super.key, this.title,
   });
 
   @override
@@ -82,7 +85,7 @@ class FilterAndExportSection extends StatelessWidget {
                 children: [
                   CupertinoButton(
                     onPressed: () async {
-                      await ExportServices.exportToCSV(ExportServices.attendanceSampleData, 'attendanceData');
+                      await ExportServices.exportToCSV("records" ,title: title);
                     },
                     padding: EdgeInsets.zero,
                     child: Text(
@@ -103,7 +106,7 @@ class FilterAndExportSection extends StatelessWidget {
                   SizedBox(width: 5),
                   CupertinoButton(
                     onPressed: () async {
-                      await ExportServices.exportToPDF(ExportServices.attendanceSampleData, 'attendanceData');
+                      await ExportServices.exportToPDF("records" ,title: title);
                     },
                     padding: EdgeInsets.zero,
                     child: Text(

@@ -20,7 +20,7 @@ class LateComersPage extends StatelessWidget {
       body: Column(
         children: [
           // DATE FILTER
-          FilterAndExportSection(),
+          FilterAndExportSection(title: "Late comers"),
 
           // TABLE TITLE
           Container(
