@@ -25,8 +25,7 @@ class AuthController extends GetxController {
   }
 
   // Sign-Up Employee
-  Future<bool> signUpEmployee(
-      String name, String email, String password, BuildContext context) async {
+  Future<bool> signUpEmployee(String name, String email, String password, BuildContext context) async {
     if (name.isEmpty || email.isEmpty || password.isEmpty) {
       Get.snackbar(
         "Sign-Up Failed!",
@@ -101,8 +100,7 @@ class AuthController extends GetxController {
   }
 
   // Sign-in Employee
-  Future<bool> signInEmployee(
-      {required String email, required String password}) async {
+  Future<bool> signInEmployee({required String email, required String password}) async {
     if (email.isEmpty || password.isEmpty) {
       Get.snackbar(
         "Sign-In Failed!",
@@ -300,4 +298,102 @@ class AuthController extends GetxController {
     currentEmployee = null;
     await setCurrentUser('not found');
   }
+
+  // SEND PASSWORD RESET EMAIL
+  Future<void> sendPasswordResetEmail(String email) async {
+    if (email.isEmpty || !email.contains("@")) {
+      Get.snackbar(
+        "Error",
+        "Please enter a valid email address.",
+        backgroundColor: Colors.red.shade300,
+        colorText: Colors.white,
+        icon: Icon(
+          Icons.warning,
+          color: Colors.white,
+          size: 28,
+        ),
+        snackPosition: SnackPosition.TOP,
+        margin: EdgeInsets.all(12),
+        borderRadius: 8,
+        duration: Duration(seconds: 3),
+        shouldIconPulse: false,
+      );
+      return;
+    }
+
+    try {
+      await FirebaseAuth.instance.sendPasswordResetEmail(email: email);
+      Get.back();
+      log("SUCCESS: sent rest link");
+    } catch (e) {
+      Get.snackbar(
+        "Error",
+        e.toString(),
+        backgroundColor: Colors.red.shade300,
+        colorText: Colors.white,
+        icon: Icon(
+          Icons.warning,
+          color: Colors.white,
+          size: 28,
+        ),
+        snackPosition: SnackPosition.TOP,
+        margin: EdgeInsets.all(12),
+        borderRadius: 8,
+        duration: Duration(seconds: 3),
+        shouldIconPulse: false,
+      );
+    }
+  }
+
+  // Change password
+  Future<void> changePassword({required String currentPassword, required String newPassword}) async {
+
+    isLoading.value = true;
+    final currentUser = FirebaseAuth.instance.currentUser;
+
+    try {
+      final credential = EmailAuthProvider.credential(
+        email: currentUser!.email!,
+        password: currentPassword,
+      );
+      await currentUser.reauthenticateWithCredential(credential);
+      await currentUser.updatePassword(newPassword);
+      isLoading.value = false;
+      Get.snackbar(
+        'Success',
+        'Password updated successfully.',
+        backgroundColor: Colors.blue.shade800,
+        colorText: Colors.white,
+        icon: Icon(
+          Icons.check_circle_outline,
+          color: Colors.white,
+          size: 28,
+        ),
+        snackPosition: SnackPosition.TOP,
+        margin: EdgeInsets.all(12),
+        borderRadius: 8,
+        duration: Duration(seconds: 3),
+        shouldIconPulse: false,
+      );
+    } catch (e) {
+      isLoading.value = false;
+      Get.snackbar(
+        "Error",
+        "Current Password is incorrect.",
+        backgroundColor: Colors.red.shade300,
+        colorText: Colors.white,
+        icon: Icon(
+          Icons.error,
+          color: Colors.white,
+          size: 28,
+        ),
+        snackPosition: SnackPosition.TOP,
+        margin: EdgeInsets.all(12),
+        borderRadius: 8,
+        duration: Duration(seconds: 3),
+        shouldIconPulse: false,
+      );
+    }
+  }
+
 }

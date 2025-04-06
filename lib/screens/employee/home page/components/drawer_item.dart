@@ -1,4 +1,5 @@
 import 'package:emp_system/screens/auth/role_option_page.dart';
+import 'package:emp_system/screens/employee/change%20pass%20page/change_pass_page.dart';
 import 'package:emp_system/screens/employee/leave%20page/leave_page.dart';
 import 'package:emp_system/screens/employee/profile%20page/profile_page.dart';
 import 'package:emp_system/screens/employee/report%20page/report_page.dart';
@@ -36,6 +37,10 @@ Widget drawerItem({required String name, required IconData icon, required BuildC
           await statsController.fetchStats(authController.currentEmployee!.email);
           Get.to(() => StatsPage(employee: authController.currentEmployee!));
         }
+      }
+
+      if(name == "Change Password"){
+        Get.to(() => ChangePasswordPage());
       }
     },
     // padding: EdgeInsets.zero,

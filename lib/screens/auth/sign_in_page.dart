@@ -1,4 +1,5 @@
 import 'package:emp_system/screens/auth/components/loading_animation.dart';
+import 'package:emp_system/screens/auth/components/showEmployeeForgotPassDialog.dart';
 import 'package:emp_system/utils/constants.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -71,7 +72,7 @@ class SignInPage extends StatelessWidget {
                 CupertinoButton(
                   padding: EdgeInsets.zero,
                   onPressed: () {
-                    // showVerificationAlert(context);
+                    showForgotPasswordDialog();
                   },
                   child: Text(
                     'Forgot Password?',
