@@ -8,10 +8,21 @@ class AttendanceData {
   final DateTime? checkOutTime;
   final bool isLate;
   final bool isEarly;
+  final String? lateReason;
+  final String? earlyLeaveReason;
   final String? department;
 
-  AttendanceData(this.name, this.id, this.checkInTime, this.checkOutTime,
-      this.isLate, this.isEarly, this.department);
+  AttendanceData(
+    this.name,
+    this.id,
+    this.checkInTime,
+    this.checkOutTime,
+    this.isLate,
+    this.isEarly,
+    this.department,
+    this.lateReason,
+    this.earlyLeaveReason,
+  );
 
   factory AttendanceData.fromFirestore(
       Map<String, dynamic> data, String name, String id, String? department) {
@@ -27,6 +38,8 @@ class AttendanceData {
       data['lateReason'] != null,
       data['earlyLeaveReason'] != null,
       department,
+      data['lateReason'],
+      data['earlyLeaveReason'],
     );
   }
 
@@ -34,8 +47,12 @@ class AttendanceData {
     return {
       'ID': id,
       'Employee': name,
-      'Check-in Time' : checkInTime != null ? DateFormat("h:mm a").format(checkInTime!) : "--:--",
-      'Check-out Time' : checkOutTime != null ? DateFormat("h:mm a").format(checkOutTime!) : "--:--",
+      'Check-in Time': checkInTime != null
+          ? DateFormat("h:mm a").format(checkInTime!)
+          : "--:--",
+      'Check-out Time': checkOutTime != null
+          ? DateFormat("h:mm a").format(checkOutTime!)
+          : "--:--",
     };
   }
 }

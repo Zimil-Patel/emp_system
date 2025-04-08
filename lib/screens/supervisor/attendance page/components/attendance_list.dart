@@ -81,24 +81,29 @@ class AttendanceTile extends StatelessWidget {
                   style: TextStyle(fontSize: 14.h, fontWeight: FontWeight.w500),
                 ),
 
-                // Employee Working hours
-                Text(
-                  "Working Hrs: ${calculateWorkingHours(data.checkInTime, data.checkOutTime)}",
-                  style: TextStyle(fontSize: 12.h, color: Colors.grey),
-                ),
-
                 // Employee ID
                 Text(
                   data.id,
                   style: TextStyle(fontSize: 12.h, color: Colors.grey),
                 ),
 
-                // Employee Department
-                if (data.department != null)
-                  Text(
-                    data.department ?? "Not mentioned",
-                    style: TextStyle(fontSize: 12.h, color: Colors.grey),
-                  ),
+                // Employee Working hours
+                Text(
+                  "Working Hrs: ${calculateWorkingHours(data.checkInTime, data.checkOutTime)}",
+                  style: TextStyle(fontSize: 12.h, color: Colors.grey),
+                ),
+
+                // Late reason
+                if(data.isLate) Text(
+                  "Reason for late: ${data.lateReason}",
+                  style: TextStyle(fontSize: 12.h, color: Colors.grey),
+                ),
+
+                // Early lave reason
+                if(data.isEarly) Text(
+                  "Reason for early: ${data.earlyLeaveReason}",
+                  style: TextStyle(fontSize: 12.h, color: Colors.grey),
+                ),
               ],
             ),
           ),

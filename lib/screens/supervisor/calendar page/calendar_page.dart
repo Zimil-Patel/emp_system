@@ -96,7 +96,7 @@ class _CalendarPageState extends State<CalendarPage> {
 
       setState(() {
         attendanceData = data;
-        log(attendanceData.toString());
+        // log(attendanceData.toString());
       });
     } catch (e) {
       print("Error fetching attendance data: $e");

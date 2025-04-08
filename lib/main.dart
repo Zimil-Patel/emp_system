@@ -63,7 +63,7 @@ void _initControllers() {
 Future<void> insertDummyRecord() async {
   final dummyData = generateDummyEmployeeAttendance(
     createdAt: DateTime(2025, 3, 1),
-    endDate: DateTime(2025, 4, 11),
+    endDate: DateTime(2025, 4, 29),
   );
 
   await uploadDummyAttendanceToFirestore(dummyData);
@@ -77,9 +77,9 @@ List<Map<String, dynamic>> generateDummyEmployeeAttendance({
   final List<Map<String, dynamic>> dummyRecords = [];
   final random = Random();
 
-  final String email = "jash24@gmail.com";
-  final String name = "Jay Katariya";
-  final String employeeId = "EMP0001";
+  final String email = "satyam24@gmail.com";
+  final String name = "Satyam Jasani";
+  final String employeeId = "EMP1921";
 
   final lateReasons = ["Traffic", "Health issue", "Forgot"];
   final earlyReasons = ["Family emergency", "Doctor appointment", "Felt unwell"];
@@ -129,15 +129,15 @@ Future<void> uploadDummyAttendanceToFirestore(List<Map<String, dynamic>> records
   // 1. Set base employee data (merge: true in case already exists)
   await employeeDocRef.set({
     "createdAt": Timestamp.fromDate(DateTime(2025, 3, 1)),
-    "department": "Testing",
-    "designation": "Software Tester",
+    "department": "IT",
+    "designation": "Developer",
     "email": email,
     "employee_id": records[0]['employeeId'],
     "isVerified": true,
     "name": records[0]['name'],
-    "phone": "7456826594",
+    "phone": "7069853475",
     "photo_url": null,
-    "team_name": "Top Tester",
+    "team_name": "Flutter fire",
   }, SetOptions(merge: true));
 
   for (var record in records) {
