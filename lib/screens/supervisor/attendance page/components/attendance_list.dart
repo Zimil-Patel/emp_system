@@ -14,8 +14,8 @@ class AttendanceList extends StatelessWidget {
   Widget build(BuildContext context) {
     return GetBuilder<SupervisorController>(
       id: 'date',
-      builder: (controller) => StreamBuilder<List<AttendanceData>>(
-        stream: controller.fetchAttendanceStream(controller.selectedDate.value),
+      builder: (controller) => FutureBuilder<List<AttendanceData>>(
+        future: controller.fetchAttendance(controller.selectedDate.value),
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
             return Center(

@@ -13,6 +13,7 @@ class SupervisorController extends GetxController {
   final AuthServices auth = AuthServices.authServices;
   var selectedDate = DateTime.now().obs;
   var filter = "All".obs;
+  var filteredList = <AttendanceData>[].obs;
 
   RxList<EmployeeModel> employeeList = <EmployeeModel>[].obs;
 
@@ -27,31 +28,45 @@ class SupervisorController extends GetxController {
   }
 
   // FETCH attendance records for selected date
-  Stream<List<AttendanceData>> fetchAttendanceStream(DateTime selectedDate) async* {
+  Future<List<AttendanceData>> fetchAttendance(DateTime selectedDate) async {
+
     String formattedDate = DateFormat('yyyy-MM-dd').format(selectedDate);
+    List<AttendanceData> records = [];
 
-    yield* _firestore.collection('employees').snapshots().asyncMap((snapshot) async {
-      List<AttendanceData> records = [];
+    final snapshot = await _firestore.collection('employees').get();
 
-      for (var doc in snapshot.docs) {
-        String name = doc['name'];
-        String id = doc['employee_id'];
-        String department = doc['department'];
+    for (var doc in snapshot.docs) {
+      String name = doc['name'];
+      String id = doc['employee_id'];
+      String department = doc['department'];
 
-        DocumentSnapshot checkInDoc = await doc.reference.collection('checkIns').doc(formattedDate).get();
+      DocumentSnapshot checkInDoc = await doc.reference
+          .collection('checkIns')
+          .doc(formattedDate)
+          .get();
 
-        if (checkInDoc.exists) {
-          records.add(AttendanceData.fromFirestore(checkInDoc.data() as Map<String, dynamic>, name, id, department));
-        }
+      if (checkInDoc.exists) {
+        records.add(
+          AttendanceData.fromFirestore(
+            checkInDoc.data() as Map<String, dynamic>,
+            name,
+            id,
+            department,
+          ),
+        );
       }
+    }
 
-      if(filter.value == "Early"){
-        return records.where((e) => e.isEarly).toList();
-      } else if(filter.value == "Late"){
-        return records.where((e) => e.isLate).toList();
-      }
-      return records;
-    });
+    // Optional filtering based on reactive `filter` value
+    if (filter.value == "Early") {
+      filteredList.value = records.where((e) => e.isEarly).toList();
+      return filteredList;
+    } else if (filter.value == "Late") {
+      filteredList.value = records.where((e) => e.isLate).toList();
+      return filteredList;
+    }
+    filteredList.value = records;
+    return filteredList;
   }
 
   // Fetch employees in real-time

@@ -10,33 +10,16 @@ import 'package:intl/intl.dart';
 class ExportServices {
   static final String todayDate = DateFormat('yMMMd').format(DateTime.now());
 
-  static Future<List<Map<String, dynamic>>> getAttendanceData(String? filter) async {
-    final stream = supervisorController
-        .fetchAttendanceStream(supervisorController.selectedDate.value);
-    final attendanceData = await stream.first;
-    if (filter == "Early leavers") {
-      return attendanceData
-          .where((ele) => ele.isEarly)
-          .map((ele) => ele.toMap() as Map<String, dynamic>)
-          .toList();
-    } else if (filter == "Late comers") {
-      return attendanceData
-          .where((ele) => ele.isLate)
-          .map((ele) => ele.toMap() as Map<String, dynamic>)
-          .toList();
-    } else {
-      return attendanceData.map((ele) => ele.toMap() as Map<String, dynamic>).toList();
-    }
-  }
-
-  static Future<void> exportToPDF(String filename,
-      {String? title}) async {
+  static Future<void> exportToPDF(String filename, {String? title}) async {
     final pdf = pw.Document();
-    final date = DateFormat.yMMMd().format(supervisorController.selectedDate.value);
-    List<Map<String, dynamic>> data = await getAttendanceData(title);
+    final date =
+        DateFormat.yMMMd().format(supervisorController.selectedDate.value);
+    List<Map<String, dynamic>> data = supervisorController.filteredList
+        .map((e) => e.toMap() as Map<String, dynamic>)
+        .toList();
     List<dynamic> headers;
 
-    if(data.isEmpty){
+    if (data.isEmpty) {
       headers = ["ID", "Employee", "Check-in Time", "Check-out Time"];
     } else {
       headers = data.first.keys.toList();
@@ -60,7 +43,6 @@ class ExportServices {
             pw.SizedBox(height: 5),
             pw.Text("Date: $date", style: pw.TextStyle(fontSize: 14)),
             pw.SizedBox(height: 10),
-
             pw.Table.fromTextArray(
               headers: headers,
               data: data.map((e) => e.values.toList()).toList(),
@@ -81,11 +63,12 @@ class ExportServices {
     Share.shareXFiles([XFile(path)], text: 'Exported PDF');
   }
 
-  static Future<void> exportToCSV(
-      String fileName,
-      {String? title}) async {
-    final date = DateFormat.yMMMd().format(supervisorController.selectedDate.value);
-    final data = await getAttendanceData(title);
+  static Future<void> exportToCSV(String fileName, {String? title}) async {
+    final date =
+        DateFormat.yMMMd().format(supervisorController.selectedDate.value);
+    List<Map<String, dynamic>> data = supervisorController.filteredList
+        .map((e) => e.toMap() as Map<String, dynamic>)
+        .toList();
 
     final List<List<String>> csvData = [
       ['My Company Pvt. Ltd.', '', '', ''],
