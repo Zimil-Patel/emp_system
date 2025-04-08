@@ -21,8 +21,7 @@ A smart, real-time employee management system built with **Flutter**, integrated
 
 ### 📅 Calendar View
 - Interactive calendar for attendance
-- Toggle between 14-day / 30-day views
-- Real-time attendance color-coded on calendar
+- attendance color-coded on calendar
 
 ### 📊 Statistics & Insights
 - Employee dashboard showing:
