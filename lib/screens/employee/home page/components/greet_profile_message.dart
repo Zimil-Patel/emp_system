@@ -26,7 +26,7 @@ class GreetProfileMessage extends StatelessWidget {
                 ),
               ),
               Text(
-                'Good morning! Mark your attendance',
+                'Mark your today\'s attendance',
                 style: TextStyle(fontSize: 14.h, color: Colors.black54),
               ),
             ],
