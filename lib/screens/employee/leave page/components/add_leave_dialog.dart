@@ -1,4 +1,3 @@
-import 'package:emp_system/core/model/leave_model.dart';
 import 'package:emp_system/screens/employee/report%20page/components/outlined_text_field_for_report.dart';
 import 'package:emp_system/theme/app_theme.dart';
 import 'package:flutter/material.dart';
@@ -7,7 +6,6 @@ import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 
 import '../../../../controllers/leave_controller.dart';
-import '../../../../utils/constants.dart';
 
 class LeaveRequestDialog extends StatefulWidget {
   const LeaveRequestDialog({super.key});

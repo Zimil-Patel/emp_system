@@ -6,7 +6,6 @@ import 'package:emp_system/firebase_options.dart';
 import 'package:emp_system/screens/splash%20page/splash_page.dart';
 import 'package:emp_system/theme/app_theme.dart';
 import 'package:emp_system/utils/constants.dart';
-import 'package:emp_system/utils/dummy_record_methods.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';

@@ -1,11 +1,9 @@
-import 'package:emp_system/core/model/report_model.dart';
 import 'package:emp_system/screens/employee/report%20page/components/report_dialog.dart';
 import 'package:emp_system/theme/app_theme.dart';
 import 'package:emp_system/utils/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
-import 'package:intl/intl.dart';
 
 import 'components/report_card.dart';
 
