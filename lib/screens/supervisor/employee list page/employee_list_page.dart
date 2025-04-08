@@ -29,7 +29,7 @@ class EmployeeListPage extends StatelessWidget {
                 ),
                 Obx(
                   () => Text(
-                    " ${supervisorController.employeeList.length}",
+                    " ${supervisorController.employeeList.where((emp) => emp.isVerified == true).toList().length}",
                     style: TextStyle(
                         fontSize: 14.h,
                         fontWeight: FontWeight.bold,

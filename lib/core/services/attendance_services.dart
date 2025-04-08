@@ -22,12 +22,12 @@ class AttendanceService {
   // calculate office timings for today
   DateTime get officeStartTime {
     DateTime now = DateTime.now();
-    return DateTime(now.year, now.month, now.day, 9, 0, 0); // 9:00 AM
+    return DateTime(now.year, now.month, now.day, 9, 15, 0);
   }
 
   DateTime get officeEndTime {
     DateTime now = DateTime.now();
-    return DateTime(now.year, now.month, now.day, 18, 0, 0); // 6:00 PM
+    return DateTime(now.year, now.month, now.day, 17, 30, 0);
   }
 
   // CHECK TODAY'S ATTENDANCE STATUS

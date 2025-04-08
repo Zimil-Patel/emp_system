@@ -1,4 +1,3 @@
-import 'package:emp_system/controllers/stat_controller.dart';
 import 'package:emp_system/core/model/employee_model.dart';
 import 'package:emp_system/screens/supervisor/stats%20page/stats_page.dart';
 import 'package:emp_system/utils/constants.dart';
@@ -13,7 +12,7 @@ class EmployeeList extends StatelessWidget {
   Widget build(BuildContext context) {
     return Obx(
       () {
-        List<EmployeeModel> employees = supervisorController.employeeList;
+        List<EmployeeModel> employees = supervisorController.employeeList.where((emp) => emp.isVerified == true).toList();
         return ListView.separated(
         itemCount: employees.length,
         separatorBuilder: (context, index) => const Divider(),
@@ -33,7 +32,13 @@ class EmployeeTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ListTile(
-      title: Text(employee.name, style: TextStyle(fontSize: 14.h)),
+      title: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(employee.name, style: TextStyle(fontSize: 14.h)),
+          Text(employee.employeeId, style: TextStyle(fontSize: 14.h, color: Colors.grey)),
+        ],
+      ),
       trailing: const Icon(Icons.remove_red_eye, color: Colors.grey),
       onTap: () async {
         await statsController.fetchStats(employee.email);
