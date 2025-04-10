@@ -29,43 +29,48 @@ class SupervisorController extends GetxController {
 
   // FETCH attendance records for selected date
   Future<List<AttendanceData>> fetchAttendance(DateTime selectedDate) async {
-
     String formattedDate = DateFormat('yyyy-MM-dd').format(selectedDate);
     List<AttendanceData> records = [];
 
-    final snapshot = await _firestore.collection('employees').get();
+    final employeeSnapshot = await _firestore.collection('employees').get();
 
-    for (var doc in snapshot.docs) {
+    // Build a list of futures for parallel execution
+    final futures = employeeSnapshot.docs.map((doc) async {
       String name = doc['name'];
       String id = doc['employee_id'];
       String department = doc['department'];
 
-      DocumentSnapshot checkInDoc = await doc.reference
+      final checkInDoc = await doc.reference
           .collection('checkIns')
           .doc(formattedDate)
           .get();
 
       if (checkInDoc.exists) {
-        records.add(
-          AttendanceData.fromFirestore(
-            checkInDoc.data() as Map<String, dynamic>,
-            name,
-            id,
-            department,
-          ),
+        return AttendanceData.fromFirestore(
+          checkInDoc.data() as Map<String, dynamic>,
+          name,
+          id,
+          department,
         );
       }
-    }
+      return null;
+    }).toList();
 
-    // Optional filtering based on reactive `filter` value
+    // Wait for all future calls to complete
+    final resultList = await Future.wait(futures);
+
+    // Filter out null values (no attendance record)
+    records = resultList.whereType<AttendanceData>().toList();
+
+    // Apply filter
     if (filter.value == "Early") {
       filteredList.value = records.where((e) => e.isEarly).toList();
-      return filteredList;
     } else if (filter.value == "Late") {
       filteredList.value = records.where((e) => e.isLate).toList();
-      return filteredList;
+    } else {
+      filteredList.value = records;
     }
-    filteredList.value = records;
+
     return filteredList;
   }
 

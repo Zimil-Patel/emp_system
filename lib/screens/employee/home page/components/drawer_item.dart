@@ -9,6 +9,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 
+import '../../../auth/components/logout_dialog.dart';
+
 Widget drawerItem({required String name, required IconData icon, required BuildContext context}){
   return InkWell(
     onTap: () async {
@@ -16,7 +18,7 @@ Widget drawerItem({required String name, required IconData icon, required BuildC
       Navigator.pop(context);
 
       if(name == "Logout"){
-        await authController.signOut();
+        showLogoutDialog();
         Get.offAll(() => RoleOptionPage());
       }
 
