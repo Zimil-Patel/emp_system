@@ -19,7 +19,6 @@ Widget drawerItem({required String name, required IconData icon, required BuildC
 
       if(name == "Logout"){
         showLogoutDialog();
-        Get.offAll(() => RoleOptionPage());
       }
 
       if(name == "Profile"){
