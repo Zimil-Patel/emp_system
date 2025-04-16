@@ -33,7 +33,27 @@ class CheckInCheckOutButton extends StatelessWidget {
         if (!attendanceController.hasCheckedIn.value) {
           Get.to(() => MapPage(isCheckIn: true));
         } else {
-          Get.to(() => MapPage(isCheckIn: false));
+          if (attendanceController.hasCheckedOut.value) {
+            // IF ALREADY CHECKED OUT FOR TOADY
+            Get.snackbar(
+              "Alert!",
+              "You have already checked out today.",
+              backgroundColor: Colors.orange.shade700,
+              colorText: Colors.white,
+              icon: Icon(
+                Icons.warning_amber_outlined,
+                color: Colors.white,
+                size: 28,
+              ),
+              snackPosition: SnackPosition.TOP,
+              margin: EdgeInsets.all(12),
+              borderRadius: 8,
+              duration: Duration(seconds: 3),
+              shouldIconPulse: false,
+            );
+          } else {
+            Get.to(() => MapPage(isCheckIn: false));
+          }
         }
       },
       child: Container(

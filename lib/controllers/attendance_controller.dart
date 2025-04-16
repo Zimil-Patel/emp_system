@@ -133,27 +133,27 @@ class AttendanceController extends GetxController {
       return;
     }
 
-    // IF ALREADY CHECKED OUT FOR TOADY
-    if (hasCheckedOut.value) {
-      Get.snackbar(
-        "Alert!",
-        "You have already checked out today.",
-        backgroundColor: Colors.orange.shade700,
-        colorText: Colors.white,
-        icon: Icon(
-          Icons.warning_amber_outlined,
-          color: Colors.white,
-          size: 28,
-        ),
-        snackPosition: SnackPosition.TOP,
-        margin: EdgeInsets.all(12),
-        borderRadius: 8,
-        duration: Duration(seconds: 3),
-        shouldIconPulse:
-            false,
-      );
-      return;
-    }
+    // // IF ALREADY CHECKED OUT FOR TOADY
+    // if (hasCheckedOut.value) {
+    //   Get.snackbar(
+    //     "Alert!",
+    //     "You have already checked out today.",
+    //     backgroundColor: Colors.orange.shade700,
+    //     colorText: Colors.white,
+    //     icon: Icon(
+    //       Icons.warning_amber_outlined,
+    //       color: Colors.white,
+    //       size: 28,
+    //     ),
+    //     snackPosition: SnackPosition.TOP,
+    //     margin: EdgeInsets.all(12),
+    //     borderRadius: 8,
+    //     duration: Duration(seconds: 3),
+    //     shouldIconPulse:
+    //         false,
+    //   );
+    //   return;
+    // }
 
     // IF NOT THEN CONTINUE
     try {

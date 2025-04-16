@@ -79,11 +79,11 @@ class LeaveController extends GetxController {
     );
 
     try {
+      Get.back();
       final result =
           await _firestore.collection('leaves').add(newLeave.toMap());
       if (result.id.isNotEmpty) {
         log("SUCCESS: added");
-        Get.back();
       }
     } catch (e) {
       log("ERROR: Adding leave request");

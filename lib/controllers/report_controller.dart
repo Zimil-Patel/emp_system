@@ -48,6 +48,8 @@ class ReportController extends GetxController {
   }) async {
     if (txtTitle.text.isNotEmpty && txtDescription.text.isNotEmpty) {
       try {
+        Get.back();
+
         final result = await _firestore.collection('reports').add({
           'type': type,
           'title': title,
@@ -60,7 +62,6 @@ class ReportController extends GetxController {
 
         if (result.id.isNotEmpty) {
           log("SUCCESS: report added.");
-          Get.back();
           clearFields();
         }
       } catch (e) {
@@ -90,11 +91,11 @@ class ReportController extends GetxController {
   // Mark as resolved
   Future<void> markAsResolved(String reportId, String resolutionDetails) async {
     try{
+      Get.back();
       await _firestore.collection('reports').doc(reportId).update({
         'status': 'Resolved',
         'resolutionDetails': resolutionDetails,
       });
-      Get.back();
     } catch(e){
       log("ERROR: resolve error!");
     }

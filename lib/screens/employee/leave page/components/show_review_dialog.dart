@@ -93,12 +93,13 @@ void showLeaveReviewDialog({
                 // UPDATE LEAVE REQUEST / SUBMIT
                 ElevatedButton(
                   onPressed: () async {
+                    Get.back();
                     await leaveController.reviewLeave(
                       leaveId: leaveId,
                       status: leaveController.selectedStatus.value,
                       remarks: remarksController.text.trim(),
                     );
-                    Get.back();
+
                   },
                   style: ElevatedButton.styleFrom(
                     backgroundColor: primaryColor,
