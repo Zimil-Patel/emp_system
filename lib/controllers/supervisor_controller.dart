@@ -76,7 +76,7 @@ class SupervisorController extends GetxController {
 
   // Fetch employees in real-time
   void fetchEmployeeList() {
-    _firestore.collection('employees').snapshots().listen((querySnapshot) {
+    _firestore.collection('employees').orderBy('createdAt', descending: true).snapshots().listen((querySnapshot) {
       employeeList.value = querySnapshot.docs
           .map((doc) => EmployeeModel.fromFirestore(doc))
           .toList();
