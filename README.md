@@ -81,3 +81,67 @@ A smart, real-time employee management system built with **Flutter**, integrated
 - View any attendance data
 
 ---
+
+## Screenshots
+
+<div align="left">
+   
+<!-- GitHub-hosted images from Mockups folder -->
+<img src="https://github.com/Zimil-Patel/emp_system/blob/master/Mockups/attendance_filter-portrait.png?raw=true" height="590" width="300">&nbsp;&nbsp;&nbsp;&nbsp;
+<img src="https://github.com/Zimil-Patel/emp_system/blob/master/Mockups/attendance_page-portrait.png?raw=true" height="590" width="300">&nbsp;&nbsp;&nbsp;&nbsp;
+<img src="https://github.com/Zimil-Patel/emp_system/blob/master/Mockups/csv_share-portrait.png?raw=true" height="590" width="300">&nbsp;&nbsp;&nbsp;&nbsp;
+<img src="https://github.com/Zimil-Patel/emp_system/blob/master/Mockups/early_leave_page-portrait.png?raw=true" height="590" width="300">&nbsp;&nbsp;&nbsp;&nbsp;
+<img src="https://github.com/Zimil-Patel/emp_system/blob/master/Mockups/edit_profile-portrait.png?raw=true" height="590" width="300">&nbsp;&nbsp;&nbsp;&nbsp;
+<img src="https://github.com/Zimil-Patel/emp_system/blob/master/Mockups/emp_add_report_dialog-portrait.png?raw=true" height="590" width="300">&nbsp;&nbsp;&nbsp;&nbsp;
+<img src="https://github.com/Zimil-Patel/emp_system/blob/master/Mockups/emp_cal_page-portrait.png?raw=true" height="590" width="300">&nbsp;&nbsp;&nbsp;&nbsp;
+<img src="https://github.com/Zimil-Patel/emp_system/blob/master/Mockups/emp_change_pass-portrait.png?raw=true" height="590" width="300">&nbsp;&nbsp;&nbsp;&nbsp;
+<img src="https://github.com/Zimil-Patel/emp_system/blob/master/Mockups/emp_drawer-portrait.png?raw=true" height="590" width="300">&nbsp;&nbsp;&nbsp;&nbsp;
+<img src="https://github.com/Zimil-Patel/emp_system/blob/master/Mockups/emp_home-portrait.png?raw=true" height="590" width="300">&nbsp;&nbsp;&nbsp;&nbsp;
+<!-- GitHub-hosted images from Mockups folder -->
+<img src="https://github.com/Zimil-Patel/emp_system/blob/master/Mockups/attendance_filter-portrait.png?raw=true" height="590" width="300">&nbsp;&nbsp;&nbsp;&nbsp;
+<img src="https://github.com/Zimil-Patel/emp_system/blob/master/Mockups/attendance_page-portrait.png?raw=true" height="590" width="300">&nbsp;&nbsp;&nbsp;&nbsp;
+<img src="https://github.com/Zimil-Patel/emp_system/blob/master/Mockups/csv_share-portrait.png?raw=true" height="590" width="300">&nbsp;&nbsp;&nbsp;&nbsp;
+<img src="https://github.com/Zimil-Patel/emp_system/blob/master/Mockups/early_leave_page-portrait.png?raw=true" height="590" width="300">&nbsp;&nbsp;&nbsp;&nbsp;
+<img src="https://github.com/Zimil-Patel/emp_system/blob/master/Mockups/edit_profile-portrait.png?raw=true" height="590" width="300">&nbsp;&nbsp;&nbsp;&nbsp;
+<img src="https://github.com/Zimil-Patel/emp_system/blob/master/Mockups/emp_add_report_dialog-portrait.png?raw=true" height="590" width="300">&nbsp;&nbsp;&nbsp;&nbsp;
+<img src="https://github.com/Zimil-Patel/emp_system/blob/master/Mockups/emp_cal_page-portrait.png?raw=true" height="590" width="300">&nbsp;&nbsp;&nbsp;&nbsp;
+<img src="https://github.com/Zimil-Patel/emp_system/blob/master/Mockups/emp_change_pass-portrait.png?raw=true" height="590" width="300">&nbsp;&nbsp;&nbsp;&nbsp;
+<img src="https://github.com/Zimil-Patel/emp_system/blob/master/Mockups/emp_drawer-portrait.png?raw=true" height="590" width="300">&nbsp;&nbsp;&nbsp;&nbsp;
+<img src="https://github.com/Zimil-Patel/emp_system/blob/master/Mockups/emp_home-portrait.png?raw=true" height="590" width="300">&nbsp;&nbsp;&nbsp;&nbsp;
+<img src="https://github.com/Zimil-Patel/emp_system/blob/master/Mockups/emp_home_2-portrait.png?raw=true" height="590" width="300">&nbsp;&nbsp;&nbsp;&nbsp;
+<img src="https://github.com/Zimil-Patel/emp_system/blob/master/Mockups/emp_home_3-portrait.png?raw=true" height="590" width="300">&nbsp;&nbsp;&nbsp;&nbsp;
+<img src="https://github.com/Zimil-Patel/emp_system/blob/master/Mockups/emp_leave_add_dialog-portrait.png?raw=true" height="590" width="300">&nbsp;&nbsp;&nbsp;&nbsp;
+<img src="https://github.com/Zimil-Patel/emp_system/blob/master/Mockups/emp_leave_date_picker-portrait.png?raw=true" height="590" width="300">&nbsp;&nbsp;&nbsp;&nbsp;
+<img src="https://github.com/Zimil-Patel/emp_system/blob/master/Mockups/emp_leave_page-portrait.png?raw=true" height="590" width="300">&nbsp;&nbsp;&nbsp;&nbsp;
+<img src="https://github.com/Zimil-Patel/emp_system/blob/master/Mockups/emp_list_page-portrait.png?raw=true" height="590" width="300">&nbsp;&nbsp;&nbsp;&nbsp;
+<img src="https://github.com/Zimil-Patel/emp_system/blob/master/Mockups/emp_logout_dialog-portrait.png?raw=true" height="590" width="300">&nbsp;&nbsp;&nbsp;&nbsp;
+<img src="https://github.com/Zimil-Patel/emp_system/blob/master/Mockups/emp_report_page-portrait.png?raw=true" height="590" width="300">&nbsp;&nbsp;&nbsp;&nbsp;
+<img src="https://github.com/Zimil-Patel/emp_system/blob/master/Mockups/emp_stat_page-portrait.png?raw=true" height="590" width="300">&nbsp;&nbsp;&nbsp;&nbsp;
+<img src="https://github.com/Zimil-Patel/emp_system/blob/master/Mockups/forgot_pass_dialog-portrait.png?raw=true" height="590" width="300">&nbsp;&nbsp;&nbsp;&nbsp;
+<img src="https://github.com/Zimil-Patel/emp_system/blob/master/Mockups/late_comer_page-portrait.png?raw=true" height="590" width="300">&nbsp;&nbsp;&nbsp;&nbsp;
+<img src="https://github.com/Zimil-Patel/emp_system/blob/master/Mockups/mail_alert-portrait.png?raw=true" height="590" width="300">&nbsp;&nbsp;&nbsp;&nbsp;
+<img src="https://github.com/Zimil-Patel/emp_system/blob/master/Mockups/map_early_leave-portrait.png?raw=true" height="590" width="300">&nbsp;&nbsp;&nbsp;&nbsp;
+<img src="https://github.com/Zimil-Patel/emp_system/blob/master/Mockups/map_failed-portrait.png?raw=true" height="590" width="300">&nbsp;&nbsp;&nbsp;&nbsp;
+<img src="https://github.com/Zimil-Patel/emp_system/blob/master/Mockups/map_late_come-portrait.png?raw=true" height="590" width="300">&nbsp;&nbsp;&nbsp;&nbsp;
+<img src="https://github.com/Zimil-Patel/emp_system/blob/master/Mockups/map_success_2-portrait.png?raw=true" height="590" width="300">&nbsp;&nbsp;&nbsp;&nbsp;
+<img src="https://github.com/Zimil-Patel/emp_system/blob/master/Mockups/map_sucess-portrait.png?raw=true" height="590" width="300">&nbsp;&nbsp;&nbsp;&nbsp;
+<img src="https://github.com/Zimil-Patel/emp_system/blob/master/Mockups/pass_reset_alert-portrait.png?raw=true" height="590" width="300">&nbsp;&nbsp;&nbsp;&nbsp;
+<img src="https://github.com/Zimil-Patel/emp_system/blob/master/Mockups/pdf_share-portrait.png?raw=true" height="590" width="300">&nbsp;&nbsp;&nbsp;&nbsp;
+<img src="https://github.com/Zimil-Patel/emp_system/blob/master/Mockups/role_option-portrait.png?raw=true" height="590" width="300">&nbsp;&nbsp;&nbsp;&nbsp;
+<img src="https://github.com/Zimil-Patel/emp_system/blob/master/Mockups/sign_in-portrait.png?raw=true" height="590" width="300">&nbsp;&nbsp;&nbsp;&nbsp;
+<img src="https://github.com/Zimil-Patel/emp_system/blob/master/Mockups/sign_in_sign_up-portrait.png?raw=true" height="590" width="300">&nbsp;&nbsp;&nbsp;&nbsp;
+<img src="https://github.com/Zimil-Patel/emp_system/blob/master/Mockups/sign_up-portrait.png?raw=true" height="590" width="300">&nbsp;&nbsp;&nbsp;&nbsp;
+<img src="https://github.com/Zimil-Patel/emp_system/blob/master/Mockups/splash-portrait.png?raw=true" height="590" width="300">&nbsp;&nbsp;&nbsp;&nbsp;
+<img src="https://github.com/Zimil-Patel/emp_system/blob/master/Mockups/super_cal_page-portrait.png?raw=true" height="590" width="300">&nbsp;&nbsp;&nbsp;&nbsp;
+<img src="https://github.com/Zimil-Patel/emp_system/blob/master/Mockups/super_drawer-portrait.png?raw=true" height="590" width="300">&nbsp;&nbsp;&nbsp;&nbsp;
+<img src="https://github.com/Zimil-Patel/emp_system/blob/master/Mockups/super_home_page-portrait.png?raw=true" height="590" width="300">&nbsp;&nbsp;&nbsp;&nbsp;
+<img src="https://github.com/Zimil-Patel/emp_system/blob/master/Mockups/super_leave_dialog-portrait.png?raw=true" height="590" width="300">&nbsp;&nbsp;&nbsp;&nbsp;
+<img src="https://github.com/Zimil-Patel/emp_system/blob/master/Mockups/super_leave_page-portrait.png?raw=true" height="590" width="300">&nbsp;&nbsp;&nbsp;&nbsp;
+<img src="https://github.com/Zimil-Patel/emp_system/blob/master/Mockups/super_report_page-portrait.png?raw=true" height="590" width="300">&nbsp;&nbsp;&nbsp;&nbsp;
+<img src="https://github.com/Zimil-Patel/emp_system/blob/master/Mockups/super_report_resolve_dialog-portrait.png?raw=true" height="590" width="300">&nbsp;&nbsp;&nbsp;&nbsp;
+<img src="https://github.com/Zimil-Patel/emp_system/blob/master/Mockups/super_sign_in-portrait.png?raw=true" height="590" width="300">&nbsp;&nbsp;&nbsp;&nbsp;
+<img src="https://github.com/Zimil-Patel/emp_system/blob/master/Mockups/super_stats_page-portrait.png?raw=true" height="590" width="300">&nbsp;&nbsp;&nbsp;&nbsp;
+
+<!-- Continue same format for remaining files... -->
+
+</div>
